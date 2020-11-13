@@ -48,7 +48,5 @@ pub fn listen_for_command(shared_command: Arc<Mutex<MotorCommand>>) {
                 *command = MotorCommand::Stop();
             }
         }
-
-        thread::sleep(Duration::from_millis(10))
     }
 }

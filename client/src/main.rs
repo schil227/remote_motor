@@ -6,8 +6,6 @@ use std::sync::{Arc, Mutex};
 
 use models::MotorCommand;
 
-
-
 fn main() {
     let command = Arc::new(Mutex::new(MotorCommand::Stop()));
     let other_command = Arc::clone(&command);
