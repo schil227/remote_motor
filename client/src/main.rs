@@ -1,27 +1,18 @@
-use std::net::UdpSocket;
+mod input_monitor;
+mod message_sender;
+
 use std::thread;
-use std::time::Duration;
+use std::sync::{Arc, Mutex};
+
 use models::MotorCommand;
 
+
+
 fn main() {
-    let client = UdpSocket::bind("127.0.0.1:7879").expect("Failed to bind client UDP socket.");
+    let command = Arc::new(Mutex::new(MotorCommand::Stop()));
+    let other_command = Arc::clone(&command);
+    
+    thread::spawn(move || message_sender::send_command(Arc::clone(&command)));
 
-    loop
-    {
-        let serialized_direction = bincode::serialize(&MotorCommand::Backward(5)).expect("Failed to serialize direction!");
-
-        let mut buf = [0; 10];
-
-        for (i, val) in serialized_direction.iter().enumerate(){
-            buf[i] = *val;
-        }
-
-        println!("Sending message: len: {}, {:?}", &buf.len(), &buf);
-
-        client.send_to(&buf, "127.0.0.1:7870").expect("Failed to send message!");
-
-        println!("Sent.");
-
-        thread::sleep(Duration::from_secs(3));
-    }
+    input_monitor::listen_for_command(Arc::clone(&other_command));
 }
