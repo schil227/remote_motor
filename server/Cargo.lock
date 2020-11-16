@@ -17,6 +17,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "08c48aae112d48ed9f069b33538ea9e3e90aa263cfa3d1c24309612b1f7472de"
 
 [[package]]
+name = "gpio"
+version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4fe6783270536547ac473c9d2ae5a7e0e715ea43f29004ced47fbd1c1372d2c7"
+
+[[package]]
 name = "models"
 version = "0.1.0"
 dependencies = [
@@ -67,6 +73,7 @@ name = "server"
 version = "0.1.0"
 dependencies = [
  "bincode",
+ "gpio",
  "models",
 ]
 

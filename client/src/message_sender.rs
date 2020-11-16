@@ -8,7 +8,7 @@ use models::MotorCommand;
 const SIZE : usize = std::mem::size_of::<MotorCommand>();
 
 pub fn send_command(shared_command: Arc<Mutex<MotorCommand>>){
-    let client = UdpSocket::bind("127.0.0.1:7879").expect("Failed to bind client UDP socket.");
+    let client = UdpSocket::bind("192.168.1.186:7870").expect("Failed to bind client UDP socket.");
 
     let mut previous_command = MotorCommand::Stop();
 
@@ -36,7 +36,7 @@ pub fn send_command(shared_command: Arc<Mutex<MotorCommand>>){
 
         println!("Sending message: len: {}, {:?}", &buf.len(), &buf);
 
-        client.send_to(&buf, "127.0.0.1:7870").expect("Failed to send message!");
+        client.send_to(&buf, "192.168.1.226:7870").expect("Failed to send message!");
 
         println!("Sent.");
 
