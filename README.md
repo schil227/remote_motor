@@ -12,7 +12,7 @@ There are two projects: the client and the server.
 1. Find out the IP addresses of the client and server
     *  This can be done in windows by windows by running `ipconfig` in the terminal, and for linux `ifconfig`. If setting it up on the local network, you'll be looking for something like 192.168.1.XXX
 1. Open the server's port if necessairy
-    * Run the following command on the Pi:
+    * Run the following command on the Pi ([see here](https://www.journaldev.com/34113/opening-a-port-on-linux)):
     `sudo iptables -A INPUT -p udp --dport 7870 -j ACCEPT`
         * `-A` means append to the ip tables configuration
         * `-p` is the protocol (udp)
