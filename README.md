@@ -32,3 +32,18 @@ client.send_to(&buf, "192.168.1.226:7870").expect("Failed to send message!");
  ```
  6. Run the server, verify it started successfully by switching to a different terminal instance (`Alt+Ctrl+F2`, or any function key) and running `netstat -lntu`. You should see the `192.168.1.226` ip address listed on the opened port (`7870`)
  1. Run the client - verify the server is getting the messages by pressing a few action keys.
+
+ ## Hardware
+ ### Servo Motors
+ In order to figure out how to run servos, you need to know the frequency (hertz), and the duty cycles (how long the signal is 'high' for a period) to run the servos correctly.
+
+ For example, the Tower Pro Micro Servo 9g runs at 50hz, has a min cycle at 2% and a max cycle at 12%. This means to turn the motor's rotor all the way down, the PWM would have the duty cycle be 2% - all the way up at 12%, and 7% to move it to the middle. 
+
+ This is achieved in code using OutputPin's `set_pwm_frequency`. For example this code sets the rotor to the "middle" position:
+ 
+ ```rust
+    motor_pin.set_pwm_frequency(
+        50.0,
+        0.07
+    ).unwrap();
+ ```
