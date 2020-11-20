@@ -1,13 +1,16 @@
+mod float_comparison;
+mod motor_controller;
+
 use std::net::UdpSocket;
 use models::MotorCommand;
 use rppal::gpio::Gpio;
+use rppal::gpio::OutputPin;
+use std::thread;
 use std::time::Duration;
+use motor_controller::MotorControlData;
+use std::sync::{Arc, Mutex};
 
 const SIZE : usize = std::mem::size_of::<MotorCommand>();
-const PERIOD_MS: u64 = 20;
-const PULSE_MIN_US: u64 = 1200;
-const PULSE_NEUTRAL_US: u64 = 1500;
-const PULSE_MAX_US: u64 = 1800;
 
 fn main() {
     let client = UdpSocket::bind("192.168.1.226:7870").expect("Failed to bind client UDP socket.");
@@ -16,13 +19,14 @@ fn main() {
 
     let mut led_pin = Gpio::new().unwrap().get(23).expect("Failed to obtain GPIO pin 23!").into_output();
     let mut motor_pin = Gpio::new().unwrap().get(24).expect("Failed to obtain GPIO pin 24!").into_output();
+    let motor_control_data = Arc::new(Mutex::new(MotorControlData::new()));
+
+    thread::spawn(move || blink_led(led_pin));
 
     // move motor to neutral position (90 degrees)
-    motor_pin.set_pwm_frequency(
-        50.0,
-        0.07
-    ).unwrap();
-
+    let mut control_data = Arc::clone(&motor_control_data);
+    thread::spawn(move || motor_controller::run_motor(&mut motor_pin, &mut control_data));
+    
     loop
     {
         let mut buf = [0; SIZE + 10];
@@ -33,33 +37,18 @@ fn main() {
         
         println!("Recieved a direction: {:?}", direction);
 
-        match direction{
-            MotorCommand::Forward(_num) =>{
-                println!("Forward!");
-                led_pin.set_high();
+        motor_controller::update_motor(direction, &mut Arc::clone(&motor_control_data));
+    }
+}
 
-                motor_pin.set_pwm_frequency(
-                    50.0,
-                    0.12
-                ).unwrap();
-            },
-            MotorCommand::Backward(_num) =>{
-                println!("Backward!");
+fn blink_led(mut led_pin: OutputPin){
+    loop{
+        led_pin.set_high();
 
-                motor_pin.set_pwm_frequency(
-                    50.0,
-                    0.02
-                ).unwrap();
-            },
-            MotorCommand::Stop() =>{
-                println!("Stop!");
-                led_pin.set_low();
+        thread::sleep(Duration::from_secs(10));
 
-            motor_pin.set_pwm_frequency(
-                50.0,
-                0.07
-            ).unwrap();
-            },
-        }
+        led_pin.set_low();
+
+        thread::sleep(Duration::from_secs(10));
     }
 }
