@@ -5,9 +5,20 @@ use std::thread;
 use std::sync::{Arc, Mutex};
 
 use models::MotorCommand;
+use models::MotorData;
+use models::MotorMessage;
 
 fn main() {
-    let command = Arc::new(Mutex::new(MotorCommand::Stop()));
+    let mut message = MotorMessage{
+        data: MotorData{
+            gpio_pin: 24,
+            min: 0.02,
+            max: 0.12
+        },
+        command: MotorCommand::Stop()
+    };
+
+    let command = Arc::new(Mutex::new(message));
     let other_command = Arc::clone(&command);
     
     let message_sender_handler = thread::spawn(move || message_sender::send_command(Arc::clone(&command)));

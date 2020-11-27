@@ -6,8 +6,10 @@ use crossterm::event::{read, Event, KeyCode, KeyEvent, KeyModifiers};
 use crossterm::terminal::{disable_raw_mode, enable_raw_mode};
 
 use models::MotorCommand;
+use models::MotorData;
+use models::MotorMessage;
 
-pub fn listen_for_command(shared_command: Arc<Mutex<MotorCommand>>) {
+pub fn listen_for_command(shared_command: Arc<Mutex<MotorMessage>>) {
     enable_raw_mode().unwrap();
 
     loop
@@ -18,16 +20,16 @@ pub fn listen_for_command(shared_command: Arc<Mutex<MotorCommand>>) {
                 modifiers: _
             }) =>{
                 println!("Going left!");
-                let mut command = shared_command.lock().unwrap();
-                *command = MotorCommand::Backward(5);
+                let mut message = shared_command.lock().unwrap();
+                (*message).command = MotorCommand::Backward(5);
             },
             Event::Key(KeyEvent {
                 code: KeyCode::Right,
                 modifiers: _
             }) =>{
                 println!("Going right!");
-                let mut command = shared_command.lock().unwrap();
-                *command = MotorCommand::Forward(5);
+                let mut message = shared_command.lock().unwrap();
+                (*message).command = MotorCommand::Forward(5);
             },
             Event::Key(KeyEvent {
                 code: KeyCode::Esc,
@@ -44,8 +46,8 @@ pub fn listen_for_command(shared_command: Arc<Mutex<MotorCommand>>) {
             }
             _ => {
                 println!("STOP!");
-                let mut command = shared_command.lock().unwrap();
-                *command = MotorCommand::Stop();
+                let mut message = shared_command.lock().unwrap();
+                (*message).command = MotorCommand::Stop();
             }
         }
     }

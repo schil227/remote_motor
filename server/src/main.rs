@@ -2,7 +2,7 @@ mod float_comparison;
 mod motor_controller;
 
 use std::net::UdpSocket;
-use models::MotorCommand;
+use models::MotorMessage;
 use rppal::gpio::Gpio;
 use rppal::gpio::OutputPin;
 use std::thread;
@@ -10,7 +10,7 @@ use std::time::Duration;
 use motor_controller::MotorControlData;
 use std::sync::{Arc, Mutex};
 
-const SIZE : usize = std::mem::size_of::<MotorCommand>();
+const SIZE : usize = std::mem::size_of::<MotorMessage>();
 
 fn main() {
     let client = UdpSocket::bind("192.168.1.226:7870").expect("Failed to bind client UDP socket.");
@@ -33,11 +33,11 @@ fn main() {
 
         client.recv(&mut buf).expect("Failed receiving message.");
 
-        let direction : MotorCommand = bincode::deserialize(&buf).expect("Could not deserialize MotorDirection!");
+        let message : MotorMessage = bincode::deserialize(&buf).expect("Could not deserialize MotorDirection!");
         
-        println!("Recieved a direction: {:?}", direction);
+        println!("Recieved a message: {:?}", message);
 
-        motor_controller::update_motor(direction, &mut Arc::clone(&motor_control_data));
+        motor_controller::update_motor(message, &mut Arc::clone(&motor_control_data));
     }
 }
 

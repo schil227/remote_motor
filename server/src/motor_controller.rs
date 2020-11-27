@@ -2,6 +2,8 @@ use crate::float_comparison::compare;
 use crate::float_comparison::FloatComparision;
 
 use models::MotorCommand;
+use models::MotorData;
+use models::MotorMessage;
 use rppal::gpio::OutputPin;
 use std::thread;
 use std::time::Duration;
@@ -59,8 +61,8 @@ pub fn run_motor(motor_pin: &mut OutputPin, motor_control_data: &mut Arc<Mutex<M
     }
 }
 
-pub fn update_motor(command: MotorCommand, motor_control_data: &mut Arc<Mutex<MotorControlData>>){
-    match command{
+pub fn update_motor(message: MotorMessage, motor_control_data: &mut Arc<Mutex<MotorControlData>>){
+    match message.command{
         MotorCommand::Forward(num) => {
             println!("Moving forward!");
             set_halt(motor_control_data, false);
