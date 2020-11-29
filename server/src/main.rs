@@ -9,8 +9,29 @@ use std::thread;
 use std::time::Duration;
 use motor_controller::MotorControlData;
 use std::sync::{Arc, Mutex};
+use std::collections::HashMap;
 
 const SIZE : usize = std::mem::size_of::<MotorMessage>();
+
+struct ControllerMaster{
+    motor_controllers: HashMap<u8, MotorControlData>
+}
+
+impl ControllerMaster{
+    pub fn new() -> ControllerMaster{
+        ControllerMaster{
+            motor_controllers: HashMap::new()
+        }
+    }
+
+    pub fn get_controller(&self, pin: u8) -> Option<&MotorControlData>{
+        self.motor_controllers.get(&pin)
+    }
+
+    pub fn add_controller(&mut self, pin: u8, controller: MotorControlData){
+        self.motor_controllers.insert(pin, controller);
+    }
+}
 
 fn main() {
     let client = UdpSocket::bind("192.168.1.226:7870").expect("Failed to bind client UDP socket.");
@@ -18,15 +39,10 @@ fn main() {
     println!("Connected!");
 
     let mut led_pin = Gpio::new().unwrap().get(23).expect("Failed to obtain GPIO pin 23!").into_output();
-    let mut motor_pin = Gpio::new().unwrap().get(24).expect("Failed to obtain GPIO pin 24!").into_output();
-    let motor_control_data = Arc::new(Mutex::new(MotorControlData::new()));
-
     thread::spawn(move || blink_led(led_pin));
 
-    // move motor to neutral position (90 degrees)
-    let mut control_data = Arc::clone(&motor_control_data);
-    thread::spawn(move || motor_controller::run_motor(&mut motor_pin, &mut control_data));
-    
+    let mut master = ControllerMaster::new();
+
     loop
     {
         let mut buf = [0; SIZE + 10];
@@ -37,7 +53,18 @@ fn main() {
         
         println!("Recieved a message: {:?}", message);
 
-        motor_controller::update_motor(message, &mut Arc::clone(&motor_control_data));
+        match master.get_controller(message.data.gpio_pin){
+            Some(controller) => {controller.update(message.command)},
+            None => {
+                let controller = match MotorControlData::register(message.data){
+                    Ok(controller) => {
+                        controller.update(message.command);
+                        master.add_controller(message.data.gpio_pin, controller);
+                    },
+                    Err(error) => { println!("{}",error); }
+                };
+            }
+        }
     }
 }
 
