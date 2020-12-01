@@ -11,9 +11,6 @@ use std::sync::Mutex;
 use std::sync::Arc;
 
 const HERTZ: f64 = 50.0;
-const DUTY_CYCLE_MIN: f64 = 0.02;
-const DUTY_CYCLE_MAX: f64 = 0.12;
-const DUTY_CYCLE_NEUTRAL: f64 = 0.07;
 const STEP: f64 = 0.00055;
 
 pub struct MotorControlData{
@@ -47,7 +44,7 @@ impl MotorControlData{
                 motor_pin: Arc::new(Mutex::new(pin)),
                 data: motor_data,
                 halt: Mutex::new(true),
-                target_duty: Mutex::new(DUTY_CYCLE_NEUTRAL)
+                target_duty: Mutex::new(motor_data.min)
             }))
         };
 
@@ -74,12 +71,13 @@ fn register_motor(pin: u8) -> Option<OutputPin>{
 }
 
 fn run_motor(runner: Arc<Mutex<MotorRunner>>){
-    let mut current_duty = DUTY_CYCLE_MIN;
+    let mut current_duty: f64;
     let motor_pin: Arc<Mutex<OutputPin>>;
 
     {
         let raw_runner = runner.lock().unwrap();
         motor_pin = Arc::clone(&((*raw_runner).motor_pin));
+        current_duty = raw_runner.data.min;
     }
 
     loop{
@@ -129,15 +127,27 @@ fn run_motor(runner: Arc<Mutex<MotorRunner>>){
 
 fn update_motor(runner: &mut Arc<Mutex<MotorRunner>>, command: MotorCommand){
     match command{
-        MotorCommand::Forward(num) => {
+        MotorCommand::Forward(_num) => {
             println!("Moving forward!");
+
+            let target = {
+                let raw_runner = runner.lock().unwrap();
+                raw_runner.data.max
+             };
+
             set_halt(runner, false);
-            update_target_duty(runner, DUTY_CYCLE_MAX);
+            update_target_duty(runner, target);
         },
-        MotorCommand::Backward(num) => {
+        MotorCommand::Backward(_num) => {
             println!("Moving backward!");
+
+            let target = {
+                let raw_runner = runner.lock().unwrap();
+                raw_runner.data.min
+             };
+
             set_halt(runner, false);
-            update_target_duty(runner, DUTY_CYCLE_MIN);
+            update_target_duty(runner, target);
         },
         MotorCommand::Stop() => {
             println!("Halt!");

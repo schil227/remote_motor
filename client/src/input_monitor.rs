@@ -9,6 +9,8 @@ use models::MotorCommand;
 use models::MotorData;
 use models::MotorMessage;
 
+use crate::motor_constatnts::MotorConstants;
+
 pub fn listen_for_command(shared_command: Arc<Mutex<MotorMessage>>) {
     enable_raw_mode().unwrap();
 
@@ -21,7 +23,7 @@ pub fn listen_for_command(shared_command: Arc<Mutex<MotorMessage>>) {
             }) =>{
                 println!("Going left!");
                 let mut message = shared_command.lock().unwrap();
-                (*message).command = MotorCommand::Backward(5);
+                (*message) = MotorConstants::open_claw();
             },
             Event::Key(KeyEvent {
                 code: KeyCode::Right,
@@ -29,7 +31,7 @@ pub fn listen_for_command(shared_command: Arc<Mutex<MotorMessage>>) {
             }) =>{
                 println!("Going right!");
                 let mut message = shared_command.lock().unwrap();
-                (*message).command = MotorCommand::Forward(5);
+                (*message) = MotorConstants::close_claw();
             },
             Event::Key(KeyEvent {
                 code: KeyCode::Esc,
@@ -47,7 +49,7 @@ pub fn listen_for_command(shared_command: Arc<Mutex<MotorMessage>>) {
             _ => {
                 println!("STOP!");
                 let mut message = shared_command.lock().unwrap();
-                (*message).command = MotorCommand::Stop();
+                (*message) = MotorConstants::stop_claw();
             }
         }
     }
