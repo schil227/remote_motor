@@ -3,12 +3,12 @@ mod motor_controller;
 
 use std::net::UdpSocket;
 use models::MotorMessage;
+use models::MotorCommand;
 use rppal::gpio::Gpio;
 use rppal::gpio::OutputPin;
 use std::thread;
 use std::time::Duration;
 use motor_controller::MotorControlData;
-use std::sync::{Arc, Mutex};
 use std::collections::HashMap;
 
 const SIZE : usize = std::mem::size_of::<MotorMessage>();
@@ -31,6 +31,12 @@ impl ControllerMaster{
     pub fn add_controller(&mut self, pin: u8, controller: MotorControlData){
         self.motor_controllers.insert(pin, controller);
     }
+
+    pub fn command_all_controllers(&self, command: MotorCommand){
+        for (_pin, controller) in self.motor_controllers.iter(){
+            controller.update(command);
+        }
+    }
 }
 
 fn main() {
@@ -38,7 +44,7 @@ fn main() {
 
     println!("Connected!");
 
-    let mut led_pin = Gpio::new().unwrap().get(23).expect("Failed to obtain GPIO pin 23!").into_output();
+    let led_pin = Gpio::new().unwrap().get(23).expect("Failed to obtain GPIO pin 23!").into_output();
     thread::spawn(move || blink_led(led_pin));
 
     let mut master = ControllerMaster::new();
@@ -53,10 +59,16 @@ fn main() {
         
         println!("Recieved a message: {:?}", message);
 
+        // empty pin means to stop everything
+        if message.data.gpio_pin == 0 {
+            master.command_all_controllers(MotorCommand::Stop());
+            continue;
+        }
+
         match master.get_controller(message.data.gpio_pin){
             Some(controller) => {controller.update(message.command)},
             None => {
-                let controller = match MotorControlData::register(message.data){
+                match MotorControlData::register(message.data){
                     Ok(controller) => {
                         controller.update(message.command);
                         master.add_controller(message.data.gpio_pin, controller);

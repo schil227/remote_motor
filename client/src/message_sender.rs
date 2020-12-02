@@ -1,11 +1,7 @@
 use std::net::UdpSocket;
-use std::thread;
-use std::time::Duration;
 use std::sync::{Arc, Mutex};
 use std::env;
 
-use models::MotorCommand;
-use models::MotorData;
 use models::MotorMessage;
 use services::config_reader::ConnectionConfig;
 
@@ -45,8 +41,6 @@ pub fn send_command(shared_command: Arc<Mutex<MotorMessage>>){
         client.send_to(&buf, &config.target_machine_binding).expect("Failed to send message!");
 
         println!("Sent.");
-
-        
     }
 }
 

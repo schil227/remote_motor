@@ -5,19 +5,10 @@ mod motor_constatnts;
 use std::thread;
 use std::sync::{Arc, Mutex};
 
-use models::MotorCommand;
-use models::MotorData;
-use models::MotorMessage;
+use motor_constatnts::MotorConstants;
 
 fn main() {
-    let mut message = MotorMessage{
-        data: MotorData{
-            gpio_pin: 24,
-            min: 0.02,
-            max: 0.12
-        },
-        command: MotorCommand::Stop()
-    };
+    let message = MotorConstants::stop_everything();
 
     let command = Arc::new(Mutex::new(message));
     let other_command = Arc::clone(&command);

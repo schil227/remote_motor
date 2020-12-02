@@ -30,12 +30,11 @@ impl MotorControlData{
         thread::spawn(move || run_motor(runner));
     }
     
-    pub fn register(motor_data: MotorData) -> Result<MotorControlData, &'static str>{
+    pub fn register(motor_data: MotorData) -> Result<MotorControlData, String>{
         let pin = match register_motor(motor_data.gpio_pin){
             Some(out_pin) => {out_pin},
             None => {
-                let error = format!("Failed obtaining pin {}", motor_data.gpio_pin);
-                return Err("Cannot obtain pin.");
+                return Err(format!("Failed obtaining pin {}", motor_data.gpio_pin));
             }
         };
 

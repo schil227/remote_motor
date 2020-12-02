@@ -32,6 +32,12 @@ static SHOULDER_DATA: MotorData = MotorData{
     min: 0.02
 };
 
+static STOP_EVERYTHING: MotorData = MotorData{
+    gpio_pin: 0,
+    max: 0.0,
+    min: 0.0
+};
+
 pub struct MotorConstants{
 }
 
@@ -138,6 +144,13 @@ impl MotorConstants{
     pub fn stop_shoulder() -> MotorMessage{
         MotorMessage{
             data: SHOULDER_DATA,
+            command: MotorCommand::Stop()
+        }
+    }
+
+    pub fn stop_everything() -> MotorMessage{
+        MotorMessage{
+            data: STOP_EVERYTHING,
             command: MotorCommand::Stop()
         }
     }
