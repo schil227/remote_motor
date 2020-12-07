@@ -4,8 +4,8 @@ use models::MotorCommand;
 
 static CLAW_DATA: MotorData = MotorData{
     gpio_pin: 24,
-    max: 0.12,
-    min: 0.02
+    max: 0.07,
+    min: 0.035
 };
 
 static HAND_DATA: MotorData = MotorData{
@@ -16,14 +16,14 @@ static HAND_DATA: MotorData = MotorData{
 
 static FOREARM_DATA: MotorData = MotorData{
     gpio_pin: 18,
-    max: 0.12,
-    min: 0.02
+    max: 0.065,
+    min: 0.04
 };
 
 static STRONGARM_DATA: MotorData = MotorData{
     gpio_pin: 27,
-    max: 0.12,
-    min: 0.02
+    max: 0.06,
+    min: 0.031
 };
 
 static SHOULDER_DATA: MotorData = MotorData{

@@ -1,6 +1,7 @@
 use std::fs::File;
 use std::io::Read;
 use serde::Deserialize;
+use std::env;
 
 #[derive(Debug, Deserialize)]
 // #[serde(rename_all = "PascalCase")]
@@ -10,7 +11,15 @@ pub struct ConnectionConfig{
 }
 
 impl ConnectionConfig {
-    pub fn get_connection_config(file_path: &str ) -> ConnectionConfig{
+    pub fn get_connection_config_data() -> ConnectionConfig{
+        let working_directory = env::current_dir().unwrap().into_os_string().into_string().unwrap();
+    
+        let conf_file = format!("{}\\config.json", working_directory);
+    
+        ConnectionConfig::get_connection_config(conf_file.as_str())
+    }
+
+    fn get_connection_config(file_path: &str ) -> ConnectionConfig{
         let mut file =  File::open(file_path).expect("Failed to open the config.json file!");
         
         let mut json = String::new();

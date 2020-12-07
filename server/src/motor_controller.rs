@@ -76,14 +76,14 @@ fn run_motor(runner: Arc<Mutex<MotorRunner>>){
     {
         let raw_runner = runner.lock().unwrap();
         motor_pin = Arc::clone(&((*raw_runner).motor_pin));
-        current_duty = raw_runner.data.min;
+        current_duty = raw_runner.data.max - raw_runner.data.min;
     }
 
     loop{
         if is_halted(&runner){
-            {
-                motor_pin.lock().unwrap().clear_pwm().unwrap();
-            }
+            // {
+                // motor_pin.lock().unwrap().clear_pwm().unwrap();
+            // }
 
             thread::sleep(Duration::from_millis(5));
             continue;
@@ -103,9 +103,9 @@ fn run_motor(runner: Arc<Mutex<MotorRunner>>){
             FloatComparision::Equal => {
                 println!("Reached target, halting.");
 
-                {
-                    motor_pin.lock().unwrap().clear_pwm().unwrap();
-                }
+                // {
+                //     motor_pin.lock().unwrap().clear_pwm().unwrap();
+                // }
     
                 {
                     let runner = runner.lock().unwrap();

@@ -1,6 +1,5 @@
 use std::net::UdpSocket;
 use std::sync::{Arc, Mutex};
-use std::env;
 
 use models::MotorMessage;
 use services::config_reader::ConnectionConfig;
@@ -8,7 +7,7 @@ use services::config_reader::ConnectionConfig;
 const SIZE : usize = std::mem::size_of::<MotorMessage>();
 
 pub fn send_command(shared_command: Arc<Mutex<MotorMessage>>){
-    let config = get_config_data();
+    let config = ConnectionConfig::get_connection_config_data();
 
     let client = UdpSocket::bind(&config.this_machine_binding).expect("Failed to bind client UDP socket.");
 
@@ -44,10 +43,3 @@ pub fn send_command(shared_command: Arc<Mutex<MotorMessage>>){
     }
 }
 
-fn get_config_data() -> ConnectionConfig{
-    let working_directory = env::current_dir().unwrap().into_os_string().into_string().unwrap();
-
-    let conf_file = format!("{}\\config.json", working_directory);
-
-    ConnectionConfig::get_connection_config(conf_file.as_str())
-}

@@ -47,7 +47,7 @@ pub fn listen_for_command(shared_command: Arc<Mutex<MotorMessage>>) {
                 (*message) = MotorConstants::stop_hand();
             },
 
-            // FOREARM 
+            // FOREARM
             Event::Key(KeyEvent { code: KeyCode::Char('u'), modifiers: _ }) =>{
                 println!("Extending Forearm!");
                 let mut message = shared_command.lock().unwrap();
