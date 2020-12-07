@@ -5,10 +5,14 @@ use std::net::UdpSocket;
 use models::MotorMessage;
 use models::MotorCommand;
 
+use services::config_reader::ConnectionConfig;
+
 const SIZE : usize = std::mem::size_of::<MotorMessage>();
 
 pub fn listen(){
-    let client = UdpSocket::bind("192.168.1.226:7870").expect("Failed to bind client UDP socket.");
+    let config = ConnectionConfig::get_connection_config_data();
+
+    let client = UdpSocket::bind(&config.this_machine_binding).expect("Failed to bind client UDP socket.");
 
     println!("Connected!");
 
