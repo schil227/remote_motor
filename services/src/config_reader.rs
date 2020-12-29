@@ -14,6 +14,8 @@ impl ConnectionConfig {
     pub fn get_connection_config_data() -> ConnectionConfig{
         let working_directory = env::current_dir().unwrap().into_os_string().into_string().unwrap();
     
+        println!("Looking for config.json file in {}", working_directory);
+
         let conf_file = format!("{}\\config.json", working_directory);
     
         ConnectionConfig::get_connection_config(conf_file.as_str())

@@ -76,7 +76,7 @@ fn run_motor(runner: Arc<Mutex<MotorRunner>>){
     {
         let raw_runner = runner.lock().unwrap();
         motor_pin = Arc::clone(&((*raw_runner).motor_pin));
-        current_duty = raw_runner.data.max - raw_runner.data.min;
+        current_duty = (raw_runner.data.max + raw_runner.data.min) / 2.0;
     }
 
     loop{
@@ -117,10 +117,11 @@ fn run_motor(runner: Arc<Mutex<MotorRunner>>){
         }
 
         {
+            //PWM hardware hookup here
             motor_pin.lock().unwrap().set_pwm_frequency(HERTZ, current_duty).unwrap();
         }
 
-        thread::sleep(Duration::from_millis(3));
+        thread::sleep(Duration::from_millis(30));
     }
 }
 

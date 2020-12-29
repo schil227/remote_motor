@@ -1,6 +1,9 @@
 use super::motor_controller::MotorControlData;
 use super::controller_master::ControllerMaster;
 
+use std::thread;
+use std::time::Duration;
+
 use std::net::UdpSocket;
 use models::MotorMessage;
 use models::MotorCommand;
@@ -8,6 +11,9 @@ use models::MotorCommand;
 use services::config_reader::ConnectionConfig;
 
 const SIZE : usize = std::mem::size_of::<MotorMessage>();
+
+use rppal::gpio::Gpio;
+use rppal::gpio::OutputPin;
 
 pub fn listen(){
     let config = ConnectionConfig::get_connection_config_data();
@@ -47,4 +53,27 @@ pub fn listen(){
             }
         }
     }
+}
+
+fn long_running_task(){
+    let mut count : u32 = 1;
+    let mut prev : u32 = 1;
+
+    println!("Started task.");
+
+    loop 
+    {
+        let tmp = prev;
+        prev = count;
+        count = count + tmp;
+
+        thread::sleep(Duration::from_millis(20));
+
+        if count > 100_000
+        {
+            break;
+        }
+    }
+
+    println!("Finished task.")
 }

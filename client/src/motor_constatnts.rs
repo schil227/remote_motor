@@ -10,8 +10,8 @@ static CLAW_DATA: MotorData = MotorData{
 
 static HAND_DATA: MotorData = MotorData{
     gpio_pin: 17,
-    max: 0.12,
-    min: 0.02
+    max: 0.07,
+    min: 0.025
 };
 
 static FOREARM_DATA: MotorData = MotorData{
