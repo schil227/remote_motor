@@ -7,6 +7,7 @@ use std::time::Duration;
 use std::net::UdpSocket;
 use models::MotorMessage;
 use models::MotorCommand;
+use models::MotorName;
 
 use services::config_reader::ConnectionConfig;
 
@@ -35,45 +36,22 @@ pub fn listen(){
         println!("Recieved a message: {:?}", message);
 
         // empty pin means to stop everything
-        if message.data.gpio_pin == 0 {
+        if message.data.motor_name == MotorName::ALL {
             master.command_all_controllers(MotorCommand::Stop());
             continue;
         }
 
-        match master.get_controller(message.data.gpio_pin){
+        match master.get_controller(message.data.motor_name){
             Some(controller) => {controller.update(message.command)},
             None => {
-                match MotorControlData::register(message.data){
+                match MotorControlData::register(message.data, &master.pwm_handle){
                     Ok(controller) => {
                         controller.update(message.command);
-                        master.add_controller(message.data.gpio_pin, controller);
+                        master.add_controller(message.data.motor_name, controller);
                     },
                     Err(error) => { println!("{}",error); }
                 };
             }
         }
     }
-}
-
-fn long_running_task(){
-    let mut count : u32 = 1;
-    let mut prev : u32 = 1;
-
-    println!("Started task.");
-
-    loop 
-    {
-        let tmp = prev;
-        prev = count;
-        count = count + tmp;
-
-        thread::sleep(Duration::from_millis(20));
-
-        if count > 100_000
-        {
-            break;
-        }
-    }
-
-    println!("Finished task.")
 }

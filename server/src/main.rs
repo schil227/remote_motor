@@ -14,14 +14,14 @@ extern crate pwm_pca9685 as pca9685;
 use pca9685::{Channel, Pca9685, Address};
 
 fn main() {
-    // let led_pin = Gpio::new().unwrap().get(23).expect("Failed to obtain GPIO pin 23!").into_output();
-    // thread::spawn(move || blink_led(led_pin));
+    let led_pin = Gpio::new().unwrap().get(23).expect("Failed to obtain GPIO pin 23!").into_output();
+    thread::spawn(move || blink_led(led_pin));
 
-    // let handler = thread::spawn(|| message_receiver::listen());
+    let handler = thread::spawn(|| message_receiver::listen());
 
-    // handler.join().unwrap();
+    handler.join().unwrap();
 
-    test_motors();
+    // test_motors();
 }
 
 fn test_motors(){
@@ -37,22 +37,41 @@ fn test_motors(){
     //turn on Channel 0 with no delay(immediately turn on for the first tick of 4096 cycle)
     pwm.set_channel_on(Channel::C0, 0).unwrap();
 
+    let min = 82;
+    let middle = 246;
+    let max = 492;
+
     //turn off Channel 0 after 6% of 4096 ticks has elapsed (4096 * 0.06 ~= 246)
-    pwm.set_channel_off(Channel::C0, 246).unwrap();
+    pwm.set_channel_off(Channel::C0, min as u16).unwrap();
 
-    // let mut claw = Gpio::new().unwrap().get(24).unwrap().into_output();
-    // let mut hand = Gpio::new().unwrap().get(17).unwrap().into_output();
-    // let mut forearm = Gpio::new().unwrap().get(18).unwrap().into_output();
-    // let mut strongarm = Gpio::new().unwrap().get(27).unwrap().into_output();
-    // let mut shoulder = Gpio::new().unwrap().get(22).unwrap().into_output();
+    pwm.enable().unwrap();
 
-    // claw.set_pwm_frequency(50.0, 0.05).unwrap();
-    // hand.set_pwm_frequency(50.0, 0.05).unwrap();
-    // forearm.set_pwm_frequency(50.0, 0.05).unwrap();
-    // strongarm.set_pwm_frequency(50.0, 0.05).unwrap();
-    // shoulder.set_pwm_frequency(50.0, 0.05).unwrap();
+    println!("Moving to min");
 
-    thread::sleep(Duration::from_secs(5));
+    thread::sleep(Duration::from_millis(500));
+
+    let mut current :i16 = min;
+    let mut step: i16 = 1;
+
+    loop{
+        current += step;
+
+            if current >= max {
+                step = -1;
+            }
+    
+            if current <= 0 {
+                break;
+            }
+    
+            pwm.set_channel_off(Channel::C0, current as u16).unwrap();
+    
+            thread::sleep(Duration::from_millis(5));
+    }
+
+    pwm.disable().unwrap();
+
+    let _i2c_device = pwm.destroy();
 }
 
 fn blink_led(mut led_pin: OutputPin){

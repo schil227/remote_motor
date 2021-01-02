@@ -8,11 +8,21 @@ pub enum MotorCommand{
     Stop()
 }
 
+#[derive(Serialize, Deserialize, Copy, Clone, Debug)]
+#[derive(PartialEq)]
+pub enum MotorName{
+    ALL,
+    Shoulder,
+    StrongArm,
+    ForeArm,
+    Hand,
+    Claw
+}
 
 #[derive(Serialize, Deserialize, Copy, Clone, Debug)]
 #[derive(PartialEq)]
 pub struct MotorData{
-    pub gpio_pin: u8,
+    pub motor_name: MotorName,
     pub max: f64,
     pub min: f64
 }

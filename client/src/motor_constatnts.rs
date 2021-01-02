@@ -1,39 +1,40 @@
 use models::MotorMessage;
 use models::MotorData;
 use models::MotorCommand;
+use models::MotorName;
 
 static CLAW_DATA: MotorData = MotorData{
-    gpio_pin: 24,
+    motor_name: MotorName::Claw,
     max: 0.07,
     min: 0.035
 };
 
 static HAND_DATA: MotorData = MotorData{
-    gpio_pin: 17,
+    motor_name: MotorName::Hand,
     max: 0.07,
     min: 0.025
 };
 
 static FOREARM_DATA: MotorData = MotorData{
-    gpio_pin: 18,
+    motor_name: MotorName::ForeArm,
     max: 0.065,
     min: 0.04
 };
 
 static STRONGARM_DATA: MotorData = MotorData{
-    gpio_pin: 27,
+    motor_name: MotorName::StrongArm,
     max: 0.06,
     min: 0.031
 };
 
 static SHOULDER_DATA: MotorData = MotorData{
-    gpio_pin: 22,
+    motor_name: MotorName::Shoulder,
     max: 0.12,
     min: 0.02
 };
 
 static STOP_EVERYTHING: MotorData = MotorData{
-    gpio_pin: 0,
+    motor_name: MotorName::ALL,
     max: 0.0,
     min: 0.0
 };
