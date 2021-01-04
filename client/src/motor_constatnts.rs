@@ -5,38 +5,38 @@ use models::MotorName;
 
 static CLAW_DATA: MotorData = MotorData{
     motor_name: MotorName::Claw,
-    max: 0.07,
-    min: 0.035
+    max: 286,
+    min: 143
 };
 
 static HAND_DATA: MotorData = MotorData{
     motor_name: MotorName::Hand,
-    max: 0.07,
-    min: 0.025
+    max: 286,
+    min: 102
 };
 
 static FOREARM_DATA: MotorData = MotorData{
     motor_name: MotorName::ForeArm,
-    max: 0.065,
-    min: 0.04
+    max: 266,
+    min: 163
 };
 
 static STRONGARM_DATA: MotorData = MotorData{
     motor_name: MotorName::StrongArm,
-    max: 0.06,
-    min: 0.031
+    max: 246,
+    min: 127
 };
 
 static SHOULDER_DATA: MotorData = MotorData{
     motor_name: MotorName::Shoulder,
-    max: 0.12,
-    min: 0.02
+    max: 492,
+    min: 82
 };
 
 static STOP_EVERYTHING: MotorData = MotorData{
     motor_name: MotorName::ALL,
-    max: 0.0,
-    min: 0.0
+    max: 0,
+    min: 0
 };
 
 pub struct MotorConstants{

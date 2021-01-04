@@ -13,13 +13,12 @@ use services::config_reader::ConnectionConfig;
 
 const SIZE : usize = std::mem::size_of::<MotorMessage>();
 
-use rppal::gpio::Gpio;
-use rppal::gpio::OutputPin;
-
 pub fn listen(){
-    let config = ConnectionConfig::get_connection_config_data();
+    // let config = ConnectionConfig::get_connection_config_data();
 
-    let client = UdpSocket::bind(&config.this_machine_binding).expect("Failed to bind client UDP socket.");
+    // TODO: Fix, cause finding the config file is broken on the server for some reason.
+    // let client = UdpSocket::bind(&config.this_machine_binding).expect("Failed to bind client UDP socket.");
+    let client = UdpSocket::bind("192.168.1.38:7870").expect("Failed to bind client UDP socket.");
 
     println!("Connected!");
 

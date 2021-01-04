@@ -1,6 +1,3 @@
-use crate::float_comparison::compare;
-use crate::float_comparison::FloatComparision;
-
 use models::MotorCommand;
 use models::MotorData;
 use models::MotorName;
@@ -13,7 +10,7 @@ use std::sync::Mutex;
 use std::sync::Arc;
 
 const HERTZ: f64 = 50.0;
-const STEP: f64 = 0.00055;
+const STEP: u16 = 2;
 
 extern crate linux_embedded_hal as hal;
 extern crate pwm_pca9685 as pca9685;
@@ -28,7 +25,7 @@ pub struct MotorControlData{
 pub struct MotorRunner{
     data: MotorData,
     motor_channel: Channel,
-    target_duty: Mutex<f64>,
+    target_duty: Mutex<u16>,
     halt: Mutex<bool>
 }
 
@@ -92,13 +89,13 @@ fn register_motor(name: MotorName) -> Option<Channel>{
 }
 
 fn run_motor(runner: Arc<Mutex<MotorRunner>>, pwm_handle: Arc<Mutex<Pca9685<hal::I2cdev>>>){
-    let mut current_duty: f64;
+    let mut current_duty: u16;
     let channel: Channel;
 
     {
         let raw_runner = runner.lock().unwrap();
         channel = (*raw_runner).motor_channel.clone();
-        current_duty = (raw_runner.data.max + raw_runner.data.min) / 2.0;
+        current_duty = ((raw_runner.data.max + raw_runner.data.min) as f64 / 2.0) as u16;
     }
 
     loop{
@@ -111,14 +108,14 @@ fn run_motor(runner: Arc<Mutex<MotorRunner>>, pwm_handle: Arc<Mutex<Pca9685<hal:
 
         println!("current_duty: {} target_duty: {}", current_duty, target);
 
-        match compare(current_duty, target){
-            FloatComparision::GreaterThan =>{
+        match current_duty {
+            c if c > target => {
                 current_duty = current_duty - STEP;
             },
-            FloatComparision::LessThan => {
+            c if c < target => {
                 current_duty = current_duty + STEP;
             },
-            FloatComparision::Equal => {
+            _ => {
                 println!("Reached target, halting.");
 
                 {
@@ -174,8 +171,8 @@ fn update_motor(runner: &mut Arc<Mutex<MotorRunner>>, command: MotorCommand){
     }
 }
 
-fn convert_duty_to_pwm(duty: f64) -> u16 {
-    (4096 as f64 * duty) as u16
+fn convert_duty_to_pwm(duty: u16) -> u16 {
+    (4096 as u16 * duty) as u16
 }
 
 fn is_halted(motor_runner: &Arc<Mutex<MotorRunner>>) -> bool
@@ -190,20 +187,20 @@ fn set_halt(motor_runner: &mut Arc<Mutex<MotorRunner>>, halt: bool)
     control_data.set_halt(halt);
 }
 
-fn update_target_duty(motor_runner: &mut Arc<Mutex<MotorRunner>>, target: f64)
+fn update_target_duty(motor_runner: &mut Arc<Mutex<MotorRunner>>, target: u16)
 {
     let control_data = &mut motor_runner.lock().unwrap();
     control_data.update_target_duty(target);
 }
 
-fn get_target_duty(motor_runner: &Arc<Mutex<MotorRunner>>) -> f64
+fn get_target_duty(motor_runner: &Arc<Mutex<MotorRunner>>) -> u16
 {
     let control_data = motor_runner.lock().unwrap();
     control_data.get_target_duty()
 }
 
 impl MotorRunner{
-    pub fn update_target_duty(&mut self, target: f64){
+    pub fn update_target_duty(&mut self, target: u16){
         let mut duty = self.target_duty.lock().unwrap();
 
         println!("Updating duty target to {}: before {}", target, *duty);
@@ -211,7 +208,7 @@ impl MotorRunner{
         println!("Updating duty target: after {}", *duty);
     }
     
-    pub fn get_target_duty(&self) -> f64{
+    pub fn get_target_duty(&self) -> u16{
         let duty = self.target_duty.lock().unwrap();
         *duty
     }

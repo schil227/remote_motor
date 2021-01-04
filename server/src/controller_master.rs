@@ -25,6 +25,11 @@ impl ControllerMaster{
     
         let mut pwm = Pca9685::new(i2c_device, address).unwrap();
 
+        // Initialize all motor channels.
+        pwm.set_all_on_off(&[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], &[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]).unwrap();
+
+        pwm.set_prescale(121).unwrap();
+
         pwm.enable().unwrap();
 
         ControllerMaster{

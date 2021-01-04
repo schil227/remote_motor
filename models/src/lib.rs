@@ -23,8 +23,8 @@ pub enum MotorName{
 #[derive(PartialEq)]
 pub struct MotorData{
     pub motor_name: MotorName,
-    pub max: f64,
-    pub min: f64
+    pub max: u16,
+    pub min: u16
 }
 
 
