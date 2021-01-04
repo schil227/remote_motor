@@ -127,13 +127,10 @@ fn run_motor(runner: Arc<Mutex<MotorRunner>>, pwm_handle: Arc<Mutex<Pca9685<hal:
             }
         }
 
-        let pwm_value = convert_duty_to_pwm(current_duty);
-
         {
-            //PWM hardware hookup here
             // motor_pin.lock().unwrap().set_pwm_frequency(HERTZ, current_duty).unwrap();
             let mut handle = pwm_handle.lock().unwrap();
-            handle.set_channel_off(channel, pwm_value).unwrap();
+            handle.set_channel_off(channel, current_duty).unwrap();
         }
 
         thread::sleep(Duration::from_millis(30));
@@ -169,10 +166,6 @@ fn update_motor(runner: &mut Arc<Mutex<MotorRunner>>, command: MotorCommand){
             set_halt(runner, true);
         }
     }
-}
-
-fn convert_duty_to_pwm(duty: u16) -> u16 {
-    (4096 as u16 * duty) as u16
 }
 
 fn is_halted(motor_runner: &Arc<Mutex<MotorRunner>>) -> bool
