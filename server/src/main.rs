@@ -2,8 +2,8 @@ mod motor_controller;
 mod message_receiver;
 mod controller_master;
 
-use rppal::gpio::Gpio;
-use rppal::gpio::OutputPin;
+// use rppal::gpio::Gpio;
+// use rppal::gpio::OutputPin;
 use std::thread;
 use std::time::Duration;
 
@@ -13,8 +13,8 @@ extern crate pwm_pca9685 as pca9685;
 use pca9685::{Channel, Pca9685, Address};
 
 fn main() {
-    let led_pin = Gpio::new().unwrap().get(23).expect("Failed to obtain GPIO pin 23!").into_output();
-    thread::spawn(move || blink_led(led_pin));
+    // let led_pin = Gpio::new().unwrap().get(23).expect("Failed to obtain GPIO pin 23!").into_output();
+    // thread::spawn(move || blink_led(led_pin));
 
     let handler = thread::spawn(|| message_receiver::listen());
 
