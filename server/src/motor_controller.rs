@@ -2,20 +2,17 @@ use models::MotorCommand;
 use models::MotorData;
 use models::MotorName;
 
-use rppal::gpio::OutputPin;
-use rppal::gpio::Gpio;
 use std::thread;
 use std::time::Duration;
 use std::sync::Mutex;
 use std::sync::Arc;
 
-const HERTZ: f64 = 50.0;
 const STEP: u16 = 2;
 
 extern crate linux_embedded_hal as hal;
 extern crate pwm_pca9685 as pca9685;
 
-use pca9685::{Channel, Pca9685, Address};
+use pca9685::{Channel, Pca9685};
 
 pub struct MotorControlData{
     runner: Arc<Mutex<MotorRunner>>,
@@ -95,7 +92,7 @@ fn run_motor(runner: Arc<Mutex<MotorRunner>>, pwm_handle: Arc<Mutex<Pca9685<hal:
     {
         let raw_runner = runner.lock().unwrap();
         channel = (*raw_runner).motor_channel.clone();
-        current_duty = ((raw_runner.data.max + raw_runner.data.min) as f64 / 2.0) as u16;
+        current_duty = raw_runner.data.max
     }
 
     loop{

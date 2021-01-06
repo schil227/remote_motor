@@ -2,10 +2,12 @@ use super::motor_controller::MotorControlData;
 use std::collections::HashMap;
 use std::sync::Mutex;
 use std::sync::Arc;
+use std::process;
 
 use models::MotorCommand;
 use models::MotorName;
 
+extern crate ctrlc;
 extern crate linux_embedded_hal as hal;
 extern crate pwm_pca9685 as pca9685;
 
@@ -32,10 +34,26 @@ impl ControllerMaster{
 
         pwm.enable().unwrap();
 
-        ControllerMaster{
+        let handle = Arc::new(Mutex::new(pwm));
+
+        let master = ControllerMaster{
             motor_controllers: HashMap::new(),
-            pwm_handle: Arc::new(Mutex::new(pwm))
-        }
+            pwm_handle: Arc::clone(&handle)
+        };
+
+        let pwm_handle = Arc::clone(&handle);
+
+        ctrlc::set_handler(move || {
+            println!("Cleaning Up/Exiting.");
+
+            let mut pwm_h = pwm_handle.lock().unwrap();
+
+            pwm_h.disable().unwrap();
+
+            process::exit(0);
+        }).unwrap();
+
+        master
     }
 
     pub fn get_controller(&self, motor_name: MotorName) -> Option<&MotorControlData>{

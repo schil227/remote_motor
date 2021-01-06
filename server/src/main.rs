@@ -37,7 +37,6 @@ fn test_motors(){
     pwm.set_channel_on(Channel::C0, 0).unwrap();
 
     let min = 82;
-    let middle = 246;
     let max = 492;
 
     //turn off Channel 0 after 6% of 4096 ticks has elapsed (4096 * 0.06 ~= 246)
@@ -73,14 +72,14 @@ fn test_motors(){
     let _i2c_device = pwm.destroy();
 }
 
-fn blink_led(mut led_pin: OutputPin){
-    loop{
-        led_pin.set_high();
+// fn blink_led(mut led_pin: OutputPin){
+//     loop{
+//         led_pin.set_high();
 
-        thread::sleep(Duration::from_secs(10));
+//         thread::sleep(Duration::from_secs(10));
 
-        led_pin.set_low();
+//         led_pin.set_low();
 
-        thread::sleep(Duration::from_secs(10));
-    }
-}
+//         thread::sleep(Duration::from_secs(10));
+//     }
+// }
