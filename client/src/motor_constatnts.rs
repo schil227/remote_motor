@@ -5,7 +5,7 @@ use models::MotorName;
 
 static CLAW_DATA: MotorData = MotorData{
     motor_name: MotorName::Claw,
-    max: 286,
+    max: 310,
     min: 143
 };
 
@@ -17,7 +17,7 @@ static HAND_DATA: MotorData = MotorData{
 
 static FOREARM_DATA: MotorData = MotorData{
     motor_name: MotorName::ForeArm,
-    max: 300,
+    max: 266,
     min: 163
 };
 

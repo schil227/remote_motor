@@ -41,12 +41,14 @@ impl MotorControlData{
             }
         };
 
+        let target : u16 = ((motor_data.min + motor_data.max) as f64 / 2.0) as u16;
+
         let controller = MotorControlData{
             runner: Arc::new(Mutex::new(MotorRunner{
                 motor_channel: channel,
                 data: motor_data,
                 halt: Mutex::new(true),
-                target_duty: Mutex::new(motor_data.min)                
+                target_duty: Mutex::new(target)
             })),
             pwm_handle: Arc::clone(pwm)
         };
@@ -92,7 +94,12 @@ fn run_motor(runner: Arc<Mutex<MotorRunner>>, pwm_handle: Arc<Mutex<Pca9685<hal:
     {
         let raw_runner = runner.lock().unwrap();
         channel = (*raw_runner).motor_channel.clone();
-        current_duty = raw_runner.data.max
+
+        let target = raw_runner.target_duty.lock().unwrap();
+
+        println!("target: {}", target);
+
+        current_duty = *target;
     }
 
     loop{
