@@ -18,7 +18,7 @@ static HAND_DATA: MotorData = MotorData{
 static FOREARM_DATA: MotorData = MotorData{
     motor_name: MotorName::ForeArm,
     max: 266,
-    min: 163
+    min: 168
 };
 
 static STRONGARM_DATA: MotorData = MotorData{
