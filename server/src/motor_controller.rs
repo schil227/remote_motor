@@ -143,27 +143,11 @@ fn run_motor(runner: Arc<Mutex<MotorRunner>>, pwm_handle: Arc<Mutex<Pca9685<hal:
 
 fn update_motor(runner: &mut Arc<Mutex<MotorRunner>>, command: MotorCommand){
     match command{
-        MotorCommand::Forward(_num) => {
-            println!("Moving forward!");
-
-            let target = {
-                let raw_runner = runner.lock().unwrap();
-                raw_runner.data.max
-             };
+        MotorCommand::Go(position) => {
+            println!("Moving!");
 
             set_halt(runner, false);
-            update_target_duty(runner, target);
-        },
-        MotorCommand::Backward(_num) => {
-            println!("Moving backward!");
-
-            let target = {
-                let raw_runner = runner.lock().unwrap();
-                raw_runner.data.min
-             };
-
-            set_halt(runner, false);
-            update_target_duty(runner, target);
+            update_target_duty(runner, position);
         },
         MotorCommand::Stop() => {
             println!("Halt!");

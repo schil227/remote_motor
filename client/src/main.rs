@@ -1,14 +1,14 @@
 mod input_monitor;
 mod message_sender;
-mod motor_constatnts;
+mod motor_message_constatnts;
 
 use std::thread;
 use std::sync::{Arc, Mutex};
 
-use motor_constatnts::MotorConstants;
+use motor_message_constatnts::MotorMessageConstants;
 
 fn main() {
-    let message = MotorConstants::stop_everything();
+    let message = MotorMessageConstants::stop_everything();
 
     let command = Arc::new(Mutex::new(message));
     let other_command = Arc::clone(&command);

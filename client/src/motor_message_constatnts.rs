@@ -1,59 +1,23 @@
 use models::MotorMessage;
-use models::MotorData;
+use models::{CLAW_DATA, HAND_DATA, FOREARM_DATA, STRONGARM_DATA, SHOULDER_DATA, STOP_EVERYTHING};
 use models::MotorCommand;
 use models::MotorName;
 
-static CLAW_DATA: MotorData = MotorData{
-    motor_name: MotorName::Claw,
-    max: 310,
-    min: 143
-};
-
-static HAND_DATA: MotorData = MotorData{
-    motor_name: MotorName::Hand,
-    max: 286,
-    min: 102
-};
-
-static FOREARM_DATA: MotorData = MotorData{
-    motor_name: MotorName::ForeArm,
-    max: 266,
-    min: 168
-};
-
-static STRONGARM_DATA: MotorData = MotorData{
-    motor_name: MotorName::StrongArm,
-    max: 246,
-    min: 127
-};
-
-static SHOULDER_DATA: MotorData = MotorData{
-    motor_name: MotorName::Shoulder,
-    max: 492,
-    min: 82
-};
-
-static STOP_EVERYTHING: MotorData = MotorData{
-    motor_name: MotorName::ALL,
-    max: 0,
-    min: 0
-};
-
-pub struct MotorConstants{
+pub struct MotorMessageConstants{
 }
 
-impl MotorConstants{
+impl MotorMessageConstants{
     pub fn open_claw() -> MotorMessage{
         MotorMessage{
             data: CLAW_DATA,
-            command: MotorCommand::Forward(5)
+            command: MotorCommand::Go(CLAW_DATA.max)
         }
     }
 
     pub fn close_claw() -> MotorMessage{
         MotorMessage{
             data: CLAW_DATA,
-            command: MotorCommand::Backward(5)
+            command: MotorCommand::Go(CLAW_DATA.min)
         }
     }
 
@@ -67,14 +31,14 @@ impl MotorConstants{
     pub fn open_hand() -> MotorMessage{
         MotorMessage{
             data: HAND_DATA,
-            command: MotorCommand::Forward(5)
+            command: MotorCommand::Go(HAND_DATA.max)
         }
     }
 
     pub fn close_hand() -> MotorMessage{
         MotorMessage{
             data: HAND_DATA,
-            command: MotorCommand::Backward(5)
+            command: MotorCommand::Go(HAND_DATA.min)
         }
     }
 
@@ -88,14 +52,14 @@ impl MotorConstants{
     pub fn extend_fore_arm() -> MotorMessage{
         MotorMessage{
             data: FOREARM_DATA,
-            command: MotorCommand::Forward(5)
+            command: MotorCommand::Go(FOREARM_DATA.max)
         }
     }
 
     pub fn contract_fore_arm() -> MotorMessage{
         MotorMessage{
             data: FOREARM_DATA,
-            command: MotorCommand::Backward(5)
+            command: MotorCommand::Go(FOREARM_DATA.max)
         }
     }
 
@@ -109,14 +73,14 @@ impl MotorConstants{
     pub fn extend_strong_arm() -> MotorMessage{
         MotorMessage{
             data: STRONGARM_DATA,
-            command: MotorCommand::Forward(5)
+            command: MotorCommand::Go(STRONGARM_DATA.max)
         }
     }
 
     pub fn contract_strong_arm() -> MotorMessage{
         MotorMessage{
             data: STRONGARM_DATA,
-            command: MotorCommand::Backward(5)
+            command: MotorCommand::Go(STRONGARM_DATA.min)
         }
     }
 
@@ -127,18 +91,17 @@ impl MotorConstants{
         }
     }
 
-
     pub fn rotate_shoulder_clockwise() -> MotorMessage{
         MotorMessage{
             data: SHOULDER_DATA,
-            command: MotorCommand::Forward(5)
+            command: MotorCommand::Go(SHOULDER_DATA.max)
         }
     }
 
     pub fn rotate_shoulder_counter_clockwise() -> MotorMessage{
         MotorMessage{
             data: SHOULDER_DATA,
-            command: MotorCommand::Backward(5)
+            command: MotorCommand::Go(SHOULDER_DATA.min)
         }
     }
 

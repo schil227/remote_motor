@@ -3,8 +3,7 @@ use serde::{Serialize, Deserialize};
 #[derive(Serialize, Deserialize, Copy, Clone, Debug)]
 #[derive(PartialEq)]
 pub enum MotorCommand{
-    Forward(u8),
-    Backward(u8),
+    Go(u16),
     Stop()
 }
 
@@ -34,3 +33,39 @@ pub struct MotorMessage{
     pub data: MotorData,
     pub command: MotorCommand
 }
+
+pub static CLAW_DATA: MotorData = MotorData{
+    motor_name: MotorName::Claw,
+    max: 310,
+    min: 143
+};
+
+pub static HAND_DATA: MotorData = MotorData{
+    motor_name: MotorName::Hand,
+    max: 286,
+    min: 102
+};
+
+pub static FOREARM_DATA: MotorData = MotorData{
+    motor_name: MotorName::ForeArm,
+    max: 266,
+    min: 168
+};
+
+pub static STRONGARM_DATA: MotorData = MotorData{
+    motor_name: MotorName::StrongArm,
+    max: 246,
+    min: 127
+};
+
+pub static SHOULDER_DATA: MotorData = MotorData{
+    motor_name: MotorName::Shoulder,
+    max: 492,
+    min: 82
+};
+
+pub static STOP_EVERYTHING: MotorData = MotorData{
+    motor_name: MotorName::ALL,
+    max: 0,
+    min: 0
+};
