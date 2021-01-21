@@ -7,8 +7,6 @@ mod services;
 use crate::services::motor_message_creator::MotorMessageCreator;
 use crate::services::command_sender::CommandSender;
 
-use models::MotorMessage;
-
 use std::sync::Mutex;
 use std::net::UdpSocket;
 
@@ -25,11 +23,6 @@ use rocket_contrib::json::{Json, JsonValue};
 // Always use a limit to prevent DoS attacks.
 const LIMIT: u64 = 256;
 
-#[get("/")]
-fn index() -> &'static str {
-    "Hello, world!"
-}
-
 #[derive(Debug)]
 struct ApiResponse {
     json: JsonValue,
@@ -45,20 +38,6 @@ impl<'r> Responder<'r> for ApiResponse {
     }
 }
 
-struct FooService{
-    bar: u8
-}
-
-impl FooService{
-    pub fn change_foo(&mut self, num: u8){
-        self.bar += num
-    }
-
-    pub fn get_foo(&self) -> String{
-        format!("Bar: {}", self.bar)
-    }
-}
-
 #[derive(Serialize, Deserialize, Copy, Clone, Debug)]
 pub struct CommandData{
     claw: u8,
@@ -66,6 +45,21 @@ pub struct CommandData{
     forearm: u8,
     strongarm: u8,
     shoulder: u8
+}
+
+#[get("/")]
+fn index() -> &'static str {
+    "Hello, world!"
+}
+
+#[post("/echo", format = "application/json", data= "<text>")]
+fn echo(text: String) -> ApiResponse{
+    println!("echo: {}", text);
+
+    ApiResponse{
+        json: json!({"status": "success", "text": text}),
+        status: rocket::http::Status::Ok
+    }
 }
 
 #[post("/command", format = "application/json", data= "<command_data>")]
@@ -85,8 +79,6 @@ fn command(command_data: Json<CommandData>, command_sender_mutex: State<Mutex<Co
         command_sender.send_commands(messages);
     };
 
-    // Does server need to be updated to accept an actual value instead of min/max?
-
     ApiResponse{
         json: json!({"status": "success"}),
         status: rocket::http::Status::Ok
@@ -100,6 +92,7 @@ fn main() {
 
     rocket::ignite()
     .mount("/", routes![index])
+    .mount("/", routes![echo])
     .mount("/", routes![command])
     .manage(command_sender)
     .launch();

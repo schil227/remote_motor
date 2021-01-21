@@ -1,3 +1,5 @@
+use std::cmp::min;
+
 use models::{MotorMessage, MotorData, MotorCommand};
 use models::{CLAW_DATA, HAND_DATA, FOREARM_DATA, STRONGARM_DATA, SHOULDER_DATA};
 
@@ -11,23 +13,23 @@ impl MotorMessageCreator{
         let foo = vec![
             MotorMessage{
                 data: CLAW_DATA,
-                command: MotorCommand::Go(get_adjusted_value(data.claw, CLAW_DATA))
+                command: MotorCommand::Go(get_adjusted_value(min(data.claw, 100), CLAW_DATA))
             },
             MotorMessage{
                 data: HAND_DATA,
-                command: MotorCommand::Go(get_adjusted_value(data.hand, HAND_DATA))
+                command: MotorCommand::Go(get_adjusted_value(min(data.hand, 100), HAND_DATA))
             },
             MotorMessage{
                 data: FOREARM_DATA,
-                command: MotorCommand::Go(get_adjusted_value(data.forearm, FOREARM_DATA))
+                command: MotorCommand::Go(get_adjusted_value(min(data.forearm, 100), FOREARM_DATA))
             },
             MotorMessage{
                 data: STRONGARM_DATA,
-                command: MotorCommand::Go(get_adjusted_value(data.strongarm, STRONGARM_DATA))
+                command: MotorCommand::Go(get_adjusted_value(min(data.strongarm, 100), STRONGARM_DATA))
             },
             MotorMessage{
                 data: SHOULDER_DATA,
-                command: MotorCommand::Go(get_adjusted_value(data.shoulder, SHOULDER_DATA))
+                command: MotorCommand::Go(get_adjusted_value(min(data.shoulder, 100), SHOULDER_DATA))
             }
         ].into_iter().filter(|x| command_is_doing_something(x.command)).collect();
 
@@ -36,7 +38,7 @@ impl MotorMessageCreator{
 }
 
 pub fn command_is_doing_something(motor_command: MotorCommand) -> bool{
-        match(motor_command) {
+        match motor_command {
             MotorCommand::Go(position) =>{
                 if position == 0 {
                     return false
