@@ -12,13 +12,14 @@ use std::net::UdpSocket;
 
 use serde::{Deserialize, Serialize};
 
-use rocket::http::{ContentType, Status};
+use rocket::http::{ContentType, Status, Method};
 use rocket::request::Request;
 use rocket::response;
 use rocket::response::{Responder, Response};
 use rocket::State;
 use rocket_contrib::json;
 use rocket_contrib::json::{Json, JsonValue};
+use rocket_cors::{AllowedHeaders, AllowedOrigins};
 
 // Always use a limit to prevent DoS attacks.
 const LIMIT: u64 = 256;
@@ -90,10 +91,23 @@ fn main() {
 
     let command_sender = Mutex::new(CommandSender::new(client, "192.168.1.38:7870".to_string()));
 
+    let allowed_origins = AllowedOrigins::All;
+
+    // You can also deserialize this
+    let cors = rocket_cors::CorsOptions {
+        allowed_origins,
+        allowed_methods: vec![Method::Get, Method::Post].into_iter().map(From::from).collect(),// vec![Method::Get].into_iter().map(From::from).collect(),
+        allowed_headers: AllowedHeaders::some(&["Authorization", "Accept"]),
+        allow_credentials: true,
+        ..Default::default()
+    }
+    .to_cors().expect("Failed to create CORS.");
+
     rocket::ignite()
     .mount("/", routes![index])
     .mount("/", routes![echo])
     .mount("/", routes![command])
+    .attach(cors)
     .manage(command_sender)
     .launch();
 }
