@@ -34,8 +34,6 @@ impl UserService {
 
         data.keys().len()
     }
-
-
 }
 
 pub fn purge_expired_users(user_service: Arc<Mutex<UserService>>){
