@@ -3,16 +3,21 @@
 #[macro_use] extern crate rocket;
 
 mod services;
+mod models;
 
 use crate::services::motor_message_creator::MotorMessageCreator;
 use crate::services::command_sender::CommandSender;
+use crate::services::user_service::UserService;
+use crate::services::user_service;
 
-use std::sync::Mutex;
+use std::sync::{Mutex, Arc};
 use std::net::UdpSocket;
 
 use serde::{Deserialize, Serialize};
 
-use rocket::http::{ContentType, Status, Method};
+use uuid::Uuid;
+
+use rocket::http::{ContentType, Status, Method, RawStr};
 use rocket::request::Request;
 use rocket::response;
 use rocket::response::{Responder, Response};
@@ -63,6 +68,18 @@ fn echo(text: String) -> ApiResponse{
     }
 }
 
+#[post("/heartbeat/<user_id>", format = "application/json")]
+fn heartbeat(user_id: &RawStr, user_service: State<Arc<Mutex<UserService>>>) -> ApiResponse{
+
+    let user_count = user_service.lock().expect("Failed to obtain command sender!")
+        .heartbeat_user(Uuid::parse_str(user_id.as_str()).unwrap());
+        
+    ApiResponse{
+        json: json!({"status": "success", "user_count": user_count}),
+        status: rocket::http::Status::Ok
+    }
+}
+
 #[post("/command", format = "application/json", data= "<command_data>")]
 fn command(command_data: Json<CommandData>, command_sender_mutex: State<Mutex<CommandSender>>) -> ApiResponse{
     println!("Command Data: claw: {}, hand: {}, fore: {}, strong: {}, shoulder {}", 
@@ -91,12 +108,19 @@ fn main() {
 
     let command_sender = Mutex::new(CommandSender::new(client, "192.168.1.38:7870".to_string()));
 
+    let user_service = Arc::new(Mutex::new(UserService::new()));
+    let user_service_reference = Arc::clone(&user_service);
+
+    std::thread::spawn(move || {
+        user_service::purge_expired_users(user_service_reference)
+    });
+
     let allowed_origins = AllowedOrigins::All;
 
     // You can also deserialize this
     let cors = rocket_cors::CorsOptions {
         allowed_origins,
-        allowed_methods: vec![Method::Get, Method::Post].into_iter().map(From::from).collect(),// vec![Method::Get].into_iter().map(From::from).collect(),
+        allowed_methods: vec![Method::Get, Method::Post].into_iter().map(From::from).collect(),
         allowed_headers: AllowedHeaders::All,
         allow_credentials: true,
         ..Default::default()
@@ -107,7 +131,9 @@ fn main() {
     .mount("/", routes![index])
     .mount("/", routes![echo])
     .mount("/", routes![command])
+    .mount("/", routes![heartbeat])
     .attach(cors)
     .manage(command_sender)
+    .manage(Arc::clone(&user_service))
     .launch();
 }
