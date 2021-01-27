@@ -133,7 +133,7 @@ fn command(
 fn main() {
     let client = UdpSocket::bind("192.168.1.186:7870").expect("Failed to bind client UDP socket.");
 
-    let command_sender = Mutex::new(CommandSender::new(client, "192.168.1.38:7870".to_string()));
+    let command_sender = CommandSender::new(client, "192.168.1.38:7870".to_string());
 
     let user_service = Arc::new(Mutex::new(UserService::new()));
     let user_service_reference = Arc::clone(&user_service);
@@ -142,14 +142,19 @@ fn main() {
         user_service::purge_expired_users(user_service_reference)
     });
 
-    let last_command = Mutex::new(CommandData{
+    let last_command = CommandData{
         claw:50,
         hand:50,
         forearm:50,
         strongarm:50,
         shoulder:50
-    });
+    };
 
+    ////////////// Initialize robot to 50..50 ///////////////
+    let messages = MotorMessageCreator::get_messages(last_command.clone());
+    command_sender.send_commands(messages);
+    
+    ////////////// Setup CORS ///////////////
     let allowed_origins = AllowedOrigins::All;
 
     // You can also deserialize this
@@ -169,8 +174,8 @@ fn main() {
     .mount("/", routes![get_most_recent_command])
     .mount("/", routes![heartbeat])
     .attach(cors)
-    .manage(command_sender)
+    .manage(Mutex::new(command_sender))
     .manage(Arc::clone(&user_service))
-    .manage(last_command)
+    .manage(Mutex::new(last_command))
     .launch();
 }
