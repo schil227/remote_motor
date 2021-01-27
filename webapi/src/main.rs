@@ -80,8 +80,29 @@ fn heartbeat(user_id: &RawStr, user_service: State<Arc<Mutex<UserService>>>) -> 
     }
 }
 
+#[get("/command")]
+fn get_most_recent_command(last_command: State<Mutex<CommandData>>) -> ApiResponse{
+    
+    let last_command = last_command.lock().expect("[GET /command] failed to lock last command");
+
+    ApiResponse{
+        json: json!({
+            "claw": last_command.claw,
+            "hand":  last_command.hand,
+            "forearm":  last_command.forearm,
+            "strongarm":  last_command.strongarm,
+            "shoulder":  last_command.shoulder,
+        }),
+        status: rocket::http::Status::Ok
+    }
+}
+
 #[post("/command", format = "application/json", data= "<command_data>")]
-fn command(command_data: Json<CommandData>, command_sender_mutex: State<Mutex<CommandSender>>) -> ApiResponse{
+fn command(
+    command_data: Json<CommandData>, 
+    command_sender_mutex: State<Mutex<CommandSender>>,
+    last_command: State<Mutex<CommandData>>
+) -> ApiResponse{
     println!("Command Data: claw: {}, hand: {}, fore: {}, strong: {}, shoulder {}", 
     command_data.claw, 
     command_data.hand,
@@ -96,6 +117,12 @@ fn command(command_data: Json<CommandData>, command_sender_mutex: State<Mutex<Co
         
         command_sender.send_commands(messages);
     };
+
+    {
+        let mut last_command =  last_command.lock().expect("[POST /command] failed to consume last command");
+
+        *last_command = *command_data;
+    }
 
     ApiResponse{
         json: json!({"status": "success"}),
@@ -115,6 +142,14 @@ fn main() {
         user_service::purge_expired_users(user_service_reference)
     });
 
+    let last_command = Mutex::new(CommandData{
+        claw:50,
+        hand:50,
+        forearm:50,
+        strongarm:50,
+        shoulder:50
+    });
+
     let allowed_origins = AllowedOrigins::All;
 
     // You can also deserialize this
@@ -131,9 +166,11 @@ fn main() {
     .mount("/", routes![index])
     .mount("/", routes![echo])
     .mount("/", routes![command])
+    .mount("/", routes![get_most_recent_command])
     .mount("/", routes![heartbeat])
     .attach(cors)
     .manage(command_sender)
     .manage(Arc::clone(&user_service))
+    .manage(last_command)
     .launch();
 }
