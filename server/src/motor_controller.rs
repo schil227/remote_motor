@@ -7,7 +7,7 @@ use std::time::Duration;
 use std::sync::Mutex;
 use std::sync::Arc;
 
-const STEP: u16 = 2;
+const STEP: u16 = 1;
 
 extern crate linux_embedded_hal as hal;
 extern crate pwm_pca9685 as pca9685;
@@ -137,7 +137,7 @@ fn run_motor(runner: Arc<Mutex<MotorRunner>>, pwm_handle: Arc<Mutex<Pca9685<hal:
             handle.set_channel_off(channel, current_duty).unwrap();
         }
 
-        thread::sleep(Duration::from_millis(30));
+        thread::sleep(Duration::from_millis(15));
     }
 }
 
