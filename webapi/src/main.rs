@@ -131,9 +131,11 @@ fn command(
 }
 
 fn main() {
-    let client = UdpSocket::bind("192.168.1.186:7870").expect("Failed to bind client UDP socket.");
+    // let client = UdpSocket::bind("192.168.1.186:7870").expect("Failed to bind client UDP socket.");
 
-    let command_sender = CommandSender::new(client, "192.168.1.38:7870".to_string());
+    let command_sender = CommandSender::new(
+        // client,
+         "192.168.1.38:7870".to_string());
 
     let user_service = Arc::new(Mutex::new(UserService::new()));
     let user_service_reference = Arc::clone(&user_service);

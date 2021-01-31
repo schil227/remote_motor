@@ -40,8 +40,6 @@ pub fn purge_expired_users(user_service: Arc<Mutex<UserService>>){
     loop{
         let cutoff = Utc::now() - chrono::Duration::seconds(30);
 
-        println!("purging users. Cutoff: {}", cutoff);
-
         {
             let service = user_service.lock().expect("failed to lock userservice");
             let mut data = service.data.lock().expect("failed to obtain user data lock.");
