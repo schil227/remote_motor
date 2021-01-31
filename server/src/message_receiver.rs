@@ -11,7 +11,7 @@ use models::MotorName;
 
 const SIZE : usize = std::mem::size_of::<MotorMessage>();
 
-pub fn listen_tcp(){
+pub fn listen(){
     let listener = TcpListener::bind("192.168.1.38.7870").expect("Failed to bind listening TCP socket.");
 
     let mut master = ControllerMaster::new();
