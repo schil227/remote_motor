@@ -20,7 +20,7 @@ impl CommandSender{
     
     pub fn send_commands(&self, command_messages: Vec<MotorMessage>){
        
-        let mut stream = match TcpStream::connect("192.168.1.186:7870"){
+        let mut stream = match TcpStream::connect("192.168.1.38:7870"){
             Ok(stream) => {
                 stream
             },

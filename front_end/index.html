@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>robotarm.IO</title>
+    <style>
+        html body .page {
+            height: 100%;
+            width: 100%;
+        }
+
+        video {
+            width: 800px;
+        }
+
+        .wrapper {
+            width: 800px;
+            margin: auto;
+        }
+
+	.grid-container {
+  display: grid;
+  grid-template-areas:
+    'header header header header header header'
+    'menu main main main right right'
+    'menu footer footer footer footer footer';
+  grid-gap: 10px;
+  padding: 10px;
+}
+
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="wrapper">
+        <h1>robotarm.IO</h1>
+	<h3>This is currently under development. 
+        There currently is no streaming support on mobile devices. 
+        If the video freezes, refresh the page. 
+        If the arm does not move, there may be a (server side) network error.
+        Try hitting submit a few times.</h3>
+        <video id="top-cam" data-dashjs-player  controls type="application/dash+xml"></video>
+        <!-- <video id="side-cam" data-dashjs-player  controls type="application/dash+xml"></video> -->
+    </div>
+</div>
+<div>
+
+	Enter a range between 1-100 for each module. 0 will not change the module's current state. 
+	<div class="grid-container">
+		<div>    
+			Claw: <input type="number" min="1" max="100" id="claw" value="0"><br>
+			smaller number => more open </br> 
+			bigger number => more closed </br> 
+			</br>
+	        </div>
+
+        	<div>
+			Hand: <input type="number" min="1" max="100" id="hand" value="0"><br>
+		        smaller number => farther down </br>       
+		        bigger number => farther up </br>      
+		        </br>
+                </div>
+
+	        <div>
+			Fore-Arm: <input type="number" min="1" max="100" id="forearm" value="0"><br>
+		        smaller number => reaches closer </br>       
+		        bigger number => reaches farther </br>      
+		        </br>
+                </div>
+
+	        <div>
+			Strong-Arm: <input type="number" min="1" max="100" id="strongarm" value="0"><br>
+		        smaller number => extends farther </br>       
+		        bigger number => pulls closer </br>      
+		        </br>
+                </div>
+		<div>
+			Shoulder: <input type="number" min="1" max="100" id="shoulder" value="0"><br>
+       			smaller number => rotates more left </br>
+		       	bigger number => rotates more right </br>
+       			</br>
+		</div>
+	</div>
+</div>
+    
+    <button onclick="send()">Submit</button>
+    </br></br></br>
+	<button onclick="test()">Test</button>
+</div>
+<script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
+<script>
+    var topPlayer = initTopCam();
+    // var sidePlayer = initSideCam();
+
+    function initTopCam() {
+        var video = document.getElementById("top-cam");
+        player = dashjs.MediaPlayer().create();
+        player.initialize(video, "streaming/manifest.mpd", true);
+        player.updateSettings({
+            'streaming': {
+                'lowLatencyEnabled': true,
+                'liveDelay': 1,
+                'liveCatchUpMinDrift': 0.05,
+                'liveCatchUpPlaybackRate': 0.5
+            }
+        });
+        
+        return player;
+    }
+
+    // function initSideCam() {
+    //     var video = document.getElementById("side-cam");
+    //     player = dashjs.MediaPlayer().create();
+    //     player.initialize(video, "streaming2/manifest2.mpd", true);
+    //     player.updateSettings({
+    //         'streaming': {
+    //             'lowLatencyEnabled': true,
+    //             'liveDelay': 1,
+    //             'liveCatchUpMinDrift': 0.05,
+    //             'liveCatchUpPlaybackRate': 0.5
+    //         }
+    //     });
+        
+    //     return player;
+    // }
+
+    getCurrentState().then((current_data) => {
+        document.getElementById("claw").value = current_data["claw"];
+        document.getElementById("hand").value = current_data["hand"];
+        document.getElementById("forearm").value = current_data["forearm"];
+        document.getElementById("strongarm").value = current_data["strongarm"];
+        document.getElementById("shoulder").value = current_data["shoulder"];
+    });
+
+    async function getCurrentState(){
+        const response = await fetch("http://96.42.97.100:8000/command", {
+			method: 'GET',
+			mode: 'cors',
+			cache: 'no-cache',
+			credentials: 'same-origin',
+			redirect: 'follow',
+            referrerPolicy: 'no-referrer',
+        });
+
+		return response.json();
+    }
+
+	async function send(){
+                var claw = parseInt(document.getElementById("claw").value);
+                var hand = parseInt(document.getElementById("hand").value);
+                var forearm = parseInt(document.getElementById("forearm").value);
+                var strongarm = parseInt(document.getElementById("strongarm").value);
+                var shoulder = parseInt(document.getElementById("shoulder").value);
+
+                console.log("test: claw: "+ claw + " hand: " + hand + " forearm: " + forearm + " strongarm:" + strongarm + " shoulder:" + shoulder );
+
+                var data = JSON.stringify({"claw": claw, "hand": hand, "forearm": forearm, "strongarm": strongarm, "shoulder": shoulder});
+
+		const response = await fetch("http://96.42.97.100:8000/command", {
+			method: 'POST',
+			mode: 'cors',
+			cache: 'no-cache',
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			redirect: 'follow',
+			referrerPolicy: 'no-referrer',
+			body: data
+        	});
+
+		return response.json();
+	}
+
+	async function test(){
+
+        var data = JSON.stringify({"text": "HELLO!"});
+
+        const response = await fetch("http://96.42.97.100:8000/echo", {
+                method: 'POST',
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                headers: {
+                        'Content-Type': 'application/json'
+                },
+                redirect: 'follow',
+                referrerPolicy: 'no-referrer',
+                body: data
+
+        });
+
+        return response.json();
+    }
+
+</script>
+</body>
+</html>

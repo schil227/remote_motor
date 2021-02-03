@@ -1,0 +1,33 @@
+== ARMIO FFmpeg & Server ==
+
+= Output Stream Command =
+== Cam 1 ==
+sudo ffmpeg  -i /dev/video0 -f video4linux2 -video_size 640x480 -framerate 30 -c:v libx264 -g 15 -keyint_min 120 -f dash -use_timeline 1 -use_template 1 -streaming 1 -min_seg_duration 250000 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 /dev/shm/streaming/manifest.mpd
+
+
+== Cam 2 ==
+
+sudo ffmpeg  -i /dev/video2 -f video4linux2 -video_size 640x480 -framerate 30 -c:v libx264 -g 15 -keyint_min 120 -f dash -use_timeline 1 -use_template 1 -streaming 1 -min_seg_duration 250000 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 /dev/shm/streaming/manifest2.mpd
+
+== 
+Created web_streaming_setup.service script to run on startup in /etc/systemd/system
+
+
+sudo ffmpeg -f video4linux2 -video_size 640x480 -framerate 30 -c:v libx264 -preset ultrafast -g 15 -keyint_min 120 -f dash -use_timeline 1 -use_template 1 -streaming 1 -min_seg_duration 250000 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 /dev/shm/streaming/manifest.mpd
+
+
+files are located at /var/lib/streaming (e.g. index.html)
+the .sh there will have the commands to set up the linked directories
+
+== Setting up Angular Front End ==
+
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+
+sudo apt-get install -y nodejs
+sudo npm install -g @angular/cli
+
+
+
+sudo ffmpeg  -i /dev/video0 -f video4linux2 -video_size 640x480 -framerate 30 -c:v libx264 -g 15 -keyint_min 120 -f dash -use_timeline 1 -use_template 1 -streaming 1 -min_seg_duration 250000 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 /dev/shm/streaming/manifest.mpd
+
+sudo ffmpeg  -i /dev/video2 -f video4linux2 -video_size 640x480 -framerate 30 -c:v libx264 -g 15 -keyint_min 120 -f dash -use_timeline 1 -use_template 1 -streaming 1 -min_seg_duration 250000 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 /dev/shm/streaming/manifest2.mpd
