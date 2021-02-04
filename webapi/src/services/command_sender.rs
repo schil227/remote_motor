@@ -20,11 +20,11 @@ impl CommandSender{
     
     pub fn send_commands(&self, command_messages: Vec<MotorMessage>){
        
-        let mut stream = match TcpStream::connect("192.168.1.38:7870"){
+        let mut stream = match TcpStream::connect(&self.robot_ip_address){
             Ok(stream) => {
                 stream
             },
-            Err(e) => {
+            Err(_) => {
                 println!("Failed establishing TCP connection to the server. Ensure the server is listening.");
                 return;
             }

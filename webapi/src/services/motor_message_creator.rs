@@ -62,6 +62,7 @@ fn get_adjusted_value(value: u8, motor_data: MotorData) -> u16 {
 }
 
 #[cfg(test)]
+#[allow(non_snake_case)]
 mod tests {
     use super::*;
 

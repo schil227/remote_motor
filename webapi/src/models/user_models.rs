@@ -5,14 +5,14 @@ use uuid::Uuid;
 use chrono::DateTime;
 
 pub struct UserData{
-    user_id: Uuid,
+    _user_id: Uuid,
     time_to_live: DateTime<Utc>
 }
 
 impl UserData{
-    pub fn new(user_id: Uuid) -> UserData{
+    pub fn new(_user_id: Uuid) -> UserData{
         UserData{
-            user_id,
+            _user_id,
             time_to_live: Utc::now()
         }
     }
