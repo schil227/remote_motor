@@ -18,7 +18,10 @@ use crate::models::command_models::CommandData;
 use std::sync::{Mutex, Arc};
 
 use rocket::http::Method;
+use rocket::fairing::AdHoc;
 use rocket_cors::{AllowedHeaders, AllowedOrigins};
+
+use chrono::Local;
 
 // Always use a limit to prevent DoS attacks.
 const _LIMIT: u64 = 256;
@@ -65,6 +68,10 @@ fn main() {
     .mount("/", routes![command_controller::get_most_recent_command])
     .mount("/", routes![user_controller::heartbeat])
     .attach(cors)
+    .attach(AdHoc::on_request("Request Logger", |req, _| {
+        println!("Time: {:?}", Local::now());
+        println!("Client: {:?}", req.client_ip())
+    }))
     .manage(Mutex::new(command_sender))
     .manage(Arc::clone(&user_service))
     .manage(Mutex::new(last_command))
