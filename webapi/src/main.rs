@@ -68,9 +68,17 @@ fn main() {
     .mount("/", routes![command_controller::get_most_recent_command])
     .mount("/", routes![user_controller::heartbeat])
     .attach(cors)
-    .attach(AdHoc::on_request("Request Logger", |req, _| {
-        println!("Time: {}", Local::now().format("%Y-%m-%d %H:%M:%S").to_string());
-        println!("Client: {}", match req.client_ip() { Some(ip) => ip.to_string(), _ => "Unknown IP".to_string()})
+    .attach(AdHoc::on_request("Request Logger", move |req, _| {
+        let ip = match req.client_ip() 
+        { 
+            Some(ip) => ip.to_string(), 
+            _ => "Unknown IP".to_string()
+        };
+
+        let time = Local::now().format("%Y-%m-%d %H:%M:%S").to_string();
+        
+        log::info!("    => Time: {}", time);
+        log::info!("    => Client: {}", ip);
     }))
     .manage(Mutex::new(command_sender))
     .manage(Arc::clone(&user_service))

@@ -512,16 +512,16 @@ version = "0.3.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e19e8d5c34a3e0e2223db8e060f9e8264aeeb5c5fc64a4ee9965c062211c024b"
 dependencies = [
- "log 0.4.13",
+ "log 0.4.14",
 ]
 
 [[package]]
 name = "log"
-version = "0.4.13"
+version = "0.4.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fcf3805d4480bb5b86070dcfeb9e2cb2ebc148adb753c5cca5f884d1d65a42b2"
+checksum = "51b9bbe6c47d51fc3e1a9b945965946b4c44142ab8792c50835a980d362c2710"
 dependencies = [
- "cfg-if 0.1.10",
+ "cfg-if 1.0.0",
 ]
 
 [[package]]
@@ -557,7 +557,7 @@ dependencies = [
  "iovec",
  "kernel32-sys",
  "libc",
- "log 0.4.13",
+ "log 0.4.14",
  "miow",
  "net2",
  "slab",
@@ -571,7 +571,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "52403fe290012ce777c4626790c8951324a2b9e3316b3143779c72b029742f19"
 dependencies = [
  "lazycell",
- "log 0.4.13",
+ "log 0.4.14",
  "mio",
  "slab",
 ]
@@ -819,7 +819,7 @@ checksum = "4fc7e5d6aaa32ace6893ae8a1875688ca7b07d6c2428ae88e704c3623c8866e9"
 dependencies = [
  "atty",
  "base64 0.12.3",
- "log 0.4.13",
+ "log 0.4.14",
  "memchr",
  "num_cpus",
  "pear",
@@ -853,7 +853,7 @@ version = "0.4.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9465babd59cfb360669b60431db510f3dc3268d51ccd69fc9264e626681e596a"
 dependencies = [
- "log 0.4.13",
+ "log 0.4.14",
  "notify",
  "rocket",
  "serde",
@@ -866,7 +866,7 @@ version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ea20696dc46308d0ca06222905fe38e02b8e46c087af9c82ea85cdc386271076"
 dependencies = [
- "log 0.4.13",
+ "log 0.4.14",
  "regex",
  "rocket",
  "serde",
@@ -1209,6 +1209,7 @@ version = "0.1.0"
 dependencies = [
  "bincode",
  "chrono",
+ "log 0.4.14",
  "models",
  "rocket",
  "rocket_contrib",
