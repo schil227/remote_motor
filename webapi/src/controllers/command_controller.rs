@@ -1,5 +1,5 @@
 use crate::services::motor_message_creator::MotorMessageCreator;
-use crate::services::command_sender::CommandSender;
+use crate::services::factory::Factory;
 use crate::models::command_models::CommandData;
 use crate::models::controller_models::ApiResponse;
 
@@ -29,7 +29,7 @@ pub fn get_most_recent_command(last_command: State<Mutex<CommandData>>) -> ApiRe
 #[post("/command", format = "application/json", data= "<command_data>")]
 pub fn command(
     command_data: Json<CommandData>, 
-    command_sender_mutex: State<Mutex<CommandSender>>,
+    factory_mutex: State<Mutex<Factory>>,
     last_command: State<Mutex<CommandData>>
 ) -> ApiResponse{
     println!("Command Data: claw: {}, hand: {}, fore: {}, strong: {}, shoulder {}", 
@@ -42,9 +42,9 @@ pub fn command(
     let messages = MotorMessageCreator::get_messages(*command_data);
 
     {
-        let command_sender = command_sender_mutex.lock().expect("Failed to obtain command sender!");
+        let factory = factory_mutex.lock().expect("Failed to obtain Factory!");
         
-        command_sender.send_commands(messages);
+        factory.command_sender().send_commands(messages);
     };
 
     {
