@@ -3,9 +3,10 @@ use crate::services::factory::Factory;
 use crate::models::command_models::CommandData;
 use crate::models::controller_models::ApiResponse;
 
-use std::sync::Mutex;
+use std::{sync::Mutex};
 
 use rocket::State;
+use rocket::http::{Cookie, Cookies};
 use rocket_contrib::json;
 use rocket_contrib::json::Json;
 
@@ -31,6 +32,7 @@ pub fn command(
     command_data: Json<CommandData>, 
     factory_mutex: State<Mutex<Factory>>,
     last_command: State<Mutex<CommandData>>
+    // mut cookies: Cookies
 ) -> ApiResponse{
     println!("Command Data: claw: {}, hand: {}, fore: {}, strong: {}, shoulder {}", 
     command_data.claw, 

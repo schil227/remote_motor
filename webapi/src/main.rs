@@ -16,11 +16,12 @@ use crate::models::command_models::CommandData;
 
 use std::sync::Mutex;
 
-use rocket::http::Method;
+use rocket::http::{Method, Cookie};
 use rocket::fairing::AdHoc;
 use rocket_cors::{AllowedHeaders, AllowedOrigins};
 
 use chrono::Local;
+use uuid::Uuid;
 
 // Always use a limit to prevent DoS attacks.
 const _LIMIT: u64 = 256;
@@ -77,8 +78,29 @@ fn main() {
 
         let time = Local::now().format("%Y-%m-%d %H:%M:%S").to_string();
         
+        let mut is_new = false;
+        let user_id = match req.cookies().get("user_id"){
+            Some(cookie) => {
+                Uuid::parse_str(cookie.value()).unwrap()
+            },
+            None => {   
+                println!("no user id.");
+                is_new = true;
+                let id = Uuid::new_v4();
+                id
+            }
+        };
+
+        let is_new = if is_new {
+            req.cookies().add(Cookie::new("user_id", user_id.to_string()));
+            "(New)"
+        } else{
+            ""
+        };
+
         log::info!("    => Time: {}", time);
         log::info!("    => Client: {}", ip);
+        log::info!("    => UserId: {} {}", is_new, user_id);
     }))
     .manage(Mutex::new(last_command))
     .manage(Mutex::new(factory))
