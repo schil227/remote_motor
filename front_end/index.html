@@ -68,6 +68,8 @@
                 If the video freezes, refresh the page.
                 If the arm does not move, there may be a (server side) network error.
                 Try hitting submit a few times.</h3>
+            <h3> Active commanders: <div id="userCount"></div>
+            </h3>
         </div>
         <div class="container">
             <div class="item">
@@ -217,15 +219,17 @@
             return response.json();
         }
 
-        async function test() {
+        window.setInterval(heartbeat, 5000);
+
+        async function heartbeat() {
 
             var data = JSON.stringify({ "text": "HELLO!" });
 
-            const response = await fetch("http://96.42.97.100:8000/echo", {
+            const response = await fetch("http://192.168.1.248:8000/heartbeat", {
                 method: 'POST',
                 mode: 'cors',
                 cache: 'no-cache',
-                credentials: 'same-origin',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -235,7 +239,9 @@
 
             });
 
-            return response.json();
+            response.json().then(apiResponse => {
+                document.getElementById("userCount").innerHTML = apiResponse["user_count"];
+            });
         }
 
     </script>
