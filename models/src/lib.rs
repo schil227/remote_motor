@@ -49,8 +49,8 @@ pub static FOREARM_DATA: MotorData = MotorData {
 
 pub static STRONGARM_DATA: MotorData = MotorData {
     motor_name: MotorName::StrongArm,
-    max: 300,
-    min: 127,
+    max: 380,
+    min: 177,
 };
 
 pub static SHOULDER_DATA: MotorData = MotorData {
