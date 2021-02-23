@@ -30,3 +30,12 @@ sudo apt-get install -y nodejs
 sudo npm install -g @angular/cli
 
 === Camera issue - notes
+
+Adding a b:v of 300k seems to make it reasonably snappy. this had compatabily issues with the mobile output, however. removing that part
+of the command increaded throughput:
+
+ffmpeg -threads 2  -i /dev/video0 -f raw_video -b:v 300k -framerate 30 -c:v libx264 -g 15 -keyint_min 120 -f dash -use_timeline 1 -use_template 1 -streaming 1 -min_seg_duration 250000 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 /dev/shm/streaming_side/manifest.mpd
+
+ffmpeg -threads 2 -i /dev/video4 -f raw_video -b:v 300k -framerate 30 -c:v libx264 -g 15 -keyint_min 120 -preset veryfast -f dash -use_timeline 1 -use_template 1 -streaming 1 -min_seg_duration 250000 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 /dev/shm/streaming_top/manifest.mpd -c:v vp8 -g 15 -keyint_min 120 -preset veryfast -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 /dev/shm/streaming_top/manifest_mobile.mpd
+
+ffmpeg -threads 2 -i /dev/video0 -f raw_video -b:v 300k -framerate 30 -c:v libx264 -g 15 -keyint_min 120 -preset veryfast -f dash -use_timeline 1 -use_template 1 -streaming 1 -min_seg_duration 250000 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 /dev/shm/streaming_side/manifest.mpd -c:v vp8 -g 15 -keyint_min 120 -preset veryfast -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 /dev/shm/streaming_side/manifest_mobile.mpd

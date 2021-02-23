@@ -52,7 +52,7 @@ pub fn command(
     {
         let mut last_command =  last_command.lock().expect("[POST /command] failed to consume last command");
 
-        *last_command = *command_data;
+        (*last_command).copy_from(&(*command_data));
     }
 
     ApiResponse{

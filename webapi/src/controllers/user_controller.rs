@@ -10,8 +10,10 @@ use rocket::State;
 use rocket_contrib::json;
 
 #[post("/heartbeat", format = "application/json")]
-pub fn heartbeat(cookies: Cookies, factory: State<Mutex<Factory>>) -> ApiResponse{
-    let user_id = cookies.get("user_id").unwrap().value();
+pub fn heartbeat(mut cookies: Cookies, factory: State<Mutex<Factory>>) -> ApiResponse{
+    let cookie = cookies.get_private("user_id").unwrap();
+
+    let user_id = cookie.value();
 
     let mut user_service = factory.lock().expect("Failed to obtain Factory!").user_service();
 

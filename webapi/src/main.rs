@@ -79,7 +79,7 @@ fn main() {
         let time = Local::now().format("%Y-%m-%d %H:%M:%S").to_string();
         
         let mut is_new = false;
-        let user_id = match req.cookies().get("user_id"){
+        let user_id = match req.cookies().get_private("user_id"){
             Some(cookie) => {
                 Uuid::parse_str(cookie.value()).unwrap()
             },
@@ -92,7 +92,7 @@ fn main() {
         };
 
         let is_new = if is_new {
-            req.cookies().add(Cookie::new("user_id", user_id.to_string()));
+            req.cookies().add_private(Cookie::new("user_id", user_id.to_string()));
             "(New)"
         } else{
             ""
