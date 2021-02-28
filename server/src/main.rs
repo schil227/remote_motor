@@ -1,20 +1,22 @@
-mod motor_controller;
-mod message_receiver;
 mod controller_master;
+mod message_receiver;
+mod motor_controller;
 
-// use rppal::gpio::Gpio;
-// use rppal::gpio::OutputPin;
+use rppal::gpio::Gpio;
+use rppal::gpio::Trigger;
 use std::thread;
 use std::time::Duration;
 
 extern crate linux_embedded_hal as hal;
 extern crate pwm_pca9685 as pca9685;
 
-use pca9685::{Channel, Pca9685, Address};
+use pca9685::{Address, Channel, Pca9685};
 
 fn main() {
     // let led_pin = Gpio::new().unwrap().get(23).expect("Failed to obtain GPIO pin 23!").into_output();
     // thread::spawn(move || blink_led(led_pin));
+
+    thread::spawn(|| listen_for_basket());
 
     let handler = thread::spawn(|| message_receiver::listen());
 
@@ -23,10 +25,10 @@ fn main() {
     // test_motors();
 }
 
-fn test_motors(){
+fn test_motors() {
     let i2c_device = hal::I2cdev::new("/dev/i2c-1").unwrap();
 
-    // 0x40, the standard address for pwm9685 
+    // 0x40, the standard address for pwm9685
     let address = Address::default();
 
     let mut pwm = Pca9685::new(i2c_device, address).unwrap();
@@ -48,28 +50,44 @@ fn test_motors(){
 
     thread::sleep(Duration::from_millis(500));
 
-    let mut current :i16 = min;
+    let mut current: i16 = min;
     let mut step: i16 = 1;
 
-    loop{
+    loop {
         current += step;
 
-            if current >= max {
-                step = -1;
-            }
-    
-            if current <= 0 {
-                break;
-            }
-    
-            pwm.set_channel_off(Channel::C0, current as u16).unwrap();
-    
-            thread::sleep(Duration::from_millis(5));
+        if current >= max {
+            step = -1;
+        }
+
+        if current <= 0 {
+            break;
+        }
+
+        pwm.set_channel_off(Channel::C0, current as u16).unwrap();
+
+        thread::sleep(Duration::from_millis(5));
     }
 
     pwm.disable().unwrap();
 
     let _i2c_device = pwm.destroy();
+}
+
+fn listen_for_basket() {
+    let mut basket_switch = Gpio::new()
+        .unwrap()
+        .get(12)
+        .expect("Failed to obtain GPIO pin 12!")
+        .into_input_pullup();
+
+    basket_switch.set_interrupt(Trigger::RisingEdge).unwrap();
+
+    loop {
+        basket_switch.poll_interrupt(true, None).unwrap();
+
+        println!("Scored a basket! yay!");
+    }
 }
 
 // fn blink_led(mut led_pin: OutputPin){
