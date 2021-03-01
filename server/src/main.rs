@@ -75,18 +75,25 @@ fn test_motors() {
 }
 
 fn listen_for_basket() {
+    println!("acquiring pin.");
+
     let mut basket_switch = Gpio::new()
         .unwrap()
-        .get(12)
-        .expect("Failed to obtain GPIO pin 12!")
-        .into_input_pullup();
+        .get(10)
+        .expect("Failed to obtain GPIO pin 10!")
+        .into_input_pulldown();
+
+    println!("Set interrupt.");
 
     basket_switch.set_interrupt(Trigger::RisingEdge).unwrap();
+
+    println!("listening for baskets");
 
     loop {
         basket_switch.poll_interrupt(true, None).unwrap();
 
         println!("Scored a basket! yay!");
+        thread::sleep(Duration::from_millis(300));
     }
 }
 
