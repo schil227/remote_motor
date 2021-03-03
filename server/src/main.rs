@@ -85,7 +85,20 @@ fn listen_for_basket() {
 
     println!("Set interrupt.");
 
-    basket_switch.set_interrupt(Trigger::RisingEdge).unwrap();
+    // pulldown (3.3v)
+    // RisingEdge: triggers once the switch is released
+    // FallingEdge: triggers on switch press and release
+    // Both: triggers on switch press and release
+    // Disabled: disabled
+
+    // pullup (ground)
+    // FallingEdge: triggers on switch press and release
+    // RisingEdge: triggers on switch press and release
+    // Both:
+
+    // input (both?)
+    // RisingEdge:
+    basket_switch.set_interrupt(Trigger::FallingEdge).unwrap();
 
     println!("listening for baskets");
 
@@ -94,6 +107,14 @@ fn listen_for_basket() {
 
         println!("Scored a basket! yay!");
         thread::sleep(Duration::from_millis(300));
+
+        if basket_switch.is_low() {
+            println!("Switch may be stuck!");
+
+            println!("eat one input for switch to change.");
+            basket_switch.poll_interrupt(true, None).unwrap();
+            thread::sleep(Duration::from_millis(300));
+        }
     }
 }
 
