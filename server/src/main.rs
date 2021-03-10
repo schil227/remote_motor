@@ -1,9 +1,9 @@
 mod controller_master;
 mod message_receiver;
 mod motor_controller;
+mod scoreboard_runner;
+mod scoreboard_service;
 
-use rppal::gpio::Gpio;
-use rppal::gpio::Trigger;
 use std::thread;
 use std::time::Duration;
 
@@ -16,13 +16,11 @@ fn main() {
     // let led_pin = Gpio::new().unwrap().get(23).expect("Failed to obtain GPIO pin 23!").into_output();
     // thread::spawn(move || blink_led(led_pin));
 
-    thread::spawn(|| listen_for_basket());
+    thread::spawn(|| scoreboard_service::run_scoreboard());
 
     let handler = thread::spawn(|| message_receiver::listen());
 
     handler.join().unwrap();
-
-    // test_motors();
 }
 
 fn test_motors() {
@@ -72,50 +70,6 @@ fn test_motors() {
     pwm.disable().unwrap();
 
     let _i2c_device = pwm.destroy();
-}
-
-fn listen_for_basket() {
-    println!("acquiring pin.");
-
-    let mut basket_switch = Gpio::new()
-        .unwrap()
-        .get(10)
-        .expect("Failed to obtain GPIO pin 10!")
-        .into_input_pulldown();
-
-    println!("Set interrupt.");
-
-    // pulldown (3.3v)
-    // RisingEdge: triggers once the switch is released
-    // FallingEdge: triggers on switch press and release
-    // Both: triggers on switch press and release
-    // Disabled: disabled
-
-    // pullup (ground)
-    // FallingEdge: triggers on switch press and release
-    // RisingEdge: triggers on switch press and release
-    // Both:
-
-    // input (both?)
-    // RisingEdge:
-    basket_switch.set_interrupt(Trigger::FallingEdge).unwrap();
-
-    println!("listening for baskets");
-
-    loop {
-        basket_switch.poll_interrupt(true, None).unwrap();
-
-        println!("Scored a basket! yay!");
-        thread::sleep(Duration::from_millis(300));
-
-        if basket_switch.is_low() {
-            println!("Switch may be stuck!");
-
-            println!("eat one input for switch to change.");
-            basket_switch.poll_interrupt(true, None).unwrap();
-            thread::sleep(Duration::from_millis(300));
-        }
-    }
 }
 
 // fn blink_led(mut led_pin: OutputPin){
