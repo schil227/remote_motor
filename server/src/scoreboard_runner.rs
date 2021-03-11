@@ -22,8 +22,8 @@ pub struct ScoreboardRunner {
     c2_pin: OutputPin,
 }
 
-fn get_digit(number: u8, isTensDigit: bool) -> u8 {
-    if isTensDigit {
+fn get_digit(number: u8, is_tens_digit: bool) -> u8 {
+    if is_tens_digit {
         (number / 10) as u8
     } else {
         number % 10
@@ -60,8 +60,8 @@ impl ScoreboardRunner {
             .into_output();
         let c_pin = Gpio::new()
             .unwrap()
-            .get(21)
-            .expect("Failed to obtian GPIO 21 (7-Seg. C)!")
+            .get(18)
+            .expect("Failed to obtian GPIO 18 (7-Seg. C)!")
             .into_output();
         let d_pin = Gpio::new()
             .unwrap()
@@ -115,16 +115,18 @@ impl ScoreboardRunner {
             let major = get_digit(current_score, true);
 
             self.update_board(get_board_from_number(minor));
+
+            self.c2_pin.set_low();
+            self.c1_pin.set_high();
+
+            thread::sleep(Duration::from_millis(20));
+
+            self.update_board(get_board_from_number(major));
+
+            self.c2_pin.set_high();
             self.c1_pin.set_low();
 
-            thread::sleep(Duration::from_millis(500));
-
-            if major == 0 {
-                continue;
-            }
-            self.update_board(get_board_from_number(major));
-            self.c1_pin.set_high();
-            thread::sleep(Duration::from_millis(500));
+            thread::sleep(Duration::from_millis(20));
         }
     }
 
