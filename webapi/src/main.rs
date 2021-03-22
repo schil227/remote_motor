@@ -10,30 +10,31 @@ use crate::controllers::command_controller;
 use crate::controllers::user_controller;
 use crate::controllers::debug_controller;
 use crate::services::motor_message_creator::MotorMessageCreator;
-use crate::services::command_sender::CommandSender;
-use crate::services::user_service::UserService;
 use crate::services::user_service;
+use crate::services::factory::Factory;
 use crate::models::command_models::CommandData;
 
-use std::sync::{Mutex, Arc};
+use std::sync::Mutex;
 
-use rocket::http::Method;
+use rocket::http::{Method, Cookie};
 use rocket::fairing::AdHoc;
 use rocket_cors::{AllowedHeaders, AllowedOrigins};
 
 use chrono::Local;
+use uuid::Uuid;
 
 // Always use a limit to prevent DoS attacks.
 const _LIMIT: u64 = 256;
 
 fn main() {
-    let command_sender = CommandSender::new("192.168.1.38:7870".to_string());
+    let factory = Factory::new();
 
-    let user_service = Arc::new(Mutex::new(UserService::new()));
-    let user_service_reference = Arc::clone(&user_service);
+    let command_sender = factory.command_sender();
+
+    let user_service = factory.user_service();   
 
     std::thread::spawn(move || {
-        user_service::purge_expired_users(user_service_reference)
+        user_service::purge_expired_users(user_service)
     });
 
     let last_command = CommandData{
@@ -77,11 +78,31 @@ fn main() {
 
         let time = Local::now().format("%Y-%m-%d %H:%M:%S").to_string();
         
+        let mut is_new = false;
+        let user_id = match req.cookies().get_private("user_id"){
+            Some(cookie) => {
+                Uuid::parse_str(cookie.value()).unwrap()
+            },
+            None => {   
+                println!("no user id.");
+                is_new = true;
+                let id = Uuid::new_v4();
+                id
+            }
+        };
+
+        let is_new = if is_new {
+            req.cookies().add_private(Cookie::new("user_id", user_id.to_string()));
+            "(New)"
+        } else{
+            ""
+        };
+
         log::info!("    => Time: {}", time);
         log::info!("    => Client: {}", ip);
+        log::info!("    => UserId: {} {}", is_new, user_id);
     }))
-    .manage(Mutex::new(command_sender))
-    .manage(Arc::clone(&user_service))
     .manage(Mutex::new(last_command))
+    .manage(Mutex::new(factory))
     .launch();
 }

@@ -12,9 +12,9 @@ pub struct UserService{
 }
 
 impl UserService {
-    pub fn new() -> UserService{
+    pub fn new(user_data: Arc<Mutex<HashMap<Uuid, UserData>>>,) -> UserService{
         let service = UserService{
-            data: Arc::new(Mutex::new(HashMap::new()))
+            data: user_data
         };
 
         service
@@ -36,13 +36,12 @@ impl UserService {
     }
 }
 
-pub fn purge_expired_users(user_service: Arc<Mutex<UserService>>){
+pub fn purge_expired_users(user_service: UserService){
     loop{
         let cutoff = Utc::now() - chrono::Duration::seconds(30);
 
         {
-            let service = user_service.lock().expect("failed to lock userservice");
-            let mut data = service.data.lock().expect("failed to obtain user data lock.");
+            let mut data = user_service.data.lock().expect("failed to obtain user data lock.");
 
             let expired :Vec<Uuid> = data
                 .iter()

@@ -1,11 +1,12 @@
 use crate::services::motor_message_creator::MotorMessageCreator;
-use crate::services::command_sender::CommandSender;
+use crate::services::factory::Factory;
 use crate::models::command_models::CommandData;
 use crate::models::controller_models::ApiResponse;
 
-use std::sync::Mutex;
+use std::{sync::Mutex};
 
 use rocket::State;
+use rocket::http::{Cookie, Cookies};
 use rocket_contrib::json;
 use rocket_contrib::json::Json;
 
@@ -29,8 +30,9 @@ pub fn get_most_recent_command(last_command: State<Mutex<CommandData>>) -> ApiRe
 #[post("/command", format = "application/json", data= "<command_data>")]
 pub fn command(
     command_data: Json<CommandData>, 
-    command_sender_mutex: State<Mutex<CommandSender>>,
+    factory_mutex: State<Mutex<Factory>>,
     last_command: State<Mutex<CommandData>>
+    // mut cookies: Cookies
 ) -> ApiResponse{
     println!("Command Data: claw: {}, hand: {}, fore: {}, strong: {}, shoulder {}", 
     command_data.claw, 
@@ -42,15 +44,15 @@ pub fn command(
     let messages = MotorMessageCreator::get_messages(*command_data);
 
     {
-        let command_sender = command_sender_mutex.lock().expect("Failed to obtain command sender!");
+        let factory = factory_mutex.lock().expect("Failed to obtain Factory!");
         
-        command_sender.send_commands(messages);
+        factory.command_sender().send_commands(messages);
     };
 
     {
         let mut last_command =  last_command.lock().expect("[POST /command] failed to consume last command");
 
-        *last_command = *command_data;
+        (*last_command).copy_from(&(*command_data));
     }
 
     ApiResponse{

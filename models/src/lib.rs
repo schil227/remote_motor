@@ -1,71 +1,66 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, Copy, Clone, Debug)]
-#[derive(PartialEq)]
-pub enum MotorCommand{
+#[derive(Serialize, Deserialize, Copy, Clone, Debug, PartialEq)]
+pub enum MotorCommand {
     Go(u16),
-    Stop()
+    Stop(),
 }
 
-#[derive(Serialize, Deserialize, Copy, Clone, Debug)]
-#[derive(PartialEq)]
-pub enum MotorName{
+#[derive(Serialize, Deserialize, Copy, Clone, Debug, PartialEq)]
+pub enum MotorName {
     ALL,
     Shoulder,
     StrongArm,
     ForeArm,
     Hand,
-    Claw
+    Claw,
 }
 
-#[derive(Serialize, Deserialize, Copy, Clone, Debug)]
-#[derive(PartialEq)]
-pub struct MotorData{
+#[derive(Serialize, Deserialize, Copy, Clone, Debug, PartialEq)]
+pub struct MotorData {
     pub motor_name: MotorName,
     pub max: u16,
-    pub min: u16
+    pub min: u16,
 }
 
-
-#[derive(Serialize, Deserialize, Copy, Clone, Debug)]
-#[derive(PartialEq)]
-pub struct MotorMessage{
+#[derive(Serialize, Deserialize, Copy, Clone, Debug, PartialEq)]
+pub struct MotorMessage {
     pub data: MotorData,
-    pub command: MotorCommand
+    pub command: MotorCommand,
 }
 
-pub static CLAW_DATA: MotorData = MotorData{
+pub static CLAW_DATA: MotorData = MotorData {
     motor_name: MotorName::Claw,
     max: 310,
-    min: 143
+    min: 143,
 };
 
-pub static HAND_DATA: MotorData = MotorData{
+pub static HAND_DATA: MotorData = MotorData {
     motor_name: MotorName::Hand,
     max: 286,
-    min: 102
+    min: 102,
 };
 
-pub static FOREARM_DATA: MotorData = MotorData{
+pub static FOREARM_DATA: MotorData = MotorData {
     motor_name: MotorName::ForeArm,
     max: 266,
-    min: 168
+    min: 168,
 };
 
-pub static STRONGARM_DATA: MotorData = MotorData{
+pub static STRONGARM_DATA: MotorData = MotorData {
     motor_name: MotorName::StrongArm,
-    max: 500,
-    min: 127
+    max: 380,
+    min: 177,
 };
 
-pub static SHOULDER_DATA: MotorData = MotorData{
+pub static SHOULDER_DATA: MotorData = MotorData {
     motor_name: MotorName::Shoulder,
     max: 492,
-    min: 82
+    min: 82,
 };
 
-pub static STOP_EVERYTHING: MotorData = MotorData{
+pub static STOP_EVERYTHING: MotorData = MotorData {
     motor_name: MotorName::ALL,
     max: 0,
-    min: 0
+    min: 0,
 };
