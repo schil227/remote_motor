@@ -13,7 +13,7 @@
    version="1.1"
    id="svg257"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
-   sodipodi:docname="Forearm.svg">
+   sodipodi:docname="Forearm_s.svg">
   <defs
      id="defs251" />
   <sodipodi:namedview
@@ -25,7 +25,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
      inkscape:cx="558.45115"
-     inkscape:cy="391.59698"
+     inkscape:cy="259.74035"
      inkscape:document-units="mm"
      inkscape:current-layer="layer3"
      inkscape:document-rotation="0"
@@ -43,7 +43,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -51,56 +51,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-23.688689,-84.318172)">
-    <rect
-       style="display:inline;fill:#999999;stroke-width:0.216775"
-       id="rect162-9"
-       width="14.140563"
-       height="44.625038"
-       x="-102.50497"
-       y="240.31973"
-       transform="matrix(1,0,0.52510734,0.85103601,0,0)" />
-    <rect
-       style="display:inline;fill:#999999;stroke-width:0.216775"
-       id="rect162-7-6-0"
-       width="14.140563"
-       height="44.625038"
-       x="-164.0229"
-       y="195.69469"
-       transform="matrix(-1,0,-0.52510734,0.85103601,0,0)"
-       inkscape:transform-center-x="-24.240977"
-       inkscape:transform-center-y="25.453003" />
-    <rect
-       style="display:inline;fill:#999999;stroke-width:0.216775"
-       id="rect162-7"
-       width="14.140563"
-       height="44.625038"
-       x="-238.45796"
-       y="240.31973"
-       transform="matrix(-1,0,-0.52510734,0.85103601,0,0)"
-       inkscape:transform-center-x="-25.383684"
-       inkscape:transform-center-y="68.876759" />
-    <rect
-       style="display:inline;fill:#999999;stroke-width:0.216775"
-       id="rect162-6"
-       width="14.140563"
-       height="44.625038"
-       x="-28.070011"
-       y="195.69469"
-       transform="matrix(1,0,0.52510734,0.85103601,0,0)"
-       inkscape:transform-center-x="-24.854373"
-       inkscape:transform-center-y="28.853924" />
-    <rect
-       style="display:inline;fill:#000000;stroke-width:0.36108699"
-       id="rect162-7-6-0-0"
-       width="21.568062"
-       height="81.178352"
-       x="-150.98648"
-       y="93.910202"
-       transform="matrix(-1,0,-0.44028196,0.89785957,0,0)"
-       inkscape:transform-center-x="-36.973826"
-       inkscape:transform-center-y="48.849621" />
-  </g>
+     transform="translate(-23.688689,-84.318172)" />
   <g
      inkscape:groupmode="layer"
      id="layer3"
@@ -117,13 +68,5 @@
        transform="matrix(1,0,0.50249333,0.86458108,0,0)"
        inkscape:transform-center-x="57.457697"
        inkscape:transform-center-y="64.049083" />
-    <rect
-       style="display:inline;fill:#999999;stroke-width:0.25758299"
-       id="rect224-9"
-       width="41.709656"
-       height="23.140285"
-       x="47.121632"
-       y="143.40294"
-       ry="0" />
   </g>
 </svg>

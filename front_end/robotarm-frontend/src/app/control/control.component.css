@@ -1,0 +1,19 @@
+.mat-slider-horizontal{
+    min-width: 250px;
+}
+/*
+Some stand-in for rotating SVGs that overlap.
+https://stackoverflow.com/questions/43806515/position-svg-elements-over-an-image */
+.img-overlay-wrap {
+    width:250px;
+    height:250px;
+    position: relative;
+    display: inline-block;
+}
+
+.img-overlay-wrap img{
+    display: block;
+    max-width: 100%;
+    width:250px;
+    height:250px;
+}

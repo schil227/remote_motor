@@ -7,13 +7,13 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="168.42548mm"
-   height="64.679237mm"
-   viewBox="0 0 168.42548 64.679237"
+   width="194.96527mm"
+   height="127.14214mm"
+   viewBox="0 0 194.96527 127.14214"
    version="1.1"
    id="svg257"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
-   sodipodi:docname="Shoulder.svg">
+   sodipodi:docname="Strongarm_static.svg">
   <defs
      id="defs251" />
   <sodipodi:namedview
@@ -24,16 +24,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="374.78342"
-     inkscape:cy="334.87442"
+     inkscape:cx="425.99389"
+     inkscape:cy="244.88376"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="false"
      inkscape:window-width="1146"
      inkscape:window-height="969"
-     inkscape:window-x="374"
-     inkscape:window-y="30"
+     inkscape:window-x="598"
+     inkscape:window-y="32"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata254">
@@ -43,7 +43,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -51,56 +51,18 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-23.317698,-142.98918)">
-    <rect
-       style="display:inline;fill:#999999;stroke-width:0.205679"
-       id="rect224-9"
-       width="32.465027"
-       height="18.955555"
-       x="23.317698"
-       y="166.64319"
-       ry="0" />
-    <rect
-       style="fill:#999999;stroke-width:0.26458299"
-       id="rect503"
-       width="10.156241"
-       height="27.79603"
-       x="33.94323"
-       y="142.98918" />
-    <rect
-       style="fill:#999999;stroke-width:0.26458299"
-       id="rect503-9"
-       width="10.156241"
-       height="27.79603"
-       x="33.943233"
-       y="179.87239" />
-  </g>
+     transform="translate(-0.07043888,-89.27576)" />
   <g
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="Layer 2"
-     style="display:inline"
-     transform="translate(-23.317698,-142.98918)">
+     transform="translate(-0.07043888,-89.27576)">
     <rect
-       style="fill:#cccccc;stroke-width:0.183614"
+       style="fill:#cccccc;stroke-width:0.226004"
        id="rect423"
-       width="69.425316"
-       height="18.976139"
-       x="122.31786"
-       y="166.64319" />
-    <rect
-       style="fill:#e6e6e6;stroke-width:0.20325799"
-       id="rect527"
-       width="38.486809"
-       height="18.976137"
-       x="83.831047"
-       y="166.64319" />
-    <rect
-       style="fill:#333333;stroke-width:0.36661699"
-       id="rect531"
-       width="51.315746"
-       height="18.976135"
-       x="32.515301"
-       y="166.64319" />
+       width="98.824959"
+       height="20.196638"
+       x="96.210754"
+       y="166.2216" />
   </g>
 </svg>

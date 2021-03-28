@@ -1,0 +1,8 @@
+<div class="img-overlay-wrap">
+    <img *ngIf='!control.imageSrc.staticFirst' src="{{control.imageSrc.staticFileName}}">
+    <img *ngFor='let svgData of control.imageSrc.movingSvgs'
+        [ngStyle]="{'transform': 'rotate(' + getRotation(svgData) + ')', 'transform-origin': control.imageSrc.xOrigin + ' ' + control.imageSrc.yOrigin}"
+        src="{{svgData.movingFileName}}">
+    <img *ngIf='control.imageSrc.staticFirst' src="{{control.imageSrc.staticFileName}}">
+</div>
+<!-- dynamic-svg works! {{control.currentValue}} -->

@@ -13,7 +13,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
-   sodipodi:docname="Claw.svg">
+   sodipodi:docname="Claw_m1.svg">
   <defs
      id="defs2">
     <inkscape:perspective
@@ -51,7 +51,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -81,39 +81,10 @@
        transform="matrix(-0.94470488,-0.32792178,-0.77514471,0.63178373,0,0)"
        inkscape:transform-center-x="42.59215"
        inkscape:transform-center-y="26.864169" />
-    <rect
-       style="display:inline;fill:#999999;stroke-width:0.28680599"
-       id="rect162-7"
-       width="18.708866"
-       height="59.041771"
-       x="-210.18561"
-       y="274.32275"
-       transform="matrix(-0.94470488,0.32792178,-0.21699822,0.976172,0,0)"
-       inkscape:transform-center-x="-59.069108"
-       inkscape:transform-center-y="74.332445" />
-    <rect
-       style="display:inline;fill:#999999;stroke-width:0.28680599"
-       id="rect162-7-6-5"
-       width="18.708866"
-       height="59.041767"
-       x="-96.621017"
-       y="215.28098"
-       transform="matrix(0.94470488,-0.32792178,0.77514471,0.63178373,0,0)"
-       inkscape:transform-center-x="-42.59215"
-       inkscape:transform-center-y="26.864168" />
   </g>
   <g
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Layer 2"
-     transform="translate(-1.8902085,-144.17821)">
-    <rect
-       style="display:inline;fill:#4d4d4d;stroke-width:0.34079799"
-       id="rect224"
-       width="55.184532"
-       height="30.61607"
-       x="42.228588"
-       y="144.17821"
-       ry="0" />
-  </g>
+     transform="translate(-1.8902085,-144.17821)" />
 </svg>

@@ -75,9 +75,9 @@
             <div class="item">
                 <video id="front-cam" data-dashjs-player controls type="application/dash+xml"></video>
             </div>
-            <div class="item">
+            <!-- <div class="item">
                 <video id="side-cam" data-dashjs-player controls type="application/dash+xml"></video>
-            </div>
+            </div> -->
             <div class="item">
                 <video id="top-cam" data-dashjs-player controls type="application/dash+xml"></video>
             </div>
@@ -119,7 +119,7 @@
     <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
     <script>
         var frontPlayer = initCam("front-cam", "_front");
-        var sidePlayer = initCam("side-cam", "_side");
+        // var sidePlayer = initCam("side-cam", "_side");
         var topPlayer = initCam("top-cam", "_top");
 
         function initCam(element, source) {

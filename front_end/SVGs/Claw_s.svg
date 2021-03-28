@@ -13,7 +13,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
-   sodipodi:docname="Claw.svg">
+   sodipodi:docname="Claw_s.svg">
   <defs
      id="defs2">
     <inkscape:perspective
@@ -35,7 +35,7 @@
      inkscape:cx="344.58221"
      inkscape:cy="481.59801"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer2"
+     inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="false"
      inkscape:window-width="1008"
@@ -51,7 +51,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -60,48 +60,7 @@
      inkscape:groupmode="layer"
      id="layer1"
      style="display:inline"
-     transform="translate(-1.8902085,-144.17821)">
-    <rect
-       style="fill:#999999;stroke-width:0.28680599"
-       id="rect162"
-       width="18.708866"
-       height="59.041767"
-       x="-48.537849"
-       y="220.02103"
-       transform="matrix(0.94470488,0.32792178,0.21699822,0.976172,0,0)"
-       inkscape:transform-center-x="59.069108"
-       inkscape:transform-center-y="74.332446" />
-    <rect
-       style="display:inline;fill:#999999;stroke-width:0.28680599"
-       id="rect162-7-6"
-       width="18.708866"
-       height="59.041767"
-       x="-201.24031"
-       y="160.97926"
-       transform="matrix(-0.94470488,-0.32792178,-0.77514471,0.63178373,0,0)"
-       inkscape:transform-center-x="42.59215"
-       inkscape:transform-center-y="26.864169" />
-    <rect
-       style="display:inline;fill:#999999;stroke-width:0.28680599"
-       id="rect162-7"
-       width="18.708866"
-       height="59.041771"
-       x="-210.18561"
-       y="274.32275"
-       transform="matrix(-0.94470488,0.32792178,-0.21699822,0.976172,0,0)"
-       inkscape:transform-center-x="-59.069108"
-       inkscape:transform-center-y="74.332445" />
-    <rect
-       style="display:inline;fill:#999999;stroke-width:0.28680599"
-       id="rect162-7-6-5"
-       width="18.708866"
-       height="59.041767"
-       x="-96.621017"
-       y="215.28098"
-       transform="matrix(0.94470488,-0.32792178,0.77514471,0.63178373,0,0)"
-       inkscape:transform-center-x="-42.59215"
-       inkscape:transform-center-y="26.864168" />
-  </g>
+     transform="translate(-1.8902085,-144.17821)" />
   <g
      inkscape:groupmode="layer"
      id="layer2"

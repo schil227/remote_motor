@@ -13,7 +13,7 @@
    version="1.1"
    id="svg257"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
-   sodipodi:docname="Hand.svg">
+   sodipodi:docname="Hand_m.svg">
   <defs
      id="defs251" />
   <sodipodi:namedview
@@ -43,7 +43,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -96,16 +96,6 @@
      id="layer3"
      inkscape:label="Layer 2"
      transform="translate(-52.854436,-49.544367)">
-    <rect
-       style="display:inline;fill:#000000;stroke-width:0.437879"
-       id="rect162-7-6-0-0"
-       width="26.154903"
-       height="98.442413"
-       x="-181.37927"
-       y="55.180531"
-       transform="matrix(-1,0,-0.44028195,0.89785957,0,0)"
-       inkscape:transform-center-x="-44.836988"
-       inkscape:transform-center-y="59.238389" />
     <rect
        style="display:inline;fill:#999999;stroke-width:0.312363"
        id="rect224-9"

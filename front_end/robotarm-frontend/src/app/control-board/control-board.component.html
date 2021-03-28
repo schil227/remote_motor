@@ -1,0 +1,7 @@
+<h2>Robot Arm Controls</h2>
+<div class="container">
+    <div class="item" *ngFor="let control of controls">
+        <app-control class="item" [control]='control'></app-control>
+    </div>
+</div>
+<button (click)="engage()">Engage</button>

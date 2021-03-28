@@ -1,0 +1,12 @@
+<h3> {{control.part}} </h3>
+<div class="img-overlay-wrap">
+    <app-dynamic-svg [control]="control"></app-dynamic-svg>
+</div>
+<div>
+    <h5>Previous</h5>
+    <mat-slider disabled="true" ngOnChange min="1" max="100" step="1" [value]='control.previousValue'></mat-slider>
+</div>
+<div>
+    <h5>New</h5>
+    <mat-slider min="1" max="100" step="1" (input)='onChange($event)' [value]='control.currentValue'></mat-slider>
+</div>
