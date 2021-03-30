@@ -5,13 +5,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
-// import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { ControlBoardComponent } from './control-board/control-board.component';
 import { ControlComponent } from './control/control.component';
 import { DynamicSvgComponent } from './dynamic-svg/dynamic-svg.component';
+import { VideoStreamComponent } from './video-stream/video-stream.component';
 
 
 @NgModule({
@@ -25,12 +25,13 @@ import { DynamicSvgComponent } from './dynamic-svg/dynamic-svg.component';
     BrowserAnimationsModule,
     MatSliderModule,
   ],
-  declarations: [										
+  declarations: [											
     AppComponent,
     TopBarComponent,
     ControlBoardComponent,
     ControlComponent,
-    DynamicSvgComponent
+    DynamicSvgComponent,
+      VideoStreamComponent
    ],
   bootstrap: [
     AppComponent

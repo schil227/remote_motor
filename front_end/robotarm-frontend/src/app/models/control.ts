@@ -24,7 +24,7 @@ export class Control {
         return new Control('', 0, 0, new DynamicSvg("", "", "", false, []))
     }
 
-    static InitalControlls() : Control[] {
+    static InitalControls() : Control[] {
         return [
             {
                 part: "Claw",

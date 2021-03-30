@@ -1,7 +1,12 @@
 <h2>Robot Arm Controls</h2>
 <div class="container">
+    <app-video-stream *ngFor='let stream of streams' class="item" [stream]='stream'></app-video-stream>
+</div>
+<div class="container">
     <div class="item" *ngFor="let control of controls">
         <app-control class="item" [control]='control'></app-control>
     </div>
 </div>
-<button (click)="engage()">Engage</button>
+<div class="container">
+    <button (click)="engage()">Engage</button>
+</div>
