@@ -5,19 +5,21 @@ export class Control {
     currentValue: number;
     previousValue: number;
     imageSrc: DynamicSvg;
+    hasChanged: boolean;
 
     constructor
         (
             part: string,
             currentValue: number,
             previousValue: number,
-            imageSrc: DynamicSvg
+            imageSrc: DynamicSvg,
         )
     {
         this.part = part;
         this.currentValue = currentValue;
         this.previousValue = previousValue;
         this.imageSrc = imageSrc;
+        this.hasChanged = false;
     }
 
     static default() : Control{ 
@@ -30,14 +32,15 @@ export class Control {
                 part: "Claw",
                 currentValue: 50,
                 previousValue: 50,
+                hasChanged: false,
                 imageSrc: new DynamicSvg(
                     "../../assets/Claw_s.svg",
                     "50%",
                     "15%",
                     true,
                     [
-                        new MovingSvg("../../assets/Claw_m1.svg", 40, false),
-                        new MovingSvg("../../assets/Claw_m2.svg", 40, true),
+                        new MovingSvg("../../assets/Claw_m1.svg", 35, true),
+                        new MovingSvg("../../assets/Claw_m2.svg", 35, false),
                     ]
                 )
             },
@@ -45,18 +48,20 @@ export class Control {
                 part: "Hand",
                 currentValue: 50,
                 previousValue: 50,
+                hasChanged: false,
                 imageSrc: new DynamicSvg(
                     "../../assets/Hand_s.svg",
                     "50%",
                     "40%",
                     false,
-                    [new MovingSvg("../../assets/Hand_m.svg", 60, true)]
+                    [new MovingSvg("../../assets/Hand_m.svg", 80, true)]
                 )
             },
             {
                 part: "Forearm",
                 currentValue: 50,
                 previousValue: 50,
+                hasChanged: false,
                 imageSrc: new DynamicSvg(
                     "../../assets/Forearm_s.svg",
                     "50%",
@@ -69,6 +74,7 @@ export class Control {
                 part: "Strongarm",
                 currentValue: 50,
                 previousValue: 50,
+                hasChanged: false,
                 imageSrc: new DynamicSvg(
                     "../../assets/Strongarm_s.svg",
                     "55%",
@@ -81,12 +87,13 @@ export class Control {
                 part: "Shoulder",
                 currentValue: 50,
                 previousValue: 50,
+                hasChanged: false,
                 imageSrc: new DynamicSvg(
                     "../../assets/Shoulder_s.svg",
                     "69%",
                     "50%",
                     false,
-                    [new MovingSvg("../../assets/Shoulder_m.svg", 180, true)]
+                    [new MovingSvg("../../assets/Shoulder_m.svg", 180, false)]
                 )
             }
         ];

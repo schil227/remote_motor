@@ -13,7 +13,6 @@ import { ControlComponent } from './control/control.component';
 import { DynamicSvgComponent } from './dynamic-svg/dynamic-svg.component';
 import { VideoStreamComponent } from './video-stream/video-stream.component';
 
-
 @NgModule({
   imports: [
     BrowserModule,
@@ -31,7 +30,7 @@ import { VideoStreamComponent } from './video-stream/video-stream.component';
     ControlBoardComponent,
     ControlComponent,
     DynamicSvgComponent,
-      VideoStreamComponent
+      VideoStreamComponent,
    ],
   bootstrap: [
     AppComponent

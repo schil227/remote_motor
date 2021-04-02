@@ -26,10 +26,10 @@ export class VideoStreamComponent implements AfterViewInit {
         let player = MediaPlayer().create();
 
         if(this.isMobile()){
-            player.initialize(video, "streaming" + this.stream.source + "/manifest_mobile.mpd", true)
+            player.initialize(video, "/streaming" + this.stream.source + "/manifest_mobile.mpd", true)
         }
         else{
-            player.initialize(video, "../../assets/streaming" + this.stream.source + "/manifest.mpd", true)
+            player.initialize(video, "/streaming" + this.stream.source + "/manifest.mpd", true)
         }
 
         player.updateSettings({
