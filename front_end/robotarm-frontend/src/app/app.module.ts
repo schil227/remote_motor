@@ -12,6 +12,7 @@ import { ControlBoardComponent } from './control-board/control-board.component';
 import { ControlComponent } from './control/control.component';
 import { DynamicSvgComponent } from './dynamic-svg/dynamic-svg.component';
 import { VideoStreamComponent } from './video-stream/video-stream.component';
+import { UserHeartBeatComponent } from './user-heart-beat/user-heart-beat.component';
 
 @NgModule({
   imports: [
@@ -24,13 +25,14 @@ import { VideoStreamComponent } from './video-stream/video-stream.component';
     BrowserAnimationsModule,
     MatSliderModule,
   ],
-  declarations: [											
+  declarations: [													
     AppComponent,
     TopBarComponent,
     ControlBoardComponent,
     ControlComponent,
     DynamicSvgComponent,
       VideoStreamComponent,
+      UserHeartBeatComponent
    ],
   bootstrap: [
     AppComponent

@@ -1,0 +1,10 @@
+.current-users{
+    display:flex;
+    align-items: center;
+}
+
+.current-users span {
+    padding-left: 10px;
+    padding-top: 12px;
+    font-size: 18px;   
+}
