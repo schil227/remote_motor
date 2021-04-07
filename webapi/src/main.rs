@@ -33,8 +33,14 @@ fn main() {
 
     let user_service = factory.user_service();   
 
+    let mut command_processor = factory.command_processor();
+
     std::thread::spawn(move || {
         user_service::purge_expired_users(user_service)
+    });
+
+    std::thread::spawn(move || {
+        command_processor.run()
     });
 
     let last_command = CommandData{

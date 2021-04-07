@@ -13,7 +13,7 @@ export class UserHeartBeatComponent implements OnInit {
     constructor(private api : WebApiService) { }
 
     ngOnInit() {
-        this.userCount = 1234567;
+        this.heartbeat();
         interval(5000).subscribe(() => this.heartbeat())
     }
 

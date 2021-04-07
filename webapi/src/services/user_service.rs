@@ -1,4 +1,5 @@
 use crate::models::user_models::UserData;
+use crate::models::command_models::CommandData;
 
 use std::thread;
 use std::sync::{Mutex, Arc};
@@ -34,7 +35,28 @@ impl UserService {
 
         data.keys().len()
     }
+
+    pub fn flush_commands(&mut self) -> Vec<CommandData> {
+        {
+            let mut user_data_map = self.data.lock().expect("Failed to lock user data");
+
+            let mut commands = vec!();
+
+            for (_key, user_data) in user_data_map.iter_mut(){
+                match user_data.flush_command() {
+                    Some(command) => {
+                        commands.push(command);
+                    },
+                    None => {}
+                }
+            }
+
+            commands
+        }
+    }
 }
+
+
 
 pub fn purge_expired_users(user_service: UserService){
     loop{

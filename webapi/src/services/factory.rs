@@ -1,6 +1,7 @@
 use crate::models::user_models::UserData;
 
 use crate::services::command_sender::CommandSender;
+use crate::services::command_processor::CommandProcessor;
 use crate::services::user_service::UserService;
 
 use std::sync::{Mutex, Arc};
@@ -28,5 +29,12 @@ impl Factory {
 
     pub fn user_service(&self) -> UserService{
         UserService::new(Arc::clone(&self.user_data))
+    }
+
+    pub fn command_processor(&self) -> CommandProcessor{
+        CommandProcessor::new(
+            self.command_sender(),
+            self.user_service()
+        )
     }
 }
