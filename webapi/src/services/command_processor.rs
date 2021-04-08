@@ -25,7 +25,7 @@ impl CommandProcessor {
 
     pub fn run(&mut self) {
         loop {
-            thread::sleep(Duration::from_secs(10));
+            thread::sleep(Duration::from_secs(30));
 
             let data = self.user_service.flush_commands();
             let num_commands = data.len();
@@ -34,6 +34,8 @@ impl CommandProcessor {
                 println!("No commands to process.");
                 continue;
             }
+
+            println!("Found {} to process", num_commands);
 
             let mut command_parts : [usize; 5] = [0,0,0,0,0];
 
@@ -46,9 +48,11 @@ impl CommandProcessor {
             }
 
             let command_parts : Vec<usize> = command_parts
-                .into_iter()
+                .iter()
                 .map(|x| x / num_commands)
                 .collect();
+
+            println!("Averaged Commands: {:?}", &command_parts);
 
             let aggregate_messages = MotorMessageCreator::get_messages(CommandData{
                 claw : command_parts[0] as u8,
@@ -58,7 +62,11 @@ impl CommandProcessor {
                 shoulder : command_parts[4] as u8
             });
 
-            self.sender.send_commands(aggregate_messages)
+            println!("Sending commands.");
+
+            self.sender.send_commands(aggregate_messages);
+
+            println!("Commands sent.");
         }
     }
 }

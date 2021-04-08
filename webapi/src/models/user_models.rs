@@ -31,6 +31,11 @@ impl UserData{
             _=> {false}
         }
     }
+
+    pub fn set_command(&mut self, command: CommandData){
+        self.command = Some(command);
+    }
+
     pub fn flush_command(&mut self) -> Option<CommandData>{
         let command = self.command;
         self.command = None;

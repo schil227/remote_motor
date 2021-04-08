@@ -6,7 +6,6 @@ use crate::models::controller_models::ApiResponse;
 use std::{sync::Mutex};
 
 use rocket::State;
-use rocket::http::{Cookie, Cookies};
 use rocket_contrib::json;
 use rocket_contrib::json::Json;
 

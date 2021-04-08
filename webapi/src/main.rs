@@ -74,6 +74,7 @@ fn main() {
     .mount("/", routes![command_controller::command])
     .mount("/", routes![command_controller::get_most_recent_command])
     .mount("/", routes![user_controller::heartbeat])
+    .mount("/", routes![user_controller::set_command])
     .attach(cors)
     .attach(AdHoc::on_request("Request Logger", move |req, _| {
         let ip = match req.client_ip() 

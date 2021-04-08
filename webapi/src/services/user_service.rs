@@ -36,6 +36,23 @@ impl UserService {
         data.keys().len()
     }
 
+    pub fn set_command(&mut self, user_id: Uuid, command: CommandData) {
+        let mut user_data_map = self.data.lock().expect("failed to obtain user data lock.");
+
+        match user_data_map.get_mut(&user_id){
+            Some(user) => {
+                println!("Set command {:?}", command);
+                user.set_command(command);
+            },
+            None => {
+                println!("Set command {:?}, new user.", command);
+                let mut user_data = UserData::new(user_id);
+                user_data.set_command(command);
+                user_data_map.insert(user_id, user_data);
+            }
+        }
+    }
+
     pub fn flush_commands(&mut self) -> Vec<CommandData> {
         {
             let mut user_data_map = self.data.lock().expect("Failed to lock user data");
@@ -55,8 +72,6 @@ impl UserService {
         }
     }
 }
-
-
 
 pub fn purge_expired_users(user_service: UserService){
     loop{
