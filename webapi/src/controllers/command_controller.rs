@@ -14,16 +14,16 @@ pub fn get_most_recent_command(last_command: State<Mutex<CommandData>>) -> ApiRe
     
     let last_command = last_command.lock().expect("[GET /command] failed to lock last command");
 
-    ApiResponse{
-        json: json!({
+    ApiResponse::new(
+        json!({
             "claw": last_command.claw,
             "hand":  last_command.hand,
             "forearm":  last_command.forearm,
             "strongarm":  last_command.strongarm,
             "shoulder":  last_command.shoulder,
         }),
-        status: rocket::http::Status::Ok
-    }
+        rocket::http::Status::Ok,
+    )
 }
 
 #[post("/command", format = "application/json", data= "<command_data>")]
@@ -54,8 +54,8 @@ pub fn command(
         (*last_command).copy_from(&(*command_data));
     }
 
-    ApiResponse{
-        json: json!({"status": "success"}),
-        status: rocket::http::Status::Ok
-    }
+    ApiResponse::new(
+        json!({"status": "success"}),
+        rocket::http::Status::Ok
+    )
 }

@@ -21,10 +21,10 @@ pub fn heartbeat(mut cookies: Cookies, factory: State<Mutex<Factory>>) -> ApiRes
 
     let user_count = user_service.heartbeat_user(Uuid::parse_str(user_id).unwrap());
         
-    ApiResponse{
-        json: json!({"status": "success", "user_count": user_count}),
-        status: rocket::http::Status::Ok
-    }
+    ApiResponse::new(
+        json!({"status": "success", "user_count": user_count}),
+        rocket::http::Status::Ok
+    )
 }
 
 #[post("/set-command", format = "application/json", data= "<command_data>")]
@@ -41,8 +41,8 @@ pub fn set_command(
 
     user_service.set_command(Uuid::parse_str(user_id).unwrap(), *command_data);
 
-    ApiResponse{
-        json: json!({"status": "success", "command": *command_data}),
-        status: rocket::http::Status::Ok
-    }
+    ApiResponse::new(
+        json!({"status": "success", "command": *command_data}),
+        rocket::http::Status::Ok
+    )
 }

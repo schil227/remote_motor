@@ -11,10 +11,12 @@ use crate::controllers::user_controller;
 use crate::controllers::debug_controller;
 use crate::services::motor_message_creator::MotorMessageCreator;
 use crate::services::user_service;
+use crate::services::websocket_service;
 use crate::services::factory::Factory;
 use crate::models::command_models::CommandData;
 
 use std::sync::Mutex;
+use std::thread;
 
 use rocket::http::{Method, Cookie};
 use rocket::fairing::AdHoc;
@@ -68,6 +70,11 @@ fn main() {
     }
     .to_cors().expect("Failed to create CORS.");
 
+    // Startup Websocket server
+    thread::spawn(|| {
+        websocket_service::run();
+    });
+
     rocket::ignite()
     .mount("/", routes![debug_controller::index])
     .mount("/", routes![debug_controller::echo])
@@ -75,6 +82,7 @@ fn main() {
     .mount("/", routes![command_controller::get_most_recent_command])
     .mount("/", routes![user_controller::heartbeat])
     .mount("/", routes![user_controller::set_command])
+    // .mount("/", routes![socket_controller::create_socket])
     .attach(cors)
     .attach(AdHoc::on_request("Request Logger", move |req, _| {
         let ip = match req.client_ip() 

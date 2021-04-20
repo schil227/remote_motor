@@ -28,17 +28,12 @@ export class WebApiService {
 
     getCommands() : Observable<Command> {
         return this.http.get<Command>('http://'+ip+':8000/command');
-        // .pipe(result => 
-        //     {
-        //         return result
-        //     }
-        // );
     }
 
     pushCommands(command : Command ) {
         console.warn("request: " + command);
 
-        this.http.post<any>('http://'+ip+':8000/command', command)
+        this.http.post<any>('http://'+ip+':8000/set-command', command)
         .subscribe(
             data => console.log("Command processed successfully." + data),
             error => console.error("Failed to process command. " + error)

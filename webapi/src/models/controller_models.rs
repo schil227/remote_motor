@@ -1,13 +1,24 @@
+
 use rocket::http::{ContentType, Status};
-use rocket::request::Request;
+use rocket::request::{Request};
 use rocket::response;
 use rocket::response::{Responder, Response};
 use rocket_contrib::json::JsonValue;
 
+
 #[derive(Debug)]
 pub struct ApiResponse {
     pub json: JsonValue,
-    pub status: Status,
+    pub status: Status
+}
+
+impl ApiResponse {
+    pub fn new(json: JsonValue, status: Status) -> ApiResponse{
+        ApiResponse{
+            json,
+            status,
+        }
+    }
 }
 
 impl<'r> Responder<'r> for ApiResponse {

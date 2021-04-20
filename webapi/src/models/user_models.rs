@@ -9,7 +9,7 @@ use chrono::DateTime;
 pub struct UserData{
     _user_id: Uuid,
     time_to_live: DateTime<Utc>,
-    pub command: Option<CommandData>
+    pub command: Option<CommandData>,
 }
 
 impl UserData{
@@ -17,7 +17,7 @@ impl UserData{
         UserData{
             _user_id,
             time_to_live: Utc::now(),
-            command: None
+            command: None,
         }
     }
 
@@ -42,4 +42,8 @@ impl UserData{
 
         command
     }
+
+    // pub fn set_socket(&mut self, socket: WebSocketRunner){
+    //     self.socket = Some(socket);
+    // }
 }

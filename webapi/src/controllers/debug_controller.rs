@@ -11,8 +11,8 @@ pub fn index() -> &'static str {
 pub fn echo(text: String) -> ApiResponse{
     println!("echo: {}", text);
 
-    ApiResponse{
-        json: json!({"status": "success", "text": text}),
-        status: rocket::http::Status::Ok
-    }
+    ApiResponse::new(
+        json!({"status": "success", "text": text}),
+        rocket::http::Status::Ok
+    )
 }

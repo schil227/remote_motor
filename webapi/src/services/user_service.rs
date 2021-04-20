@@ -71,6 +71,25 @@ impl UserService {
             commands
         }
     }
+
+    // pub fn set_socket(&mut self, user_id: Uuid, tcp_connection: IpAddr) {
+    //     let mut user_data_map = self.data.lock().expect("Failed to lock user data");
+        
+    //     match user_data_map.get_mut(&user_id){
+    //         Some(user) => {
+    //             println!("Found user for new socket.");
+    //             let socket = WebSocketRunner::new(tcp_connection);
+    //             user.set_socket(socket);
+    //         },
+    //         None => {
+    //             println!("New user for new socket.");
+    //             let mut user_data = UserData::new(user_id);
+    //             let socket = WebSocketRunner::new(tcp_connection);
+    //             user_data.set_socket(socket);
+    //             user_data_map.insert(user_id, user_data);
+    //         }
+    //     }
+    // }
 }
 
 pub fn purge_expired_users(user_service: UserService){
