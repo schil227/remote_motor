@@ -1,11 +1,14 @@
 use crate::models::command_models::CommandData;
 
 use std::thread;
+use std::sync::{Arc};
 use std::time::Duration;
 
 use crate::services::command_sender::CommandSender;
 use crate::services::motor_message_creator::MotorMessageCreator;
 use crate::services::user_service::UserService;
+use crate::services::websocket_service;
+use crate::services::websocket_service::{WebSocketServer, ServerState};
 
 pub struct CommandProcessor {
     sender : CommandSender,
@@ -24,14 +27,34 @@ impl CommandProcessor {
     }
 
     pub fn run(&mut self) {
+        let mut websocket_server = WebSocketServer::new();
+
+        let state = Arc::clone(&websocket_server.server_state);
+
+        // Startup Websocket server
+        thread::spawn(move || {
+            websocket_service::run(state);
+        });
+
         loop {
-            thread::sleep(Duration::from_secs(30));
+            thread::sleep(Duration::from_secs(10));
+
+            println!("Warning: Lock imminent");
+            websocket_server.set_server_state(ServerState::Warning);
+
+            thread::sleep(Duration::from_secs(5));
+
+            println!("Warning: Locked");
+            websocket_server.set_server_state(ServerState::Locked);
 
             let data = self.user_service.flush_commands();
             let num_commands = data.len();
             
             if num_commands == 0 {
                 println!("No commands to process.");
+
+                websocket_server.set_server_state(ServerState::AcceptingInput);
+
                 continue;
             }
 
@@ -65,6 +88,8 @@ impl CommandProcessor {
             println!("Sending commands.");
 
             self.sender.send_commands(aggregate_messages);
+
+            websocket_server.set_server_state(ServerState::AcceptingInput);
 
             println!("Commands sent.");
         }

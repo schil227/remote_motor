@@ -11,12 +11,10 @@ use crate::controllers::user_controller;
 use crate::controllers::debug_controller;
 use crate::services::motor_message_creator::MotorMessageCreator;
 use crate::services::user_service;
-use crate::services::websocket_service;
 use crate::services::factory::Factory;
 use crate::models::command_models::CommandData;
 
 use std::sync::Mutex;
-use std::thread;
 
 use rocket::http::{Method, Cookie};
 use rocket::fairing::AdHoc;
@@ -69,11 +67,6 @@ fn main() {
         ..Default::default()
     }
     .to_cors().expect("Failed to create CORS.");
-
-    // Startup Websocket server
-    thread::spawn(|| {
-        websocket_service::run();
-    });
 
     rocket::ignite()
     .mount("/", routes![debug_controller::index])
