@@ -77,17 +77,24 @@ impl CommandProcessor {
 
             println!("Averaged Commands: {:?}", &command_parts);
 
-            let aggregate_messages = MotorMessageCreator::get_messages(CommandData{
+            let average_command_data = CommandData{
                 claw : command_parts[0] as u8,
                 hand : command_parts[1] as u8,
                 forearm : command_parts[2] as u8,
                 strongarm : command_parts[3] as u8,
                 shoulder : command_parts[4] as u8
-            });
+            };
+
+            websocket_server.set_command_data(&average_command_data);
+
+            let aggregate_messages = MotorMessageCreator::get_messages(average_command_data);
 
             println!("Sending commands.");
 
             self.sender.send_commands(aggregate_messages);
+
+            // wait a second so process accounts for robot moving
+            thread::sleep(Duration::from_secs(1));
 
             websocket_server.set_server_state(ServerState::AcceptingInput);
 

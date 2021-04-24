@@ -10,6 +10,16 @@ pub struct CommandData{
 }
 
 impl CommandData {
+    pub fn new() -> CommandData{
+        CommandData{
+            claw: 0,
+            hand: 0,
+            forearm: 0,
+            strongarm: 0,
+            shoulder: 0
+        }
+    }
+
     pub fn copy_from(&mut self, other : &CommandData) {
         self.claw = match other.claw { 0 => self.claw, _ => other.claw};
         self.hand = match other.hand { 0 => self.hand, _ => other.hand};

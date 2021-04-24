@@ -6,12 +6,22 @@ use std::sync::Arc;
 use std::time::Duration;
 
 use ws::{ Handler, Sender, Handshake, Result, Message};
+use serde_json;
+use serde::{Serialize,Deserialize};
 
-#[derive(Debug, Copy, Clone, Eq, PartialEq)]
+use crate::models::command_models::CommandData;
+
+#[derive(Debug, Copy, Clone, Eq, PartialEq, Serialize, Deserialize)]
 pub enum ServerState{
     AcceptingInput,
     Warning,
     Locked
+}
+
+#[derive(Debug, Copy, Clone, Serialize, Deserialize)]
+pub struct WebSocketMessage {
+    state: ServerState,
+    command: CommandData
 }
 
 pub struct WebSocketHandler {
@@ -29,30 +39,38 @@ impl Handler for WebSocketHandler {
 }
 
 pub struct WebSocketServer{
-    pub server_state: Arc<RwLock<ServerState>>
+    pub server_state: Arc<RwLock<WebSocketMessage>>
 }
 
 impl<'a> WebSocketServer{
     pub fn new() -> WebSocketServer{
         WebSocketServer{
-            server_state: Arc::new(RwLock::new(ServerState::AcceptingInput))
+            server_state: Arc::new(RwLock::new(WebSocketMessage{
+                state: ServerState::AcceptingInput,
+                command: CommandData::new()
+            }))
         }
     }
 
     pub fn set_server_state(&mut self, state: ServerState){
-        let mut server_state = self.server_state.write().unwrap();
-        *server_state = state;
+        let mut message = self.server_state.write().unwrap();
+        message.state = state;
+    }
+
+    pub fn set_command_data(&mut self, data: &CommandData){
+        let mut message = self.server_state.write().unwrap();
+        message.command.copy_from(data);
     }
 }
 
-pub fn run(state : Arc<RwLock<ServerState>>){
+pub fn run(websocket_message : Arc<RwLock<WebSocketMessage>>){
     ws::listen("192.168.1.248:8001", |out| {
         let out_copy = out.clone();
         
-        let state_copy = Arc::clone(&state);
+        let websocket_message_copy = Arc::clone(&websocket_message);
 
         thread::spawn(move || {
-            state_change_listener(state_copy, out_copy);
+            state_change_listener(websocket_message_copy, out_copy);
         });
 
         WebSocketHandler{
@@ -62,28 +80,34 @@ pub fn run(state : Arc<RwLock<ServerState>>){
     .expect("Failed to create websocket server on ::8001")
 }
 
-fn state_change_listener(state: Arc<RwLock<ServerState>>, out : Sender) {
-    let mut last_state = *(state.read().unwrap());
+fn state_change_listener(ws_msg: Arc<RwLock<WebSocketMessage>>, out : Sender) {
+    let message = *(ws_msg.read().unwrap());
+
+    let mut last_state = message.state;
 
     println!("Running state change listener.");
 
     loop {
-        println!("Reading current state.");
+        let message = *(ws_msg.read().unwrap());
 
-        let current_state = *(state.read().unwrap());
+        let current_state = message.state;
 
-        println!("States: {:?}, {:?}", last_state, current_state);
+        // println!("States: {:?}, {:?}", last_state, current_state);
 
         if last_state != current_state {
             println!("New state! {:?}", current_state);
 
             last_state = current_state;
 
-            let msg = format!("{{\"state\": {:?}}}", last_state);
+            // let msg = format!("{{state: \"{:?}\", {:?} }}", last_state, message.command);
+
+            let msg_json = serde_json::to_string(&message).unwrap();
+
+            let msg = format!("{}", msg_json);
 
             out.send(msg).expect("Failed to send message.");
         }
 
-        thread::sleep(Duration::from_secs(1));
+        thread::sleep(Duration::from_millis(500));
     }
 }
