@@ -5,8 +5,8 @@ import {Observable} from 'rxjs';
 import { Command } from "../models/command"
 import {HeartbeatResponse} from "../models/heartbeat-response"
 
-// const ip : string = "96.42.97.100";
-const ip : string = "192.168.1.248";
+const ip : string = "96.42.97.100";
+// const ip : string = "192.168.1.248";
 
 @Injectable({
     providedIn: 'root'
@@ -35,7 +35,7 @@ export class WebApiService {
 
         this.http.post<any>('http://'+ip+':8000/set-command', command)
         .subscribe(
-            data => console.log("Command processed successfully." + data),
+            data => console.log("Command processed successfully." + JSON.stringify(data)),
             error => console.error("Failed to process command. " + error)
         );
     }

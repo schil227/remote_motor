@@ -4,7 +4,7 @@ import { VideoStream } from '../models/video-stream'
 import { Command } from '../models/command'
 import {catchError, map, tap} from 'rxjs/operators'
 import { WebApiService} from '../services/webapi-service'
-import { Foo, WebsocketService} from '../services/websocket-service'
+import { WebsocketMessage, WebsocketService} from '../services/websocket-service'
 import { Observer } from 'rxjs'
 
 @Component({
@@ -15,10 +15,13 @@ import { Observer } from 'rxjs'
 export class ControlBoardComponent implements OnInit {
     controls : Control[]  = Control.InitalControls();
     streams : VideoStream[] = VideoStream.VideoStreams();
+    buttonDisabled : boolean = false;
 
-    observer : Observer<Foo> = {
+    observer : Observer<WebsocketMessage> = {
         next(v){ 
             console.log('Message received from socket: ' + v)
+
+
         },
         error(e){ 
             console.error('Error received from socket: ' + e)
@@ -48,7 +51,30 @@ export class ControlBoardComponent implements OnInit {
             }
         );
 
-        this.socket.getSubject().subscribe(this.observer)
+        this.socket.getSubject().subscribe(msg => {
+            console.log('Message Received: ' + JSON.stringify(msg));
+
+            if(msg.state == "AcceptingInput"){
+                const command : any = msg.command;
+
+                for(let control of this.controls){
+                    const value : number = command[control.part.toLowerCase()];
+
+                    if(value == 0){
+                        continue;
+                    }
+
+                    control.previousValue = value;
+                    control.currentValue = value;
+                }
+            }
+            else if(msg.state == "Warning"){
+
+            }
+            else if(msg.state == "Locked"){
+                // this.buttonDisabled = true;
+            }
+        });
     }
 
     issueCommand(){

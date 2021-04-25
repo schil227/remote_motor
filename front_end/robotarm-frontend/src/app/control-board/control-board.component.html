@@ -8,5 +8,5 @@
     </div>
 </div>
 <div class="container">
-    <button (click)="issueCommand()">Engage</button>
+    <button [disabled]="buttonDisabled" (click)="issueCommand()">Engage</button>
 </div>
