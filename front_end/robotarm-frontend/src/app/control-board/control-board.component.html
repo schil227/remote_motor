@@ -8,5 +8,7 @@
     </div>
 </div>
 <div class="container">
-    <button [disabled]="buttonDisabled" (click)="issueCommand()">Engage</button>
+    <i *ngIf='aboutToFire()' class="material-icons" style="font-size: 50px;">warning</i>
+    <i *ngIf='locked()' class="material-icons" style="font-size: 50px;">lock</i>
+    <button [disabled]="locked()" (click)="issueCommand()">Engage</button>
 </div>

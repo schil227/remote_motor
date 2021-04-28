@@ -5,8 +5,7 @@ import {Observable} from 'rxjs';
 import { Command } from "../models/command"
 import {HeartbeatResponse} from "../models/heartbeat-response"
 
-const ip : string = "96.42.97.100";
-// const ip : string = "192.168.1.248";
+import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -18,7 +17,7 @@ export class WebApiService {
     heartbeat() : Observable<HeartbeatResponse> {
         let headers = new HttpHeaders().append('Content-Type', 'application/json');
 
-        let request = this.http.post<HeartbeatResponse>('http://'+ip+':8000/heartbeat', {}, {
+        let request = this.http.post<HeartbeatResponse>('http://' + environment.serverIp + ':8000/heartbeat', {}, {
             headers : headers,
             withCredentials : true,
         })
@@ -27,13 +26,13 @@ export class WebApiService {
     }
 
     getCommands() : Observable<Command> {
-        return this.http.get<Command>('http://'+ip+':8000/command');
+        return this.http.get<Command>('http://' + environment.serverIp + ':8000/command');
     }
 
     pushCommands(command : Command ) {
         console.warn("request: " + command);
 
-        this.http.post<any>('http://'+ip+':8000/set-command', command)
+        this.http.post<any>('http://' + environment.serverIp + ':8000/set-command', command)
         .subscribe(
             data => console.log("Command processed successfully." + JSON.stringify(data)),
             error => console.error("Failed to process command. " + error)

@@ -4,7 +4,8 @@ import { VideoStream } from '../models/video-stream'
 import { Command } from '../models/command'
 import {catchError, map, tap} from 'rxjs/operators'
 import { WebApiService} from '../services/webapi-service'
-import { WebsocketMessage, WebsocketService} from '../services/websocket-service'
+import { WebsocketMessage, ServerState} from '../models/websocket'
+import { WebsocketService} from '../services/websocket-service'
 import { Observer } from 'rxjs'
 
 @Component({
@@ -16,12 +17,11 @@ export class ControlBoardComponent implements OnInit {
     controls : Control[]  = Control.InitalControls();
     streams : VideoStream[] = VideoStream.VideoStreams();
     buttonDisabled : boolean = false;
+    state: ServerState = ServerState.AcceptingInput;
 
     observer : Observer<WebsocketMessage> = {
         next(v){ 
             console.log('Message received from socket: ' + v)
-
-
         },
         error(e){ 
             console.error('Error received from socket: ' + e)
@@ -52,9 +52,13 @@ export class ControlBoardComponent implements OnInit {
         );
 
         this.socket.getSubject().subscribe(msg => {
+            this.socket.sendPing();
+
             console.log('Message Received: ' + JSON.stringify(msg));
 
-            if(msg.state == "AcceptingInput"){
+            this.state = msg.state;
+
+            if(msg.state == ServerState.AcceptingInput){
                 const command : any = msg.command;
 
                 for(let control of this.controls){
@@ -68,13 +72,15 @@ export class ControlBoardComponent implements OnInit {
                     control.currentValue = value;
                 }
             }
-            else if(msg.state == "Warning"){
-
-            }
-            else if(msg.state == "Locked"){
-                // this.buttonDisabled = true;
-            }
         });
+    }
+
+    aboutToFire() : boolean {
+        return this.state == ServerState.Warning;
+    }
+
+    locked(): boolean {
+        return this.state == ServerState.Locked;
     }
 
     issueCommand(){
