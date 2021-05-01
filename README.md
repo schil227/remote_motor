@@ -20,7 +20,7 @@ The WebApi is a web-interfacing API that is consumed by the *front_end* UI, and 
 # Setup
 
 ## webapi
-The WebApi is run on a server that handles communication with the Pi, all the incoming HTTP requests, and the video feed from the webcams. (Currently) in front_end/robotarm-frontend, there is a deploy.sh script that handles all the work of setting up the server and the front end. It sets up the video capture (using `ffmpeg` commands) and writes the video data to the shared memory directory `/dev/shm` (which is actually accessed from the home directory, due to permissions)
+The WebApi is run on a server that handles communication with the Pi, all the incoming HTTP requests, and the video feed from the webcams. (Currently) in front_end/robotarm-frontend, there is a deploy.sh script that handles all the work of setting up the server and the front end (run.sh is similar to deploy.sh, except it does not build/deploy the frontend code). It sets up the video capture (using `ffmpeg` commands) and writes the video data to the shared memory directory `/dev/shm` (which is actually accessed from the home directory, due to permissions)
 
 ### Video Streaming
 For each camera, two streams are created with different encoding (one for mobile/firefox, one for everything else). Here's an example of an ffmpeg command:
@@ -43,6 +43,18 @@ This is how the video data will be "chopped up" - in this case, it will be made 
 *  Install nginx to host the frontend.
 *  Verify that the Domain Hosting Service points to the public IP address of the router.
 *  Portforward 80 (frontend), 8000 (WebApi HTTP), and 8001 (WebApi Websocket) on the router to the server's local IP (same ports).
+
+## front_end
+The Frontend project (robotarm_frontend) is setup using the same deploy.sh script mentioned in the WebApi section. Specifically, the `sudo ng build --prod` line builds the frontend project (using the prod environment.ts script, thus configuring the target IP addresses), and further along the output of that build is copied to the /var/www/html directory. 
+
+### Development Caveats
+While there isn't much special configuration for this project, developing locally can be a bit of a hassle in terms of connecting to other resources.
+*  The site cannot be accessed by typing robotarm.io in the browser when on the same network, as this will resolve to the router.
+*  Connecting to the WebApi requires updating the environment.ts config to point to the local instance (e.g. 192.168.1.248)
+*  When developing locally using localhost:4200, secure cookies are not stored in the browser, so there is never an associated user-id that sticks to the session. This can throw some things off (e.g. live usercount, command data can get thrown out, etc.) 
+*  The video stream  is unavailable for localhost because the data is located in the /var/www/html... directory. The location is not accessable to the angular build location (under ./front_end/robotarm-frontend/...)
+
+As for actually starting the localhost dev instance, navigate to /front_end/robotarm-frontend/ and run `sudo ng serve`
 
 ## server
 ### Connection
