@@ -7,3 +7,4 @@ TODOs:
 - (5/1/21) Stress Test (ask Josh?)
 - (5/1/21) Enable SSL
 - (5/1/21) Make it so if the server hasn't been "locked", it doesn't change the users input on the frontend (e.g. AcceptingInput->Warning->AcceptingInput... shouldn't change users current input.)
+- (5/2/21) Write out metrics for who joins and for how long, based on user id.
