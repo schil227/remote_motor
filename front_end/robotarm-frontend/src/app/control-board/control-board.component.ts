@@ -17,7 +17,7 @@ export class ControlBoardComponent implements OnInit {
     controls : Control[]  = Control.InitalControls();
     streams : VideoStream[] = VideoStream.VideoStreams();
     buttonDisabled : boolean = false;
-    state: ServerState = ServerState.AcceptingInput;
+    state: ServerState = ServerState.Locked;
 
     observer : Observer<WebsocketMessage> = {
         next(v){ 
@@ -56,9 +56,10 @@ export class ControlBoardComponent implements OnInit {
 
             console.log('Message Received: ' + JSON.stringify(msg));
 
+            const oldState = this.state;
             this.state = msg.state;
 
-            if(msg.state == ServerState.AcceptingInput){
+            if(msg.state == ServerState.AcceptingInput && oldState == ServerState.Locked){
                 const command : any = msg.command;
 
                 for(let control of this.controls){

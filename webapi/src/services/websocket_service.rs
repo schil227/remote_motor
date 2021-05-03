@@ -98,6 +98,15 @@ pub fn run(websocket_message : Arc<RwLock<WebSocketMessage>>){
 fn state_change_listener(ws_msg: Arc<RwLock<WebSocketMessage>>, last_ping: Arc<RwLock<DateTime<Utc>>>, out : Sender) {
     let message = *(ws_msg.read().unwrap());
 
+    // send initial message
+    match send_state_message(&message, &out) {
+        Err(e) => {
+            println!("failed to send websocket message. {:?}", e);
+            return;
+        },
+        _ => {}
+    }
+
     let mut last_state = message.state;
 
     println!("Running state change listener.");
@@ -110,13 +119,13 @@ fn state_change_listener(ws_msg: Arc<RwLock<WebSocketMessage>>, last_ping: Arc<R
         if last_state != current_state {
             last_state = current_state;
 
-            let msg_json = serde_json::to_string(&message).unwrap();
+            // let msg_json = serde_json::to_string(&message).unwrap();
 
-            let msg = format!("{}", msg_json);
+            // let msg = format!("{}", msg_json);
 
-            println!("Outgoing Messgae: \r\n {}", msg);
+            // println!("Outgoing Messgae: \r\n {}", msg);
 
-            match out.send(msg){
+            match send_state_message(&message, &out){
                 Err(e) => {
                     println!("failed to send websocket message. {:?}", e);
                     break;
@@ -126,6 +135,16 @@ fn state_change_listener(ws_msg: Arc<RwLock<WebSocketMessage>>, last_ping: Arc<R
         }
 
         thread::sleep(Duration::from_millis(500));
+    }
+
+    fn send_state_message(message: &WebSocketMessage, out : &Sender) -> Result<()>{
+        let msg_json = serde_json::to_string(&message).unwrap();
+
+        let msg = format!("{}", msg_json);
+
+        println!("Outgoing Messgae: \r\n {}", msg);
+
+        out.send(msg)
     }
 
     println!("Closing connection.");
