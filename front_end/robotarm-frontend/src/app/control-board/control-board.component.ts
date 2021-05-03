@@ -89,4 +89,15 @@ export class ControlBoardComponent implements OnInit {
 
         this.api.pushCommands(command);
     }
+
+    getButtonText(){
+        switch (this.state){
+            case ServerState.AcceptingInput:
+                return "";
+            case ServerState.Warning:
+                return "Robot arm is about to move."
+            case ServerState.Locked:
+                return "Robot arm moving.";
+        }
+    }
 }
