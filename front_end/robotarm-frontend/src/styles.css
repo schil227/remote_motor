@@ -109,7 +109,11 @@ label {
 app-top-bar {
   width: 100%;
   height: 68px;
-  background-color: #1976d2;
+  background: linear-gradient(
+      160deg,
+       rgb(0, 100, 187) 10%, 
+       rgb(0, 110, 255) 34%,
+       rgba(0,212,255,1) 85%);
   padding: 16px;
   display: flex;
   flex-direction: row;

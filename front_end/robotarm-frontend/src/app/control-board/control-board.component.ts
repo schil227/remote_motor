@@ -90,14 +90,18 @@ export class ControlBoardComponent implements OnInit {
         this.api.pushCommands(command);
     }
 
+    stateHasMessage(){
+        return this.state == ServerState.AcceptingInput;
+    }
+
     getButtonText(){
         switch (this.state){
             case ServerState.AcceptingInput:
-                return "";
+                return " "; // loadbearing whitespace
             case ServerState.Warning:
-                return "Robot arm is about to move."
+                return "Robot arm is about to move"
             case ServerState.Locked:
-                return "Robot arm moving.";
+                return "Robot arm moving";
         }
     }
 }

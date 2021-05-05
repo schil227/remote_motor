@@ -3,12 +3,49 @@
     flex-wrap: wrap;
     justify-content: center
 }
+
 .item {
     margin: 20px;
     border-radius: 5px;
     padding: 20px;
 }
 
+.container-label{
+   background: linear-gradient(160deg, rgb(0, 100, 187) 10%, rgba(0,212,255,1) 34%,rgba(255,255,255,1) 45%);
+   font-size: 20px;
+    color: rgb(255, 255, 255);
+    padding: 5px;
+}
+
+.server-status-message{
+    font-size: 16px;
+    font-weight: 500;
+    height: 25px;
+    line-height: 23px;
+}
+
 button {
     margin: 0px 0px 20px
 }
+
+.loading:after {
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+    -webkit-animation: ellipsis steps(4,end) 600ms infinite;      
+    animation: ellipsis steps(4,end) 600ms infinite;
+    content: "\2026"; /* ascii code for the ellipsis character */
+    width: 0px;
+  }
+  
+  @keyframes ellipsis {
+    to {
+      width: 20px;    
+    }
+  }
+  
+  @-webkit-keyframes ellipsis {
+    to {
+      width: 20px;    
+    }
+  }
