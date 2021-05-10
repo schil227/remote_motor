@@ -20,6 +20,10 @@ export class VideoStream {
             {
                 name: "Top",
                 source: "_top"
+            },
+            {
+                name: "Side",
+                source: "_side"
             }
         ]
     }

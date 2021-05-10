@@ -2,8 +2,8 @@
 <div>
     <div class="container-label">Robot Stream</div>
 </div>
-<div class="container">
-    <app-video-stream *ngFor='let stream of streams' class="item" [stream]='stream'></app-video-stream>
+<div class="container stream-container">
+    <app-video-stream *ngFor='let stream of streams' class="stream-item item" [stream]='stream'></app-video-stream>
 </div>
 <div>
     <div class="container-label">Controls</div>

@@ -10,6 +10,29 @@
     padding: 20px;
 }
 
+.stream-container{
+    width: 100%;
+}
+
+.stream-item{
+    margin: 0px;
+    padding: 10px;
+    width: 30%;    
+}
+/* figure out when the streams break over 2 lines, then change width to 50%, then scale down to 100% */
+
+@media (max-width: 1250px){
+    .stream-item{
+        width: 45%;    
+    }
+}
+
+@media (max-width: 850px){
+    .stream-item{
+        width: 100%;    
+    }
+}
+
 .container-label{
    background: linear-gradient(160deg, rgb(0, 100, 187) 10%, rgba(0,212,255,1) 34%,rgba(255,255,255,1) 45%);
    font-size: 20px;

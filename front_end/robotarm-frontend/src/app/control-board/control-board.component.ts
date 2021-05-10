@@ -59,7 +59,7 @@ export class ControlBoardComponent implements OnInit {
             const oldState = this.state;
             this.state = msg.state;
 
-            if(msg.state == ServerState.AcceptingInput && oldState == ServerState.Locked){
+            if(oldState == ServerState.Locked){
                 const command : any = msg.command;
 
                 for(let control of this.controls){
