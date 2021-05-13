@@ -25,13 +25,13 @@ impl CommandSender{
                 stream
             },
             Err(_) => {
-                println!("Failed establishing TCP connection to the server. Ensure the server is listening.");
+                log::error!("Failed establishing TCP connection to the server. Ensure the server is listening.");
                 return;
             }
         };
 
         stream.set_read_timeout(Some(Duration::from_secs(3))).expect("Could not set read duration for TcpStream.");
-        println!("connection established!");
+        log::info!("connection established!");
 
         let num_commands : u8 = command_messages.len() as u8;
         
@@ -39,7 +39,7 @@ impl CommandSender{
         stream.write(&num_commands.to_be_bytes()).expect("Failed ending bytes");
        
         if !receive_ack(&stream) {
-            println!("Did not get ACK response from server. Canceling request.");
+            log::error!("Did not get ACK response from server. Canceling request.");
             return;
         }
 
@@ -48,12 +48,12 @@ impl CommandSender{
     
             bincode::serialize_into(&mut buf[..], &message).expect("Failed to serialize direction!");
         
-            println!("Sending command: len: {}, {:?}", &buf.len(), &buf);
+            log::info!("Sending command: len: {}, {:?}", &buf.len(), &buf);
         
             stream.write(&buf).expect("Failed to send command!");
 
             if !receive_ack(&stream) {
-                println!("Did not get ACK response from server. Some commands sent. Canceling request.");
+                log::error!("Did not get ACK response from server - (some) commands not sent. Canceling request.");
                 return;
             }
         }

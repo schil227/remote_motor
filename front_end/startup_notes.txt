@@ -38,3 +38,22 @@ ffmpeg -threads 2  -i /dev/video0 -f raw_video -b:v 300k -framerate 30 -c:v libx
 ffmpeg -threads 2 -i /dev/video4 -f raw_video -b:v 300k -framerate 30 -c:v libx264 -g 15 -keyint_min 120 -preset veryfast -f dash -use_timeline 1 -use_template 1 -streaming 1 -min_seg_duration 250000 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 /dev/shm/streaming_top/manifest.mpd -c:v vp8 -g 15 -keyint_min 120 -preset veryfast -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 /dev/shm/streaming_top/manifest_mobile.mpd
 
 ffmpeg -threads 2 -i /dev/video0 -f raw_video -b:v 300k -framerate 30 -c:v libx264 -g 15 -keyint_min 120 -preset veryfast -f dash -use_timeline 1 -use_template 1 -streaming 1 -min_seg_duration 250000 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 /dev/shm/streaming_side/manifest.mpd -c:v vp8 -g 15 -keyint_min 120 -preset veryfast -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 /dev/shm/streaming_side/manifest_mobile.mpd
+
+
+ // Decent ~5sec latency. Added the `-preset ultrafast` and `-tune zerolatency` flags
+ ffmpeg -threads 4 -i /dev/video4 -vf "scale=960:-1,setdar=16/9, crop=640:480:200:0" -b:v 300k -framerate 24 -preset ultrafast -c:v libx264 -g 12 -tune zerolatency -keyint_min 40  -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 ~/stmp/streaming_top/manifest.mpd
+
+
+// Dropped some unnecessairy values, ~4.5 sec latency
+ffmpeg -threads 2 -i /dev/video4 -vf "scale=960:-1,setdar=16/9, crop=640:480:200:0" -preset ultrafast -c:v libx264 -g 10 -tune zerolatency -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 ~/stmp/streaming_top/manifest.mpd 
+
+// (just) mobile
+ffmpeg -threads 2 -i /dev/video4 -vf "scale=960:-1,setdar=16/9, crop=640:480:200:0" -preset ultrafast -c:v vp8 -g 10 -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 ~/stmp/streaming_top/manifest_mobile.mpd
+
+// both:
+ffmpeg -threads 2 -i /dev/video4 -vf "scale=960:-1,setdar=16/9, crop=640:480:200:0" -preset ultrafast -c:v libx264 -g 10 -tune zerolatency -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 ~/stmp/streaming_top/manifest.mpd -vf "scale=960:-1,setdar=16/9, crop=640:480:200:0" -preset ultrafast -c:v vp8 -g 10 -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 ~/stmp/streaming_top/manifest_mobile.mpd
+
+
+
+// Frontcam:
+ffmpeg -threads 2 -video_size 640x480 -i /dev/video2 -f video4linux2 -preset ultrafast -c:v libx264 -g 10 -tune zerolatency -f dash -use_timeline 1 -use_template 1 -streaming 1 -min_seg_duration 250000 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 ~/stmp/streaming_front/manifest.mpd -c:v vp8 -g 10 -f dash -use_timeline 1 -use_template 1 -streaming 1 -min_seg_duration 250000 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 ~/stmp/streaming_front/manifest_mobile.mpd

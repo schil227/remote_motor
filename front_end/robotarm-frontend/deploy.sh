@@ -38,4 +38,4 @@ tmux new-session -d -s topcam 'exec ffmpeg -threads 2 -i /dev/video4 -vf "scale=
 tmux new-session -d -s sidecam 'exec ffmpeg -threads 2 -i /dev/video0 -vf "scale=960:-1,setdar=16/9, crop=640:480:200:0" -preset ultrafast -c:v libx264 -g 10 -tune zerolatency -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 ~/stmp/streaming_side/manifest.mpd -vf "scale=960:-1,setdar=16/9, crop=640:480:200:0" -preset ultrafast -c:v vp8 -g 10 -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 ~/stmp/streaming_side/manifest_mobile.mpd'
 
 cd /home/adrian/remote_motor_repo/remote_motor/webapi/
-tmux new-session -d -s webapi 'exec cargo run'
+tmux new-session -d -s webapi 'exec ./run.sh'

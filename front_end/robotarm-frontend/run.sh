@@ -35,4 +35,4 @@ tmux new-session -d -s frontcam 'exec ffmpeg -threads 2 -video_size 640x480 -i /
 tmux new-session -d -s topcam 'exec ffmpeg -threads 2 -i /dev/video4 -f raw_video -b:v 300k -framerate 30 -c:v libx264 -g 15 -keyint_min 120 -preset veryfast -f dash -use_timeline 1 -use_template 1 -streaming 1 -min_seg_duration 250000 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 ~/stmp/streaming_top/manifest.mpd -c:v vp8 -g 15 -keyint_min 120 -preset veryfast -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 ~/stmp/streaming_top/manifest_mobile.mpd'
 
 cd /home/adrian/remote_motor_repo/remote_motor/webapi/
-tmux new-session -d -s webapi 'exec cargo run'
+tmux new-session -d -s webapi 'exec ./run.sh'

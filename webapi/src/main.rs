@@ -22,12 +22,25 @@ use rocket_cors::{AllowedHeaders, AllowedOrigins};
 
 use chrono::Local;
 use uuid::Uuid;
+use flexi_logger::{Logger, LogTarget, Criterion, Age, Naming, Cleanup};
 
 // Always use a limit to prevent DoS attacks.
 const _LIMIT: u64 = 256;
 
 fn main() {
     let factory = Factory::new();
+
+    Logger::with_str("info")
+        .log_target(LogTarget::File)
+        .buffer_and_flush()
+        .append()
+        .rotate(
+            Criterion::Age(Age::Day),
+            Naming::Timestamps,
+            Cleanup::KeepLogFiles(30)
+        )
+        .start()
+        .expect("Failed to initialize logger.");
 
     let command_sender = factory.command_sender();
 

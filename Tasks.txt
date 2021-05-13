@@ -1,12 +1,17 @@
 TODOs:
-- (5/1/21) Fix stream display size on UI
-    -Fixed resolution, still a bit laggy
 - (5/1/21) Construct actual arena (include rubber bands to keep robot arm in place)
-- (5/1/21) Get faster webcams
 - (5/1/21) Enable Ads (https://www.google.com/adsense/start/)
 - (5/1/21) Stress Test (ask Josh?)
 - (5/1/21) Enable SSL
+- (5/2/21) Enhance site with sections (e.g. "stream", "input") and update warning message/lock message near section ("awiating input", "robot about to move...", "robot moving..."), scroll back to the "stream" section after engage button press.
+
+In Progress:
 - (5/2/21) Write out metrics for who joins and for how long, based on user id.
 
 DONE:
 - (5/1/21 - 5/2/21) Make it so if the server hasn't been "locked", it doesn't change the users input on the frontend (e.g. AcceptingInput->Warning->AcceptingInput... shouldn't change users current input.)
+- (5/1/21- 5/2/21) Fix stream display size on UI
+    -Fixed resolution, still a bit laggy
+- (5/1/21 - 5/6/21) Get faster webcams
+    -Fixed by changing the preset to `ultrafast`, tweaking `-g 10`, and adding the `-tune zerolatency` setting to the libx264 codec.
+- (5/7/21 - 5/10/21) minimize stream whitespace, make sure it looks good on mobile

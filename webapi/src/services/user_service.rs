@@ -2,6 +2,7 @@ use crate::models::user_models::UserData;
 use crate::models::command_models::CommandData;
 
 use std::thread;
+use std::net::SocketAddr;
 use std::sync::{Mutex, Arc};
 use std::collections::HashMap;
 
@@ -21,7 +22,7 @@ impl UserService {
         service
     }
 
-    pub fn heartbeat_user(&mut self, user_id: Uuid) -> usize{
+    pub fn heartbeat_user(&mut self, user_id: Uuid, ip: SocketAddr) -> usize{
         let mut data = self.data.lock().expect("failed to obtain user data lock.");
 
         match data.get_mut(&user_id){
@@ -29,14 +30,14 @@ impl UserService {
                 user.refresh();
             },
             None => {
-                data.insert(user_id, UserData::new(user_id));
+                data.insert(user_id, UserData::new(user_id, ip));
             }
         }
 
         data.keys().len()
     }
 
-    pub fn set_command(&mut self, user_id: Uuid, command: CommandData) {
+    pub fn set_command(&mut self, user_id: Uuid, command: CommandData, ip: SocketAddr) {
         let mut user_data_map = self.data.lock().expect("failed to obtain user data lock.");
 
         match user_data_map.get_mut(&user_id){
@@ -46,7 +47,7 @@ impl UserService {
             },
             None => {
                 println!("Set command {:?}, new user.", command);
-                let mut user_data = UserData::new(user_id);
+                let mut user_data = UserData::new(user_id, ip);
                 user_data.set_command(command);
                 user_data_map.insert(user_id, user_data);
             }
@@ -71,30 +72,12 @@ impl UserService {
             commands
         }
     }
-
-    // pub fn set_socket(&mut self, user_id: Uuid, tcp_connection: IpAddr) {
-    //     let mut user_data_map = self.data.lock().expect("Failed to lock user data");
-        
-    //     match user_data_map.get_mut(&user_id){
-    //         Some(user) => {
-    //             println!("Found user for new socket.");
-    //             let socket = WebSocketRunner::new(tcp_connection);
-    //             user.set_socket(socket);
-    //         },
-    //         None => {
-    //             println!("New user for new socket.");
-    //             let mut user_data = UserData::new(user_id);
-    //             let socket = WebSocketRunner::new(tcp_connection);
-    //             user_data.set_socket(socket);
-    //             user_data_map.insert(user_id, user_data);
-    //         }
-    //     }
-    // }
 }
 
 pub fn purge_expired_users(user_service: UserService){
     loop{
-        let cutoff = Utc::now() - chrono::Duration::seconds(30);
+        let now = Utc::now();
+        let cutoff = now - chrono::Duration::seconds(30);
 
         {
             let mut data = user_service.data.lock().expect("failed to obtain user data lock.");
@@ -106,7 +89,12 @@ pub fn purge_expired_users(user_service: UserService){
                 .collect();
                 
             for user_id in expired{
-                data.remove(&user_id);
+                match data.remove(&user_id){
+                    Some(user) => {
+                        log::info!("User removed: {}", user.get_exit_info(now))
+                    }
+                    _ => {}
+                }
             }
         }
 

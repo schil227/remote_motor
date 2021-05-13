@@ -1,0 +1,657 @@
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:50:07
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) c6f3e7b9-265a-4f8c-9b02-3e409778ffd1
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] OPTIONS /heartbeat:
+INFO [webapi]     => Time: 2021-05-12 20:50:12
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 3d957dfc-2285-4c3e-845b-78015802d8b6
+ERROR [rocket::rocket] No matching routes for OPTIONS /heartbeat.
+WARN [rocket::rocket] Responding with 404 Not Found catcher.
+INFO [rocket_cors::fairing] CORS Fairing: Turned missing route OPTIONS /heartbeat into an OPTIONS pre-flight request
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:50:12
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) c0959003-0d78-4c0d-837d-b42d5fc88aaa
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::command_processor] Warning: Input lock imminent
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:50:17
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 8b92c1a6-f754-4be0-808d-aef507c03e33
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::command_processor] Warning: Input Locked
+INFO [webapi::services::command_processor] No commands to process.
+INFO [rocket::rocket] OPTIONS /heartbeat:
+INFO [webapi]     => Time: 2021-05-12 20:50:22
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 995d8cfc-1ec4-4f76-88ca-4829c2ec9bff
+ERROR [rocket::rocket] No matching routes for OPTIONS /heartbeat.
+WARN [rocket::rocket] Responding with 404 Not Found catcher.
+INFO [rocket_cors::fairing] CORS Fairing: Turned missing route OPTIONS /heartbeat into an OPTIONS pre-flight request
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:50:22
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) eba865cf-0373-46f2-aaa1-6db051ad2946
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50092 Joined: 2021-05-13 01:49:52.454303530 UTC, Left: 2021-05-13 01:50:23.697214341 UTC (delta: Duration { secs: -32, nanos: 757089189 })
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:50:27
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 8b8676cf-3caa-4e2d-a5e6-3c40dfe1573a
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::command_processor] Warning: Input lock imminent
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50094 Joined: 2021-05-13 01:49:57.442993454 UTC, Left: 2021-05-13 01:50:29.697750191 UTC (delta: Duration { secs: -33, nanos: 745243263 })
+INFO [rocket::rocket] OPTIONS /heartbeat:
+INFO [webapi]     => Time: 2021-05-12 20:50:32
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 5efa96ea-6f76-4506-982d-03de912a6ccf
+ERROR [rocket::rocket] No matching routes for OPTIONS /heartbeat.
+WARN [rocket::rocket] Responding with 404 Not Found catcher.
+INFO [rocket_cors::fairing] CORS Fairing: Turned missing route OPTIONS /heartbeat into an OPTIONS pre-flight request
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:50:32
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 51742b7e-b211-4bab-bc99-a3bc2c5a7901
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::command_processor] Warning: Input Locked
+INFO [webapi::services::command_processor] No commands to process.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50098 Joined: 2021-05-13 01:50:02.454461275 UTC, Left: 2021-05-13 01:50:32.698102925 UTC (delta: Duration { secs: -31, nanos: 756358350 })
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:50:37
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 403ac4d6-17a7-4b82-b2ff-b503cc81f75a
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50100 Joined: 2021-05-13 01:50:07.446334126 UTC, Left: 2021-05-13 01:50:38.698584085 UTC (delta: Duration { secs: -32, nanos: 747750041 })
+INFO [rocket::rocket] OPTIONS /heartbeat:
+INFO [webapi]     => Time: 2021-05-12 20:50:42
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) b9725383-1c7c-4082-91c6-aca8bb5b687f
+ERROR [rocket::rocket] No matching routes for OPTIONS /heartbeat.
+WARN [rocket::rocket] Responding with 404 Not Found catcher.
+INFO [rocket_cors::fairing] CORS Fairing: Turned missing route OPTIONS /heartbeat into an OPTIONS pre-flight request
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:50:42
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 293b77ef-bfa9-4b02-aaa7-2e557d48ffdf
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::command_processor] Warning: Input lock imminent
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50104 Joined: 2021-05-13 01:50:12.448356782 UTC, Left: 2021-05-13 01:50:44.699090858 UTC (delta: Duration { secs: -33, nanos: 749265924 })
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:50:47
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 3f5dfb22-4d77-45e7-b6e1-9406fb50d300
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::command_processor] Warning: Input Locked
+INFO [webapi::services::command_processor] No commands to process.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50108 Joined: 2021-05-13 01:50:17.447442910 UTC, Left: 2021-05-13 01:50:47.699439741 UTC (delta: Duration { secs: -31, nanos: 748003169 })
+INFO [rocket::rocket] OPTIONS /heartbeat:
+INFO [webapi]     => Time: 2021-05-12 20:50:52
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 56786ad2-02e3-4df7-abed-5ce670fa5516
+ERROR [rocket::rocket] No matching routes for OPTIONS /heartbeat.
+WARN [rocket::rocket] Responding with 404 Not Found catcher.
+INFO [rocket_cors::fairing] CORS Fairing: Turned missing route OPTIONS /heartbeat into an OPTIONS pre-flight request
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:50:52
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) a62907ea-358e-4501-9486-16d25bc76d8d
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50112 Joined: 2021-05-13 01:50:22.454410316 UTC, Left: 2021-05-13 01:50:53.699914731 UTC (delta: Duration { secs: -32, nanos: 754495585 })
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:50:57
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 7bd6e7b4-e2e6-4c35-bb84-4ede8359878f
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::command_processor] Warning: Input lock imminent
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50114 Joined: 2021-05-13 01:50:27.447546625 UTC, Left: 2021-05-13 01:50:59.700422477 UTC (delta: Duration { secs: -33, nanos: 747124148 })
+INFO [rocket::rocket] OPTIONS /heartbeat:
+INFO [webapi]     => Time: 2021-05-12 20:51:02
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 6e3ddc4d-ff47-4ad4-8782-04065826765f
+ERROR [rocket::rocket] No matching routes for OPTIONS /heartbeat.
+WARN [rocket::rocket] Responding with 404 Not Found catcher.
+INFO [rocket_cors::fairing] CORS Fairing: Turned missing route OPTIONS /heartbeat into an OPTIONS pre-flight request
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:51:02
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 4f31d08c-0b87-4c56-bcd9-89af28bae4d0
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::command_processor] Warning: Input Locked
+INFO [webapi::services::command_processor] No commands to process.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50118 Joined: 2021-05-13 01:50:32.454616833 UTC, Left: 2021-05-13 01:51:02.700769873 UTC (delta: Duration { secs: -31, nanos: 753846960 })
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:51:07
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 82f09c19-82bd-43d7-b895-37361dee02ca
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50122 Joined: 2021-05-13 01:50:37.447529834 UTC, Left: 2021-05-13 01:51:08.701234869 UTC (delta: Duration { secs: -32, nanos: 746294965 })
+INFO [rocket::rocket] OPTIONS /heartbeat:
+INFO [webapi]     => Time: 2021-05-12 20:51:12
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 1ffd4935-94ce-4950-873b-039e4ba2509b
+ERROR [rocket::rocket] No matching routes for OPTIONS /heartbeat.
+WARN [rocket::rocket] Responding with 404 Not Found catcher.
+INFO [rocket_cors::fairing] CORS Fairing: Turned missing route OPTIONS /heartbeat into an OPTIONS pre-flight request
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:51:12
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) b39afabd-2eac-4e4a-a0a8-a7acfdfc2af0
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::command_processor] Warning: Input lock imminent
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50126 Joined: 2021-05-13 01:50:42.454495667 UTC, Left: 2021-05-13 01:51:14.701752958 UTC (delta: Duration { secs: -33, nanos: 752742709 })
+INFO [ws] Listening for new connections on 192.168.1.248:8001.
+INFO [webapi::services::command_sender] connection established!
+INFO [webapi::services::command_sender] Sending command: len: 20, [5, 0, 0, 0, 54, 1, 143, 0, 0, 0, 0, 0, 226, 0, 0, 0, 0, 0, 0, 0]
+INFO [webapi::services::command_sender] Sending command: len: 20, [4, 0, 0, 0, 30, 1, 102, 0, 0, 0, 0, 0, 194, 0, 0, 0, 0, 0, 0, 0]
+INFO [webapi::services::command_sender] Sending command: len: 20, [3, 0, 0, 0, 92, 1, 200, 0, 0, 0, 0, 0, 18, 1, 0, 0, 0, 0, 0, 0]
+INFO [webapi::services::command_sender] Sending command: len: 20, [2, 0, 0, 0, 124, 1, 177, 0, 0, 0, 0, 0, 22, 1, 0, 0, 0, 0, 0, 0]
+INFO [webapi::services::command_sender] Sending command: len: 20, [1, 0, 0, 0, 236, 1, 82, 0, 0, 0, 0, 0, 31, 1, 0, 0, 0, 0, 0, 0]
+INFO [rocket::rocket] Configured for development.
+INFO [rocket::rocket] address: 192.168.1.248
+INFO [rocket::rocket] port: 8000
+INFO [rocket::rocket] log: normal
+INFO [rocket::rocket] workers: 16
+INFO [rocket::rocket] secret key: provided
+INFO [rocket::rocket] limits: forms = 32KiB
+INFO [rocket::rocket] keep-alive: 5s
+INFO [rocket::rocket] read timeout: 5s
+INFO [rocket::rocket] write timeout: 5s
+INFO [rocket::rocket] tls: disabled
+INFO [rocket::rocket] Mounting /:
+INFO [rocket::rocket] GET / (index)
+INFO [rocket::rocket] Mounting /:
+INFO [rocket::rocket] POST /echo application/json (echo)
+INFO [rocket::rocket] Mounting /:
+INFO [rocket::rocket] POST /command application/json (command)
+INFO [rocket::rocket] Mounting /:
+INFO [rocket::rocket] GET /command (get_most_recent_command)
+INFO [rocket::rocket] Mounting /:
+INFO [rocket::rocket] POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Mounting /:
+INFO [rocket::rocket] POST /set-command application/json (set_command)
+INFO [rocket::rocket] Mounting /cors:
+INFO [rocket::rocket] GET /cors/<status>
+INFO [rocket::fairing::fairings] Fairings:
+INFO [rocket::fairing::fairings] 2 request: CORS, Request Logger
+INFO [rocket::fairing::fairings] 1 response: CORS
+INFO [rocket::rocket] Rocket has launched from http://192.168.1.248:8000
+INFO [rocket::rocket] OPTIONS /heartbeat:
+INFO [webapi]     => Time: 2021-05-12 20:51:57
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 8fbd3437-807a-4c6c-babc-8937f46d2b7e
+ERROR [rocket::rocket] No matching routes for OPTIONS /heartbeat.
+WARN [rocket::rocket] Responding with 404 Not Found catcher.
+INFO [rocket_cors::fairing] CORS Fairing: Turned missing route OPTIONS /heartbeat into an OPTIONS pre-flight request
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:51:57
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) f641c124-8d03-434b-9688-cf789c1e9c19
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:52:02
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) d7a5f27c-02e0-4e57-be1d-082630019915
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::command_processor] Warning: Input lock imminent
+INFO [rocket::rocket] OPTIONS /heartbeat:
+INFO [webapi]     => Time: 2021-05-12 20:52:07
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 0cb76dbb-5669-49d7-a6c0-f07dabfab079
+ERROR [rocket::rocket] No matching routes for OPTIONS /heartbeat.
+WARN [rocket::rocket] Responding with 404 Not Found catcher.
+INFO [rocket_cors::fairing] CORS Fairing: Turned missing route OPTIONS /heartbeat into an OPTIONS pre-flight request
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:52:07
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 34b02778-baca-4558-92d2-1c0a22390177
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::command_processor] Warning: Input Locked
+INFO [webapi::services::command_processor] No commands to process.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:52:12
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) cb41c26a-7a53-4b2b-8c7d-e0aee399e5d2
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] OPTIONS /heartbeat:
+INFO [webapi]     => Time: 2021-05-12 20:52:17
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) f25044fa-9e53-413b-8a96-62b0ff0f447e
+ERROR [rocket::rocket] No matching routes for OPTIONS /heartbeat.
+WARN [rocket::rocket] Responding with 404 Not Found catcher.
+INFO [rocket_cors::fairing] CORS Fairing: Turned missing route OPTIONS /heartbeat into an OPTIONS pre-flight request
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:52:17
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 184e0d0d-3209-4d42-9c93-df146416542b
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::command_processor] Warning: Input lock imminent
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:52:22
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) ecbb1db0-c07c-4e96-aecc-990b5bbd6f78
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::command_processor] Warning: Input Locked
+INFO [webapi::services::command_processor] No commands to process.
+INFO [rocket::rocket] OPTIONS /heartbeat:
+INFO [webapi]     => Time: 2021-05-12 20:52:27
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 7ec65873-40f4-4be9-93bc-cc9fccc07b4e
+ERROR [rocket::rocket] No matching routes for OPTIONS /heartbeat.
+WARN [rocket::rocket] Responding with 404 Not Found catcher.
+INFO [rocket_cors::fairing] CORS Fairing: Turned missing route OPTIONS /heartbeat into an OPTIONS pre-flight request
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:52:27
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 47a95609-ac3f-46ab-a6a9-277b6b41c872
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50170 Joined: 2021-05-13 01:51:57.454304884 UTC, Left: 2021-05-13 01:52:28.517330842 UTC (delta: Duration { secs: -32, nanos: 936974042 })
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:52:32
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) c7656660-907b-4e1c-9da7-7baa80681b67
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50172 Joined: 2021-05-13 01:52:02.447570678 UTC, Left: 2021-05-13 01:52:34.517883128 UTC (delta: Duration { secs: -33, nanos: 929687550 })
+INFO [webapi::services::command_processor] Warning: Input lock imminent
+INFO [rocket::rocket] OPTIONS /heartbeat:
+INFO [webapi]     => Time: 2021-05-12 20:52:37
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) e59fa3dc-e80d-472d-9114-3bc601d3ef16
+ERROR [rocket::rocket] No matching routes for OPTIONS /heartbeat.
+WARN [rocket::rocket] Responding with 404 Not Found catcher.
+INFO [rocket_cors::fairing] CORS Fairing: Turned missing route OPTIONS /heartbeat into an OPTIONS pre-flight request
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:52:37
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) a152aeed-cd12-4200-ae1f-2916f2b1f031
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50178 Joined: 2021-05-13 01:52:07.450442993 UTC, Left: 2021-05-13 01:52:37.518222362 UTC (delta: Duration { secs: -31, nanos: 932220631 })
+INFO [webapi::services::command_processor] Warning: Input Locked
+INFO [webapi::services::command_processor] No commands to process.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:52:42
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 1396f7dd-8c7d-42fe-a0ca-8b6a917de825
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50180 Joined: 2021-05-13 01:52:12.447526350 UTC, Left: 2021-05-13 01:52:43.518668514 UTC (delta: Duration { secs: -32, nanos: 928857836 })
+INFO [rocket::rocket] OPTIONS /heartbeat:
+INFO [webapi]     => Time: 2021-05-12 20:52:47
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) c2814094-2cd4-440b-b196-18755873bfc4
+ERROR [rocket::rocket] No matching routes for OPTIONS /heartbeat.
+WARN [rocket::rocket] Responding with 404 Not Found catcher.
+INFO [rocket_cors::fairing] CORS Fairing: Turned missing route OPTIONS /heartbeat into an OPTIONS pre-flight request
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:52:47
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 05cef6a1-9ef6-44c3-a607-6a7741a87a69
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50184 Joined: 2021-05-13 01:52:17.454361245 UTC, Left: 2021-05-13 01:52:49.519154868 UTC (delta: Duration { secs: -33, nanos: 935206377 })
+INFO [webapi::services::command_processor] Warning: Input lock imminent
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:52:52
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 936c7925-1e9a-48e8-9778-8d548f154a53
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50186 Joined: 2021-05-13 01:52:22.447531667 UTC, Left: 2021-05-13 01:52:52.519483897 UTC (delta: Duration { secs: -31, nanos: 928047770 })
+INFO [webapi::services::command_processor] Warning: Input Locked
+INFO [webapi::services::command_processor] No commands to process.
+INFO [rocket::rocket] OPTIONS /heartbeat:
+INFO [webapi]     => Time: 2021-05-12 20:52:57
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 38b1144b-ea8a-404f-b1ed-43e2126b47a9
+ERROR [rocket::rocket] No matching routes for OPTIONS /heartbeat.
+WARN [rocket::rocket] Responding with 404 Not Found catcher.
+INFO [rocket_cors::fairing] CORS Fairing: Turned missing route OPTIONS /heartbeat into an OPTIONS pre-flight request
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:52:57
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 0eb7d52c-1c4d-4919-a900-be43bc46b787
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50190 Joined: 2021-05-13 01:52:27.454435040 UTC, Left: 2021-05-13 01:52:58.519925132 UTC (delta: Duration { secs: -32, nanos: 934509908 })
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:53:02
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 2b22b83e-01fa-493a-b273-9a9d9fb985a7
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50192 Joined: 2021-05-13 01:52:32.447441509 UTC, Left: 2021-05-13 01:53:04.520435124 UTC (delta: Duration { secs: -33, nanos: 927006385 })
+INFO [webapi::services::command_processor] Warning: Input lock imminent
+INFO [rocket::rocket] OPTIONS /heartbeat:
+INFO [webapi]     => Time: 2021-05-12 20:53:07
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 4267218d-bd7e-4a85-aea4-970385131313
+ERROR [rocket::rocket] No matching routes for OPTIONS /heartbeat.
+WARN [rocket::rocket] Responding with 404 Not Found catcher.
+INFO [rocket_cors::fairing] CORS Fairing: Turned missing route OPTIONS /heartbeat into an OPTIONS pre-flight request
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:53:07
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 3a56a925-84d0-4809-aacc-4364627b0397
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50196 Joined: 2021-05-13 01:52:37.453909136 UTC, Left: 2021-05-13 01:53:07.520783077 UTC (delta: Duration { secs: -31, nanos: 933126059 })
+INFO [webapi::services::command_processor] Warning: Input Locked
+INFO [webapi::services::command_processor] No commands to process.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:53:12
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 8c133e42-cd6e-418e-9aa2-77a6ca9d6e07
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50198 Joined: 2021-05-13 01:52:42.447728254 UTC, Left: 2021-05-13 01:53:13.521220236 UTC (delta: Duration { secs: -32, nanos: 926508018 })
+INFO [rocket::rocket] OPTIONS /heartbeat:
+INFO [webapi]     => Time: 2021-05-12 20:53:17
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) f92df363-24eb-4332-9ac6-a5c8e264acfd
+ERROR [rocket::rocket] No matching routes for OPTIONS /heartbeat.
+WARN [rocket::rocket] Responding with 404 Not Found catcher.
+INFO [rocket_cors::fairing] CORS Fairing: Turned missing route OPTIONS /heartbeat into an OPTIONS pre-flight request
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:53:17
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) d5236e81-7802-4f08-976e-831cbabfece1
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50202 Joined: 2021-05-13 01:52:47.453649752 UTC, Left: 2021-05-13 01:53:19.521711516 UTC (delta: Duration { secs: -33, nanos: 931938236 })
+INFO [webapi::services::command_processor] Warning: Input lock imminent
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:53:22
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 4efbf1e9-fa74-478b-8f40-edfd260926a0
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50204 Joined: 2021-05-13 01:52:52.447677597 UTC, Left: 2021-05-13 01:53:22.522061424 UTC (delta: Duration { secs: -31, nanos: 925616173 })
+INFO [webapi::services::command_processor] Warning: Input Locked
+INFO [webapi::services::command_processor] No commands to process.
+INFO [rocket::rocket] OPTIONS /heartbeat:
+INFO [webapi]     => Time: 2021-05-12 20:53:27
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) c1f6274f-5585-4ad4-a5b3-6681804a3524
+ERROR [rocket::rocket] No matching routes for OPTIONS /heartbeat.
+WARN [rocket::rocket] Responding with 404 Not Found catcher.
+INFO [rocket_cors::fairing] CORS Fairing: Turned missing route OPTIONS /heartbeat into an OPTIONS pre-flight request
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:53:27
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) e8319517-a515-40ea-85bc-786f36ae6bed
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50208 Joined: 2021-05-13 01:52:57.453607800 UTC, Left: 2021-05-13 01:53:28.522507232 UTC (delta: Duration { secs: -32, nanos: 931100568 })
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:53:32
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) fcc0bea9-7c7d-4e10-ba2a-4e6952be5739
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50210 Joined: 2021-05-13 01:53:02.447201487 UTC, Left: 2021-05-13 01:53:34.523019181 UTC (delta: Duration { secs: -33, nanos: 924182306 })
+INFO [webapi::services::command_processor] Warning: Input lock imminent
+INFO [rocket::rocket] OPTIONS /heartbeat:
+INFO [webapi]     => Time: 2021-05-12 20:53:37
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) bccc5ef4-2d24-4b4a-a252-cfbced8c7af2
+ERROR [rocket::rocket] No matching routes for OPTIONS /heartbeat.
+WARN [rocket::rocket] Responding with 404 Not Found catcher.
+INFO [rocket_cors::fairing] CORS Fairing: Turned missing route OPTIONS /heartbeat into an OPTIONS pre-flight request
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:53:37
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) bb72ff92-2386-433c-b3b6-b40048eaece8
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50214 Joined: 2021-05-13 01:53:07.453179080 UTC, Left: 2021-05-13 01:53:37.523363414 UTC (delta: Duration { secs: -31, nanos: 929815666 })
+INFO [webapi::services::command_processor] Warning: Input Locked
+INFO [webapi::services::command_processor] No commands to process.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:53:42
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 45851a4e-776e-41dd-b6a8-e1fc653bfe4c
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50216 Joined: 2021-05-13 01:53:12.447294117 UTC, Left: 2021-05-13 01:53:43.523909279 UTC (delta: Duration { secs: -32, nanos: 923384838 })
+INFO [rocket::rocket] OPTIONS /heartbeat:
+INFO [webapi]     => Time: 2021-05-12 20:53:47
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 19558e25-d83a-4cd7-857c-258746463224
+ERROR [rocket::rocket] No matching routes for OPTIONS /heartbeat.
+WARN [rocket::rocket] Responding with 404 Not Found catcher.
+INFO [rocket_cors::fairing] CORS Fairing: Turned missing route OPTIONS /heartbeat into an OPTIONS pre-flight request
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:53:47
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) acf0f8f4-9253-432b-b494-f839712916a6
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50220 Joined: 2021-05-13 01:53:17.453701762 UTC, Left: 2021-05-13 01:53:49.524207020 UTC (delta: Duration { secs: -33, nanos: 929494742 })
+INFO [webapi::services::command_processor] Warning: Input lock imminent
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:53:52
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 62c33bb0-6c0d-4f26-8bcf-58755fb5f08a
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50222 Joined: 2021-05-13 01:53:22.447346065 UTC, Left: 2021-05-13 01:53:52.524355080 UTC (delta: Duration { secs: -31, nanos: 922990985 })
+INFO [webapi::services::command_processor] Warning: Input Locked
+INFO [webapi::services::command_processor] No commands to process.
+INFO [rocket::rocket] OPTIONS /heartbeat:
+INFO [webapi]     => Time: 2021-05-12 20:53:57
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 3050aa6a-57b4-49ac-a74d-ae0eafc7c4e6
+ERROR [rocket::rocket] No matching routes for OPTIONS /heartbeat.
+WARN [rocket::rocket] Responding with 404 Not Found catcher.
+INFO [rocket_cors::fairing] CORS Fairing: Turned missing route OPTIONS /heartbeat into an OPTIONS pre-flight request
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:53:57
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 38297d34-3254-4945-920f-9f321c68d387
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50226 Joined: 2021-05-13 01:53:27.453751111 UTC, Left: 2021-05-13 01:53:58.524735225 UTC (delta: Duration { secs: -32, nanos: 929015886 })
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:54:02
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 0985f299-5272-419b-8404-bc93274dc1d9
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50228 Joined: 2021-05-13 01:53:32.447271953 UTC, Left: 2021-05-13 01:54:04.525240038 UTC (delta: Duration { secs: -33, nanos: 922031915 })
+INFO [webapi::services::command_processor] Warning: Input lock imminent
+INFO [rocket::rocket] OPTIONS /heartbeat:
+INFO [webapi]     => Time: 2021-05-12 20:54:07
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 312ac672-2348-4fe5-8b86-be22780225ec
+ERROR [rocket::rocket] No matching routes for OPTIONS /heartbeat.
+WARN [rocket::rocket] Responding with 404 Not Found catcher.
+INFO [rocket_cors::fairing] CORS Fairing: Turned missing route OPTIONS /heartbeat into an OPTIONS pre-flight request
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:54:07
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 33b04dce-d381-4941-b531-27d888ae40f8
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50232 Joined: 2021-05-13 01:53:37.454020172 UTC, Left: 2021-05-13 01:54:07.525589251 UTC (delta: Duration { secs: -31, nanos: 928430921 })
+INFO [webapi::services::command_processor] Warning: Input Locked
+INFO [webapi::services::command_processor] No commands to process.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:54:12
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 2f3f4aaa-7ef2-42b2-ab7f-7c40083789f1
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50236 Joined: 2021-05-13 01:53:42.447224687 UTC, Left: 2021-05-13 01:54:13.526011430 UTC (delta: Duration { secs: -32, nanos: 921213257 })
+INFO [rocket::rocket] OPTIONS /heartbeat:
+INFO [webapi]     => Time: 2021-05-12 20:54:17
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) da622125-a360-4c80-91f0-19bbdc61b877
+ERROR [rocket::rocket] No matching routes for OPTIONS /heartbeat.
+WARN [rocket::rocket] Responding with 404 Not Found catcher.
+INFO [rocket_cors::fairing] CORS Fairing: Turned missing route OPTIONS /heartbeat into an OPTIONS pre-flight request
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:54:17
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 2ef2d663-fb69-49fd-9d6b-48faacc03fa2
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50240 Joined: 2021-05-13 01:53:47.454162165 UTC, Left: 2021-05-13 01:54:19.526484199 UTC (delta: Duration { secs: -33, nanos: 927677966 })
+INFO [webapi::services::command_processor] Warning: Input lock imminent
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:54:22
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) db6114d9-0e5e-4f72-a97e-9c3b18766150
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50250 Joined: 2021-05-13 01:53:52.442206794 UTC, Left: 2021-05-13 01:54:22.526832856 UTC (delta: Duration { secs: -31, nanos: 915373938 })
+INFO [webapi::services::command_processor] Warning: Input Locked
+INFO [webapi::services::command_processor] No commands to process.
+INFO [rocket::rocket] OPTIONS /heartbeat:
+INFO [webapi]     => Time: 2021-05-12 20:54:27
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 766578a0-2f98-4c0b-8d9e-a4587704f3f7
+ERROR [rocket::rocket] No matching routes for OPTIONS /heartbeat.
+WARN [rocket::rocket] Responding with 404 Not Found catcher.
+INFO [rocket_cors::fairing] CORS Fairing: Turned missing route OPTIONS /heartbeat into an OPTIONS pre-flight request
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:54:27
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 47c57b89-a849-4809-8bee-bd9f9c484b6f
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50258 Joined: 2021-05-13 01:53:57.453524423 UTC, Left: 2021-05-13 01:54:28.527311418 UTC (delta: Duration { secs: -32, nanos: 926213005 })
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:54:32
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) c9510f6d-48f5-4fbc-8dbd-63cba6286e16
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50260 Joined: 2021-05-13 01:54:02.447748708 UTC, Left: 2021-05-13 01:54:34.527731802 UTC (delta: Duration { secs: -33, nanos: 920016906 })
+INFO [webapi::services::command_processor] Warning: Input lock imminent
+INFO [rocket::rocket] OPTIONS /heartbeat:
+INFO [webapi]     => Time: 2021-05-12 20:54:37
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) ead3eb91-948d-4577-9755-a3b0edf455e3
+ERROR [rocket::rocket] No matching routes for OPTIONS /heartbeat.
+WARN [rocket::rocket] Responding with 404 Not Found catcher.
+INFO [rocket_cors::fairing] CORS Fairing: Turned missing route OPTIONS /heartbeat into an OPTIONS pre-flight request
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:54:37
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 82a12478-c6b8-475b-b839-ac70ee78bf16
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50266 Joined: 2021-05-13 01:54:07.453595783 UTC, Left: 2021-05-13 01:54:37.528101128 UTC (delta: Duration { secs: -31, nanos: 925494655 })
+INFO [webapi::services::command_processor] Warning: Input Locked
+INFO [webapi::services::command_processor] No commands to process.
+INFO [rocket::rocket] OPTIONS /heartbeat:
+INFO [webapi]     => Time: 2021-05-12 20:54:42
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 49dd9ff2-d172-41b5-b6e8-db2e77aa02d4
+ERROR [rocket::rocket] No matching routes for OPTIONS /heartbeat.
+WARN [rocket::rocket] Responding with 404 Not Found catcher.
+INFO [rocket_cors::fairing] CORS Fairing: Turned missing route OPTIONS /heartbeat into an OPTIONS pre-flight request
+INFO [rocket::rocket] Response succeeded.
+INFO [rocket::rocket] POST /heartbeat application/json:
+INFO [webapi]     => Time: 2021-05-12 20:54:42
+INFO [webapi]     => Client: 192.168.1.248
+INFO [webapi]     => UserId: (New) 396c5787-a5a5-469d-8e2c-e556192d456a
+INFO [rocket::rocket] Matched: POST /heartbeat application/json (heartbeat)
+INFO [rocket::rocket] Outcome: Success
+INFO [rocket::rocket] Response succeeded.
+INFO [webapi::services::user_service] User removed: 192.168.1.248:50270 Joined: 2021-05-13 01:54:12.447879523 UTC, Left: 2021-05-13 01:54:43.528586876 UTC (delta: Duration { secs: -32, nanos: 919292647 })

@@ -39,26 +39,26 @@ impl CommandProcessor {
         loop {
             thread::sleep(Duration::from_secs(10));
 
-            println!("Warning: Lock imminent");
+            log::info!("Warning: Input lock imminent");
             websocket_server.set_server_state(ServerState::Warning);
 
             thread::sleep(Duration::from_secs(5));
 
-            println!("Warning: Locked");
+            log::info!("Warning: Input Locked");
             websocket_server.set_server_state(ServerState::Locked);
 
             let data = self.user_service.flush_commands();
             let num_commands = data.len();
             
             if num_commands == 0 {
-                println!("No commands to process.");
+                log::info!("No commands to process.");
 
                 websocket_server.set_server_state(ServerState::AcceptingInput);
 
                 continue;
             }
 
-            println!("Found {} to process", num_commands);
+            log::info!("Found {} to process", num_commands);
 
             let mut command_parts : [usize; 5] = [0,0,0,0,0];
 
@@ -75,7 +75,7 @@ impl CommandProcessor {
                 .map(|x| x / num_commands)
                 .collect();
 
-            println!("Averaged Commands: {:?}", &command_parts);
+            log::info!("Averaged Commands: {:?}", &command_parts);
 
             let average_command_data = CommandData{
                 claw : command_parts[0] as u8,
@@ -89,7 +89,7 @@ impl CommandProcessor {
 
             let aggregate_messages = MotorMessageCreator::get_messages(average_command_data);
 
-            println!("Sending commands.");
+            log::info!("Sending commands.");
 
             self.sender.send_commands(aggregate_messages);
 
@@ -98,7 +98,7 @@ impl CommandProcessor {
 
             websocket_server.set_server_state(ServerState::AcceptingInput);
 
-            println!("Commands sent.");
+            log::info!("Commands sent.");
         }
     }
 }
