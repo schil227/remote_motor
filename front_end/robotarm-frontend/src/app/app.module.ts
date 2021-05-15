@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
@@ -24,6 +25,7 @@ import { UserHeartBeatComponent } from './user-heart-beat/user-heart-beat.compon
     ]),
     BrowserAnimationsModule,
     MatSliderModule,
+    MatSnackBarModule
   ],
   declarations: [													
     AppComponent,

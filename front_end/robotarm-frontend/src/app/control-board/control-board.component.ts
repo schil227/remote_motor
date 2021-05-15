@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
 import { Control } from '../models/control'
 import { VideoStream } from '../models/video-stream'
 import { Command } from '../models/command'
-import {catchError, map, tap} from 'rxjs/operators'
 import { WebApiService} from '../services/webapi-service'
 import { WebsocketMessage, ServerState} from '../models/websocket'
 import { WebsocketService} from '../services/websocket-service'
+
+import { Component, OnInit } from '@angular/core';
 import { Observer } from 'rxjs'
+import { MatSnackBar,  } from '@angular/material/snack-bar'
 
 @Component({
   selector: 'app-control-board',
@@ -33,7 +34,8 @@ export class ControlBoardComponent implements OnInit {
 
     constructor(
         private api: WebApiService,
-        private socket: WebsocketService
+        private socket: WebsocketService,
+        private snackBar: MatSnackBar
         ) 
     { 
     }
@@ -86,6 +88,13 @@ export class ControlBoardComponent implements OnInit {
 
     issueCommand(){
         let command = Command.create(this.controls);
+
+        this.snackBar.open("Commands Sent!", "", {
+            duration: 2000,
+            panelClass: ['std-snackbar'],
+            verticalPosition: 'bottom',
+            horizontalPosition: 'end'
+        });
 
         this.api.pushCommands(command);
     }
