@@ -8,17 +8,32 @@ import { WebsocketService} from '../services/websocket-service'
 import { Component, OnInit } from '@angular/core';
 import { Observer } from 'rxjs'
 import { MatSnackBar,  } from '@angular/material/snack-bar'
+import { animate, style, state, transition, trigger } from '@angular/animations'
 
 @Component({
   selector: 'app-control-board',
   templateUrl: './control-board.component.html',
-  styleUrls: ['./control-board.component.css']
+  styleUrls: ['./control-board.component.css'],
+  animations: [
+    trigger('slideDownUp', [
+        transition(':enter', [style({height: 0}), animate(250)]),
+        transition(':leave', [animate(250, style({height: 0}))])
+    ]),
+    trigger('rotatedState', [
+        state('default', style({ transform: 'rotate(90deg)' })),
+        state('rotated', style({ transform: 'rotate(270deg)' })),
+        transition('rotated => default', animate('400ms ease-out')),
+        transition('default => rotated', animate('400ms ease-in'))
+    ])
+  ]
 })
 export class ControlBoardComponent implements OnInit {
     controls : Control[]  = Control.InitalControls();
     streams : VideoStream[] = VideoStream.VideoStreams();
     buttonDisabled : boolean = false;
     state: ServerState = ServerState.Locked;
+    showIntro: boolean = false;
+    rotateState: string = 'default';
 
     observer : Observer<WebsocketMessage> = {
         next(v){ 
@@ -112,5 +127,10 @@ export class ControlBoardComponent implements OnInit {
             case ServerState.Locked:
                 return "Robot arm moving";
         }
+    }
+
+    toggleIntro() {
+        this.showIntro = !(this.showIntro);
+        this.rotateState = (this.rotateState === 'default' ? 'rotated' : 'default');
     }
 }

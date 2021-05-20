@@ -35,7 +35,7 @@ export class VideoStreamComponent implements AfterViewInit {
         player.updateSettings({
             streaming: {
                 lowLatencyEnabled: true,
-                liveDelay: 3,
+                liveDelay: 1.5,
                 liveCatchup: {
                     minDrift: 0.05,
                     playbackRate: 0.5

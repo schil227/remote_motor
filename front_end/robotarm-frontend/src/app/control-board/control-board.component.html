@@ -1,6 +1,18 @@
 <app-user-heart-beat></app-user-heart-beat>
 <div>
-    <div class="container-label">Robot Stream</div>
+    <div class="container-label" >
+        <i (click)="toggleIntro()" class="material-icons" [@rotatedState]='rotateState'>double_arrow</i>
+        <span>Welcome to robotarm.io</span>
+    </div>
+    <div class="container-text" *ngIf="showIntro" @slideDownUp>
+        This site hosts the novel idea of controlling a robot arm remotely with an 
+        intuitive user interface to accomplish a specific task. Simply adjust the sliders to your 
+        desired location and hit 'Engage' - the robot arm will move periodiaclly 
+        depending on your (and everyone elses) input.
+    </div>    
+</div>
+<div>
+    <div class="container-label">Live Stream</div>
 </div>
 <div class="container stream-container">
     <app-video-stream *ngFor='let stream of streams' class="stream-item item" [stream]='stream'></app-video-stream>
