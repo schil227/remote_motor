@@ -1,11 +1,9 @@
 TODOs:
 - (5/1/21) Construct actual arena (include rubber bands to keep robot arm in place)
-- (5/1/21) Enable Ads (https://www.google.com/adsense/start/)
-- (5/1/21) Stress Test (ask Josh?)
 - (5/1/21) Enable SSL
+- (5/20/21) Notify the frontend on goal
 
 In Progress:
-
 
 DONE:
 - (5/1/21 - 5/2/21) Make it so if the server hasn't been "locked", it doesn't change the users input on the frontend (e.g. AcceptingInput->Warning->AcceptingInput... shouldn't change users current input.)
@@ -13,10 +11,19 @@ DONE:
     -Fixed resolution, still a bit laggy
 - (5/1/21 - 5/6/21) Get faster webcams
     -Fixed by changing the preset to `ultrafast`, tweaking `-g 10`, and adding the `-tune zerolatency` setting to the libx264 codec.
+    -Decreased latency on the frontend from 3 to 1.5 seconds, some cams better than others
 - (5/7/21 - 5/10/21) minimize stream whitespace, make sure it looks good on mobile
 - (5/2/21 - 5/10/21) Enhance site with sections (e.g. "stream", "input") and update warning message/lock message near section ("awiating input", "robot about to move...", "robot moving..."), scroll back to the "stream" section after engage button press.
 - (5/2/21 - 5/12/21) Write out metrics for who joins and for how long, based on user id.
 - (5/13/21 - 5/14/21) Add "command sent!" feedback on button press
+- (5/1/21 - 5/17/21) Stress Test (ask Josh?)
+    -Basically, best odds are to host the app on a hosted service that has load balancing. See ReadMe (## Server Hosting)
+- (5/17/21 - 5/20/21) Add an info ? next to the "number of commanders" piece
+- (5/17/21 - 5/20/21) Add collapsable sections that explain what it is and the objective 
+
+STALLED:
+- (5/1/21) Enable Ads (https://www.google.com/adsense/start/)
+    -> Partially done, however due to 'Lack of Content' advertisment was rejected. Need to add more information on the page, about page, etc.
 
 DISCARDED:
 - (5/13/21) resize input divs depending on screensize, similar to how streams are managed

@@ -81,3 +81,9 @@ The arm is composed of servo motors, which require power, ground, and a signal l
   *  Connect the motor to be calubrated to the 'shoulder' motor's pin on the Pca9685. This is because the shoulder has the largest min/max with ~180 degrees of motion
   *  Control the motor with the keys, stopping when the min/max points have been reached. Look at the output of the server (pi) and record the duty values that are logged to the console.
   *  Update the appropreate `MotorData` constant in the Models project.
+
+  # Development Notes
+  ## Server Hosting
+  According to Josh, since I'm pointing the url directly to my router, I leave myself open to DDoS attacks. Using a hosting service (e.g. AWS, Digital Ocean, Azure, etc.) would allow for the app to be hosted elsewhere on better hardware (and better internet bandwith), thus making a reliable connection. 
+  
+  In order to get it to work, the *FrontEnd* and *WebApi* would have to be hosted, and my router would have to grant the servers access to the Pi (control the arm) and my server (to get the webcam streams). FFMPEG may be able to beam the stream directly to an IP address (and, I assume, keep everything in memory)

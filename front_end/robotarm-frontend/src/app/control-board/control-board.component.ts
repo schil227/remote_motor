@@ -32,8 +32,10 @@ export class ControlBoardComponent implements OnInit {
     streams : VideoStream[] = VideoStream.VideoStreams();
     buttonDisabled : boolean = false;
     state: ServerState = ServerState.Locked;
-    showIntro: boolean = false;
-    rotateState: string = 'default';
+    showInfo: boolean = true;
+    showObjective: boolean = true;
+    rotateStateInfo: string = 'default';
+    rotateStateObjective: string = 'default';
 
     observer : Observer<WebsocketMessage> = {
         next(v){ 
@@ -130,7 +132,12 @@ export class ControlBoardComponent implements OnInit {
     }
 
     toggleIntro() {
-        this.showIntro = !(this.showIntro);
-        this.rotateState = (this.rotateState === 'default' ? 'rotated' : 'default');
+        this.showInfo = !(this.showInfo);
+        this.rotateStateInfo = (this.rotateStateInfo === 'default' ? 'rotated' : 'default');
+    }
+
+    toggleObjective() {
+        this.showObjective = !(this.showObjective);
+        this.rotateStateObjective = (this.rotateStateObjective === 'default' ? 'rotated' : 'default');
     }
 }
