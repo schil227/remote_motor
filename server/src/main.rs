@@ -5,7 +5,7 @@ mod scoreboard_runner;
 mod scoreboard_service;
 
 use std::thread;
-// use std::time::Duration;
+use std::sync::{Arc, RwLock};
 
 extern crate linux_embedded_hal as hal;
 extern crate pwm_pca9685 as pca9685;
@@ -16,9 +16,14 @@ fn main() {
     // let led_pin = Gpio::new().unwrap().get(23).expect("Failed to obtain GPIO pin 23!").into_output();
     // thread::spawn(move || blink_led(led_pin));
 
-    thread::spawn(|| scoreboard_service::run_scoreboard());
+    let goal_count = Arc::new(RwLock::new(0));
+    let goal_count_copy = Arc::clone(&goal_count);
 
-    let handler = thread::spawn(|| message_receiver::listen());
+    thread::spawn(move || scoreboard_service::run_scoreboard(goal_count_copy));
+
+    
+
+    let handler = thread::spawn(|| message_receiver::listen(goal_count));
 
     handler.join().unwrap();
 }

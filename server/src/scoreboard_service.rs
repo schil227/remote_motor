@@ -1,25 +1,23 @@
 use rppal::gpio::Gpio;
 
 use rppal::gpio::Trigger;
-use std::sync::{Arc, Mutex};
+use std::sync::{Arc, RwLock, Mutex};
 use std::thread;
 use std::time::Duration;
 
 use crate::scoreboard_runner::ScoreboardRunner;
 
-pub fn run_scoreboard() {
-    let count = Arc::new(Mutex::new(0));
-
+pub fn run_scoreboard(goal_count: Arc<RwLock<u8>>) {
     let mut runner = ScoreboardRunner::create_scoreboard_runner();
 
-    let runner_count = Arc::clone(&count);
+    let runner_count = Arc::clone(&goal_count);
     thread::spawn(move || runner.run_scoreboard(runner_count));
-    let handler = thread::spawn(|| listen_for_basket(count));
+    let handler = thread::spawn(|| listen_for_basket(goal_count));
 
     handler.join().unwrap();
 }
 
-fn listen_for_basket(score: Arc<Mutex<u8>>) {
+fn listen_for_basket(score: Arc<RwLock<u8>>) {
     println!("acquiring pin.");
 
     let mut basket_switch = Gpio::new()
@@ -52,8 +50,8 @@ fn listen_for_basket(score: Arc<Mutex<u8>>) {
     }
 }
 
-fn increment_score(score: &Arc<Mutex<u8>>) {
-    let mut score = score.lock().unwrap();
+fn increment_score(score: &Arc<RwLock<u8>>) {
+    let mut score = score.write().unwrap();
     *score = *score + 1;
 
     if *score > 99 {

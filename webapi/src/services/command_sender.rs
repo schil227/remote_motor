@@ -11,22 +11,20 @@ pub struct CommandSender{
 const SIZE : usize = std::mem::size_of::<MotorMessage>();
 
 impl CommandSender{
-    pub fn new(
-        robot_ip_address: String) -> CommandSender {
+    pub fn new(robot_ip_address: String) -> CommandSender {
         CommandSender{
             robot_ip_address
         }
     }
     
-    pub fn send_commands(&self, command_messages: Vec<MotorMessage>){
-       
+    pub fn send_commands(&self, command_messages: Vec<MotorMessage>) -> Result<u8, ()>{
         let mut stream = match TcpStream::connect(&self.robot_ip_address){
             Ok(stream) => {
                 stream
             },
             Err(_) => {
                 log::error!("Failed establishing TCP connection to the server. Ensure the server is listening.");
-                return;
+                return Result::Err(());
             }
         };
 
@@ -40,7 +38,7 @@ impl CommandSender{
        
         if !receive_ack(&stream) {
             log::error!("Did not get ACK response from server. Canceling request.");
-            return;
+            return Result::Err(());
         }
 
         for message in command_messages.into_iter(){
@@ -54,17 +52,23 @@ impl CommandSender{
 
             if !receive_ack(&stream) {
                 log::error!("Did not get ACK response from server - (some) commands not sent. Canceling request.");
-                return;
+                return Result::Err(());
             }
         }
+
+        let goal_count = receive_u8(&stream);
+
+        return Result::Ok(goal_count);
     }
 }
 
-fn receive_ack(mut stream : &TcpStream) -> bool{
+fn receive_ack(stream : &TcpStream) -> bool{
+    return receive_u8(stream) == 1;
+}
+
+fn receive_u8(mut stream: &TcpStream) -> u8{
     let mut response = [0;1];
     stream.read(&mut response).expect("Failed getting response.");
    
-    let ack : u8 = bincode::deserialize(&response).expect("Failed deserializing ACK");
-
-    return ack == 1;
+    bincode::deserialize(&response).expect("Failed deserializing u8")
 }

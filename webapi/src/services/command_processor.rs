@@ -29,11 +29,11 @@ impl CommandProcessor {
     pub fn run(&mut self) {
         let mut websocket_server = WebSocketServer::new();
 
-        let state = Arc::clone(&websocket_server.server_state);
+        let source_message = Arc::clone(&websocket_server.source_message);
 
         // Startup Websocket server
         thread::spawn(move || {
-            websocket_service::run(state);
+            websocket_service::run(source_message);
         });
 
         loop {
@@ -91,14 +91,27 @@ impl CommandProcessor {
 
             log::info!("Sending commands.");
 
-            self.sender.send_commands(aggregate_messages);
+            let goal_count_result = self.sender.send_commands(aggregate_messages);
 
             // wait a second so process accounts for robot moving
-            thread::sleep(Duration::from_secs(1));
+            thread::sleep(Duration::from_secs(2));
 
             websocket_server.set_server_state(ServerState::AcceptingInput);
 
-            log::info!("Commands sent.");
+            match goal_count_result {
+                Ok(count) => {
+                    println!(" =======> goal count: {}", count);
+                    websocket_server.set_goal_count(count);
+                    
+                    log::info!("Commands sent.");
+                },
+                Err(()) => {
+                    println!("no goal!");
+                    log::error!("Commands failed to send.");
+                }
+            }
+
+            
         }
     }
 }

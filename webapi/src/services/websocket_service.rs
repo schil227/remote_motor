@@ -24,7 +24,9 @@ pub enum ServerState{
 #[derive(Debug, Copy, Clone, Serialize, Deserialize)]
 pub struct WebSocketMessage {
     state: ServerState,
-    command: CommandData
+    command: CommandData,
+    goal_count: u8,
+    goal_count_verified: bool
 }
 
 pub struct WebSocketHandler {
@@ -50,27 +52,35 @@ impl Handler for WebSocketHandler {
 }
 
 pub struct WebSocketServer{
-    pub server_state: Arc<RwLock<WebSocketMessage>>
+    pub source_message: Arc<RwLock<WebSocketMessage>>
 }
 
 impl<'a> WebSocketServer{
     pub fn new() -> WebSocketServer{
         WebSocketServer{
-            server_state: Arc::new(RwLock::new(WebSocketMessage{
+            source_message: Arc::new(RwLock::new(WebSocketMessage{
                 state: ServerState::AcceptingInput,
-                command: CommandData::new()
+                command: CommandData::new(),
+                goal_count: 0,
+                goal_count_verified: false
             }))
         }
     }
 
     pub fn set_server_state(&mut self, state: ServerState){
-        let mut message = self.server_state.write().unwrap();
+        let mut message = self.source_message.write().unwrap();
         message.state = state;
     }
 
     pub fn set_command_data(&mut self, data: &CommandData){
-        let mut message = self.server_state.write().unwrap();
+        let mut message = self.source_message.write().unwrap();
         message.command.copy_from(data);
+    }
+
+    pub fn set_goal_count(&mut self, count: u8){
+        let mut message = self.source_message.write().unwrap();
+        message.goal_count = count;
+        message.goal_count_verified = true;
     }
 }
 
@@ -116,8 +126,8 @@ fn state_change_listener(ws_msg: Arc<RwLock<WebSocketMessage>>, last_ping: Arc<R
 
         let current_state = message.state;
 
-        if last_state != current_state {
-            last_state = current_state;
+        if last_state != current_state { // or goal scored
+            last_state = current_state; // dont do on goal scored
 
             // let msg_json = serde_json::to_string(&message).unwrap();
 

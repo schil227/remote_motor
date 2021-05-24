@@ -1,7 +1,7 @@
 use rppal::gpio::Gpio;
 use rppal::gpio::OutputPin;
 
-use std::sync::{Arc, Mutex};
+use std::sync::{Arc, RwLock};
 use std::thread;
 use std::time::Duration;
 
@@ -102,12 +102,12 @@ impl ScoreboardRunner {
         }
     }
 
-    pub fn run_scoreboard(&mut self, score: Arc<Mutex<u8>>) {
+    pub fn run_scoreboard(&mut self, score: Arc<RwLock<u8>>) {
         let mut current_score: u8;
 
         loop {
             {
-                let score = score.lock().unwrap();
+                let score = score.read().unwrap();
                 current_score = *score;
             }
 
