@@ -11,10 +11,13 @@ use crate::controllers::user_controller;
 use crate::controllers::debug_controller;
 use crate::services::motor_message_creator::MotorMessageCreator;
 use crate::services::user_service;
+use crate::services::goal_listener;
+use crate::services::websocket_service;
 use crate::services::factory::Factory;
 use crate::models::command_models::CommandData;
+use crate::services::websocket_service::{WebSocketServer};
 
-use std::sync::Mutex;
+use std::sync::{Arc, Mutex};
 
 use rocket::http::{Method, Cookie};
 use rocket::fairing::AdHoc;
@@ -30,17 +33,17 @@ const _LIMIT: u64 = 256;
 fn main() {
     let factory = Factory::new();
 
-    Logger::with_str("info")
-        .log_target(LogTarget::File)
-        .buffer_and_flush()
-        .append()
-        .rotate(
-            Criterion::Age(Age::Day),
-            Naming::Timestamps,
-            Cleanup::KeepLogFiles(30)
-        )
-        .start()
-        .expect("Failed to initialize logger.");
+    // Logger::with_str("info")
+    //     .log_target(LogTarget::File)
+    //     .buffer_and_flush()
+    //     .append()
+    //     .rotate(
+    //         Criterion::Age(Age::Day),
+    //         Naming::Timestamps,
+    //         Cleanup::KeepLogFiles(30)
+    //     )
+    //     .start()
+    //     .expect("Failed to initialize logger.");
 
     let command_sender = factory.command_sender();
 
@@ -52,8 +55,27 @@ fn main() {
         user_service::purge_expired_users(user_service)
     });
 
+    let websocket_server = Arc::new(Mutex::new(WebSocketServer::new()));
+    let copy_websocket_server = Arc::clone(&websocket_server);
+
+    let source_message = {
+        let websocket_server = websocket_server.lock().unwrap();
+        Arc::clone(&websocket_server.source_message)
+    };
+
+    // Startup Websocket server
     std::thread::spawn(move || {
-        command_processor.run()
+        websocket_service::run(source_message);
+    });
+
+    // Startup command aggregator/sender
+    std::thread::spawn(move || {
+        command_processor.run(websocket_server)
+    });
+
+    // Startup goal listener
+    std::thread::spawn(move || {
+        goal_listener::listen(copy_websocket_server);
     });
 
     let last_command = CommandData{

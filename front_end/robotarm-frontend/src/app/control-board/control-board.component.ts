@@ -66,6 +66,7 @@ export class ControlBoardComponent implements OnInit {
                     const value : number = command[control.part.toLowerCase()];
                     control.previousValue = value;
                     control.currentValue = value;
+                    control.hasChanged = false;
                 }
             }
         );

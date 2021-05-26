@@ -1,9 +1,12 @@
 TODOs:
 - (5/1/21) Construct actual arena (include rubber bands to keep robot arm in place)
 - (5/1/21) Enable SSL
-- (5/20/21) Notify the frontend on goal
+- (5/23/21) Frontend should do something on goal
+- (5/23/21) (Bug) when submitting a command, should only send when the control has changed (not working?)
 
 In Progress:
+- (5/20/21) Notify the frontend on goal
+    Still need to make an active goal listener on the webapi, publisher on server
 
 DONE:
 - (5/1/21 - 5/2/21) Make it so if the server hasn't been "locked", it doesn't change the users input on the frontend (e.g. AcceptingInput->Warning->AcceptingInput... shouldn't change users current input.)
