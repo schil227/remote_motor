@@ -118,6 +118,8 @@ fn state_change_listener(ws_msg: Arc<RwLock<WebSocketMessage>>, last_ping: Arc<R
     }
 
     let mut last_state = message.state;
+    let mut last_goal = message.goal_count;
+    let mut send_new_message = false;
 
     println!("Running state change listener.");
 
@@ -125,16 +127,19 @@ fn state_change_listener(ws_msg: Arc<RwLock<WebSocketMessage>>, last_ping: Arc<R
         let message = *(ws_msg.read().unwrap());
 
         let current_state = message.state;
+        let current_score = message.goal_count;
 
-        if last_state != current_state { // or goal scored
-            last_state = current_state; // dont do on goal scored
+        if last_state != current_state {
+            last_state = current_state;
+            send_new_message = true; 
+        }
 
-            // let msg_json = serde_json::to_string(&message).unwrap();
+        if last_goal != current_score {
+            last_goal = current_score;
+            send_new_message = true; 
+        }
 
-            // let msg = format!("{}", msg_json);
-
-            // println!("Outgoing Messgae: \r\n {}", msg);
-
+        if send_new_message{
             match send_state_message(&message, &out){
                 Err(e) => {
                     println!("failed to send websocket message. {:?}", e);
@@ -142,6 +147,8 @@ fn state_change_listener(ws_msg: Arc<RwLock<WebSocketMessage>>, last_ping: Arc<R
                 },
                 _ => {}
             }
+
+            send_new_message = false;
         }
 
         thread::sleep(Duration::from_millis(500));
