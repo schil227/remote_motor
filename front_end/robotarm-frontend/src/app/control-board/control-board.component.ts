@@ -91,6 +91,7 @@ export class ControlBoardComponent implements OnInit {
 
                     control.previousValue = value;
                     control.currentValue = value;
+                    control.hasChanged = false;
                 }
             }
         });

@@ -25,7 +25,7 @@ use rocket_cors::{AllowedHeaders, AllowedOrigins};
 
 use chrono::Local;
 use uuid::Uuid;
-use flexi_logger::{Logger, LogTarget, Criterion, Age, Naming, Cleanup};
+// use flexi_logger::{Logger, LogTarget, Criterion, Age, Naming, Cleanup};
 
 // Always use a limit to prevent DoS attacks.
 const _LIMIT: u64 = 256;
@@ -88,7 +88,7 @@ fn main() {
 
     ////////////// Initialize robot to 50..50 ///////////////
     let messages = MotorMessageCreator::get_messages(last_command.clone());
-    command_sender.send_commands(messages);
+    command_sender.send_commands(messages).unwrap();
     
     ////////////// Setup CORS ///////////////
     let allowed_origins = AllowedOrigins::All;

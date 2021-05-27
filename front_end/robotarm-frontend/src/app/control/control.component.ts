@@ -18,6 +18,6 @@ export class ControlComponent implements OnInit {
     onChange(event: MatSliderChange){
         this.control.hasChanged = true;
         this.control.currentValue = event.value!;
-        console.warn('Part changed', this.control.part, this.control.currentValue);
+        // console.warn('Part changed', this.control.part, this.control.currentValue);
     }
 }
