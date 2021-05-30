@@ -4,7 +4,7 @@ TODOs:
 - (5/23/21) Frontend should do something on goal
 
 In Progress:
-- (5/26/21) (Bug) values of 0 are being counted against final aggregate command - ignore these.
+
 
 DONE:
 - (5/1/21 - 5/2/21) Make it so if the server hasn't been "locked", it doesn't change the users input on the frontend (e.g. AcceptingInput->Warning->AcceptingInput... shouldn't change users current input.)
@@ -23,6 +23,14 @@ DONE:
 - (5/17/21 - 5/20/21) Add collapsable sections that explain what it is and the objective 
 - (5/20/21 - 5/25/21) Notify the frontend on goal
 - (5/23/21 - 5/26/21) (Bug) when submitting a command, should only send when the control has changed (not working?)
+- (5/26/21 - 5/26/21) (Bug) values of 0 are being counted against final aggregate command - ignore these.
+- (5/26/21 - 5/29/21) verify that only 1 command can be sent per user (use phone on real session)
+    This was an interesting one; the core problem was that cookies were not being set. While it worked 'originally', it inadvertantly stopped working 
+    once the site was AName redirected to robotarm.io (as opposed to the raw IP address). The reason the cookie wasn't being set was because the domain
+    between the frontend (robotarm.io) and webapi (96.42...) were incongruent, and the SameSite policy of the cookie disallowed for non-same sites.
+    The solution was to change the webapi target ip from 96.42... to robotarm.io, thus setting the source domains to the same value, and allowing cookies
+    to go though.
+
 STALLED:
 - (5/1/21) Enable Ads (https://www.google.com/adsense/start/)
     -> Partially done, however due to 'Lack of Content' advertisment was rejected. Need to add more information on the page, about page, etc.
