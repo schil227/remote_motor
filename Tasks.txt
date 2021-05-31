@@ -1,10 +1,9 @@
 TODOs:
 - (5/1/21) Construct actual arena (include rubber bands to keep robot arm in place)
 - (5/1/21) Enable SSL
-- (5/23/21) Frontend should do something on goal
 
 In Progress:
-
+    - (5/30/21) Diagnose why server is unreachable occasionally
 
 DONE:
 - (5/1/21 - 5/2/21) Make it so if the server hasn't been "locked", it doesn't change the users input on the frontend (e.g. AcceptingInput->Warning->AcceptingInput... shouldn't change users current input.)
@@ -30,6 +29,7 @@ DONE:
     between the frontend (robotarm.io) and webapi (96.42...) were incongruent, and the SameSite policy of the cookie disallowed for non-same sites.
     The solution was to change the webapi target ip from 96.42... to robotarm.io, thus setting the source domains to the same value, and allowing cookies
     to go though.
+- (5/23/21 - 5/30/21 Frontend should do something on goal
 
 STALLED:
 - (5/1/21) Enable Ads (https://www.google.com/adsense/start/)

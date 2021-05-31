@@ -32,6 +32,7 @@ export class ControlBoardComponent implements OnInit {
     streams : VideoStream[] = VideoStream.VideoStreams();
     buttonDisabled : boolean = false;
     state: ServerState = ServerState.Locked;
+    goalCount: number = 0;
     showInfo: boolean = true;
     showObjective: boolean = true;
     rotateStateInfo: string = 'default';
@@ -92,6 +93,19 @@ export class ControlBoardComponent implements OnInit {
                     control.previousValue = value;
                     control.currentValue = value;
                     control.hasChanged = false;
+                }
+            }
+
+            if(this.goalCount <  msg.goal_count){
+                this.goalCount = msg.goal_count;
+
+                if(msg.goal_count_verified){
+                    this.snackBar.open("!! GOAL SCORED !! (Make this cooler)", "", {
+                        duration: 4000,
+                        panelClass: ['std-snackbar'],
+                        verticalPosition: 'bottom',
+                        horizontalPosition: 'end'
+                    });
                 }
             }
         });

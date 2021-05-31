@@ -32,7 +32,12 @@ export class WebApiService {
     pushCommands(command : Command ) {
         console.warn("request: " + command);
 
-        this.http.post<any>('http://' + environment.serverIp + ':8000/set-command', command)
+        let headers = new HttpHeaders().append('Content-Type', 'application/json');
+
+        this.http.post<any>('http://' + environment.serverIp + ':8000/set-command', command, {
+            headers : headers,
+            withCredentials : true,
+        })
         .subscribe(
             data => console.log("Command processed successfully." + JSON.stringify(data)),
             error => console.error("Failed to process command. " + error)
