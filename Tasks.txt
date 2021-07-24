@@ -1,10 +1,13 @@
 TODOs:
-- (5/1/21) Construct actual arena (include rubber bands to keep robot arm in place)
+
 - (5/1/21) Enable SSL
 
 In Progress:
     - (5/30/21) Diagnose why server is unreachable occasionally
-
+        - Could be due to spotty ethernet connection; TCP connection dropps when it fails, causing intermittent network issues; 
+        try fiddling with cable, make logger to log every time connection fails
+        -Plan: make client/server apps; the client pings the server every x ms with a strict timeout (x*2 ms) - if ping fails, client alerts
+         (beeps?) - meanwhile, move the ethernet cord around to check for problem spots.
 DONE:
 - (5/1/21 - 5/2/21) Make it so if the server hasn't been "locked", it doesn't change the users input on the frontend (e.g. AcceptingInput->Warning->AcceptingInput... shouldn't change users current input.)
 - (5/1/21- 5/2/21) Fix stream display size on UI
@@ -30,6 +33,9 @@ DONE:
     The solution was to change the webapi target ip from 96.42... to robotarm.io, thus setting the source domains to the same value, and allowing cookies
     to go though.
 - (5/23/21 - 5/30/21 Frontend should do something on goal
+- (5/1/21 - 6/8/21) Construct actual arena
+    -Created a sloped siding that leads the ball to the center of the field. Fits the hoop/arm in place, so rubber bands are largely unnecessairy (maybe).
+    Tied up the wires and extended them on scoreboard/arm 
 
 STALLED:
 - (5/1/21) Enable Ads (https://www.google.com/adsense/start/)

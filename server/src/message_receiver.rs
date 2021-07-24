@@ -10,7 +10,7 @@ use std::time::Duration;
 const SIZE: usize = std::mem::size_of::<MotorMessage>();
 
 pub fn listen(goal_count: Arc<RwLock<u8>>) {
-    let listener = TcpListener::bind("192.168.1.38:7870").expect("Failed to bind listening TCP socket.");
+    let listener = TcpListener::bind("192.168.1.98:7870").expect("Failed to bind listening TCP socket.");
 
     let mut master = ControllerMaster::new();
 

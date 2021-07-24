@@ -50,7 +50,7 @@ The Frontend project (robotarm_frontend) is setup using the same deploy.sh scrip
 ### Development Caveats
 While there isn't much special configuration for this project, developing locally can be a bit of a hassle in terms of connecting to other resources.
 *  The site cannot be accessed by typing robotarm.io in the browser when on the same network, as this will resolve to the router.
-*  Connecting to the WebApi requires updating the environment.ts config to point to the local instance (e.g. 192.168.1.248)
+*  Connecting to the WebApi requires updating the environment.ts config to point to the local instance (e.g. 192.168.1.50)
 *  When developing locally using localhost:4200, secure cookies are not stored in the browser, so there is never an associated user-id that sticks to the session. This can throw some things off (e.g. live usercount, command data can get thrown out, etc.) 
 *  The video stream  is unavailable for localhost because the data is located in the /var/www/html... directory. The location is not accessable to the angular build location (under ./front_end/robotarm-frontend/...)
 
@@ -87,3 +87,15 @@ The arm is composed of servo motors, which require power, ground, and a signal l
   According to Josh, since I'm pointing the url directly to my router, I leave myself open to DDoS attacks. Using a hosting service (e.g. AWS, Digital Ocean, Azure, etc.) would allow for the app to be hosted elsewhere on better hardware (and better internet bandwith), thus making a reliable connection. 
   
   In order to get it to work, the *FrontEnd* and *WebApi* would have to be hosted, and my router would have to grant the servers access to the Pi (control the arm) and my server (to get the webcam streams). FFMPEG may be able to beam the stream directly to an IP address (and, I assume, keep everything in memory)
+
+  == Update ==
+  After doing some research, I would want to use a VPS (Virtual Private Server) hosting service. VPS allows for developer control, permitting me to build/run javascript frontend and rust backend, by installing the necessiary build tools. It would also grant me better throughput for streaming
+
+  Plan:
+    - Hostinger.com seems to have cheap VPS options - cheapest is at $10/mo; purchase 1 month getting started
+        -Pre-req: make sure that everything is working and fine tuned; from the robot to the webcams
+    - Setup/install everything as needed to get it working (rust/angular, etc.)
+    - Connect to the site, make sure connectivity is working from fronted/backend
+    - establish connection from backend to PI
+    - Get cameras online; may have to mess with FFMpeg to get streaming over internet
+    - If all goes well, everything should be fine

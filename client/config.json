@@ -1,5 +1,5 @@
 {
     
-    "this_machine_binding": "192.168.1.186:7871",
-    "target_machine_binding": "192.168.1.38:7870"
+    "this_machine_binding": "192.168.1.50:7871",
+    "target_machine_binding": "192.168.1.98:7870"
 }
