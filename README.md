@@ -70,7 +70,16 @@ In order to communicate with the PI, a TCP Port must be opened (7870). Open the 
 If necessariy, update the local IP and port in the code.
 
 ### GPIO Wireup
-TODO
+**Motors**: The motors are controlled using I2C on a PCA9685 PWM controller. The required Pi pins are:
+  * Pin 1 (3.3v)
+  * Pin 6 (ground)
+  * Pin 3 (SDA0)
+  * Pin 5 (SCL0)
+
+The above pins go to the corresponding PCA pins, which are labed on the circut. Note there is an extra pin which is not used, and can be fitted with a dummy wire which does not connect back to the Pi.
+
+**Scoreboard**
+(TODO - its currently an cluster of wires - at least the code should illustrate which pins go to what.)
 
 ### Servo Motors
 The arm is composed of servo motors, which require power, ground, and a signal line which is driven using pulse width modulation (PWM). In order to figure out how to run servos, you need to know the frequency (hertz), and the duty cycles (how long the signal is 'high' for a period) to run the servos correctly.
