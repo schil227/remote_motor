@@ -37,7 +37,7 @@ pub fn send_command(shared_command: Arc<Mutex<MotorMessage>>) {
 }
 
 fn send_command_tcp(command_messages: Vec<MotorMessage>) {
-    let mut stream = match TcpStream::connect("192.168.1.98:7870") {
+    let mut stream = match TcpStream::connect("66.188.188.238:7870") {
         Ok(stream) => stream,
         Err(_) => {
             println!(

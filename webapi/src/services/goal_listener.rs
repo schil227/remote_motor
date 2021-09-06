@@ -5,7 +5,7 @@ use std::time::Duration;
 use crate::services::websocket_service::{WebSocketServer};
 
 pub fn listen(websocket_server_lock: Arc<Mutex<WebSocketServer>>){
-    let listener = TcpListener::bind("192.168.1.50:7871").expect("Failed to bind listening TCP socket.");
+    let listener = TcpListener::bind("31.220.52.19:7871").expect("Failed to bind listening TCP socket."); // 192.168.1.50:7871
 
     loop {
         match listener.accept(){

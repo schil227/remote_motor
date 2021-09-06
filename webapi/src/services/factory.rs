@@ -19,7 +19,7 @@ impl Factory {
     pub fn new() -> Factory{
         Factory{
             user_data: Arc::new(Mutex::new(HashMap::new())),
-            command_sender_target: "192.168.1.98:7870".to_string()
+            command_sender_target: "66.188.188.238:7870".to_string() //192.168.1.98
         }
     }
 
