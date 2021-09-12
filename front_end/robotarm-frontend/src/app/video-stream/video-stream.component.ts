@@ -30,7 +30,7 @@ export class VideoStreamComponent implements AfterViewInit {
                 {
                     sources: [
                         {
-                            src: "../../assets/streaming" + this.stream.source + "/master.m3u8",
+                            src: "/streaming" + this.stream.source + "/master.m3u8",
                             // type: ?
                         }
                     ],
@@ -42,7 +42,7 @@ export class VideoStreamComponent implements AfterViewInit {
             // Play MPEG-DASH stream
             let player = MediaPlayer().create();
             video.setAttribute('type', "application/dash+xml");
-            player.initialize(video, "../../assets/streaming" + this.stream.source + "/manifest.mpd", true)
+            player.initialize(video, "/streaming" + this.stream.source + "/manifest.mpd", true)
             player.updateSettings({
                 streaming: {
                     lowLatencyEnabled: true,
