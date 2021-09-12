@@ -108,3 +108,23 @@ The arm is composed of servo motors, which require power, ground, and a signal l
     - establish connection from backend to PI
     - Get cameras online; may have to mess with FFMpeg to get streaming over internet
     - If all goes well, everything should be fine
+
+### Notes:
+misc. FFMPEG stream wrangling commands:
+
+== 3 second latency, decent quality! == 
+ffmpeg -rtsp_transport tcp -i rtsp://66.188.188.238:554/front -c:v libx264 -preset ultrafast -g 15 -keyint_min 120 -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 /usr/stmp/streaming_front/manifest.mpd 
+
+== Pulling from FFmpeg stream ==
+
+ffmpeg -rtsp_transport tcp -i rtsp://66.188.188.238:554/front -c:v copy -b:v 1000k -preset ultrafast -g 15 -keyint_min 120 -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 /usr/stmp/streaming_front/manifest.mpd 
+
+ffmpeg -rtsp_transport tcp -i rtsp://66.188.188.238:554/top -c:v copy -b:v 1000k -preset ultrafast -g 15 -keyint_min 120 -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 /usr/stmp/streaming_top/manifest.mpd 
+
+ffmpeg -rtsp_transport tcp -i rtsp://66.188.188.238:554/side -c:v copy -b:v 1000k -preset ultrafast -g 15 -keyint_min 120 -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 /usr/stmp/streaming_side/manifest.mpd 
+
+== Mobile ==
+
+ffmpeg -rtsp_transport tcp -i rtsp://66.188.188.238:554/frontmobile -c:v vp8 -b:v 1000k -preset ultrafast -g 15 -keyint_min 120 -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 /usr/stmp/streaming_front/manifest_mobile.mpd 
+
+ffmpeg -rtsp_transport tcp -i rtsp://66.188.188.238:554/front -c:v h263  -b:v 1000k -preset ultrafast -g 15 -keyint_min 120 -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 /usr/stmp/streaming_front/manifest_mobile.mpd 
