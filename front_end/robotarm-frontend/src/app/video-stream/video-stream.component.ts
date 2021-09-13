@@ -26,17 +26,18 @@ export class VideoStreamComponent implements AfterViewInit {
 
         if(this.isMobile()){
             // Play HLS stream
-            let player = videojs(video, 
-                {
-                    sources: [
-                        {
-                            src: "/streaming" + this.stream.source + "/master.m3u8",
-                            // type: ?
-                        }
-                    ],
-                    autoplay: true,
-                    muted: true,
-                });
+            // let player = videojs(video, 
+            //     {
+            //         sources: [
+            //             {
+            //                 src: "/streaming" + this.stream.source + "/master.m3u8",
+            //                 // type: ?
+            //             }
+            //         ],
+            //         autoplay: true,
+            //         muted: true,
+            //     });
+            video.setAttribute("src", "/streaming" + this.stream.source + "/master.m3u8");
         }
         else{
             // Play MPEG-DASH stream
@@ -44,6 +45,7 @@ export class VideoStreamComponent implements AfterViewInit {
             video.setAttribute('type', "application/dash+xml");
             player.initialize(video, "/streaming" + this.stream.source + "/manifest.mpd", true)
             player.updateSettings({
+                
                 streaming: {
                     lowLatencyEnabled: true,
                     liveDelay: 1.5,
