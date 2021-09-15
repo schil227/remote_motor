@@ -1,5 +1,5 @@
 echo "Starting front end build"
-sudo ng build --prod
+node --max_old_space_size=1024 ./node_modules/@angular/cli/bin/ng build --prod --build-optimizer
 
 echo "Starting Server Setup."
 sudo rm -fr /var/www/html/*
