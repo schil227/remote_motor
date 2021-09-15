@@ -11,6 +11,7 @@ import videojs from 'video.js';
 export class VideoStreamComponent implements AfterViewInit {
     @Input() stream : VideoStream = new VideoStream("", "");
     @ViewChildren('videoPlayer') videoElement? : QueryList<ElementRef>;
+    @ViewChildren('videoPlayer2') videoElement2? : QueryList<ElementRef>;
 
     constructor() {
     }
@@ -21,10 +22,12 @@ export class VideoStreamComponent implements AfterViewInit {
         }
 
         var video = this.videoElement.first.nativeElement as HTMLVideoElement;
+        var video2 = this.videoElement.first.nativeElement as HTMLVideoElement;
 
         video.muted = true;
+        video2.muted = true;
 
-        if(this.isMobile()){
+        // if(this.isMobile()){
             // Play HLS stream
             // let player = videojs(video, 
             //     {
@@ -37,9 +40,9 @@ export class VideoStreamComponent implements AfterViewInit {
             //         autoplay: true,
             //         muted: true,
             //     });
-            video.setAttribute("src", "/streaming" + this.stream.source + "/master.m3u8");
-        }
-        else{
+            video2.setAttribute("src", "/streaming" + this.stream.source + "/master.m3u8");
+        // }
+        // else{
             // Play MPEG-DASH stream
             let player = MediaPlayer().create();
             video.setAttribute('type', "application/dash+xml");
@@ -55,7 +58,7 @@ export class VideoStreamComponent implements AfterViewInit {
                     }
                 }
             });
-        }
+        // }
     }
 
     isMobile() : boolean{
