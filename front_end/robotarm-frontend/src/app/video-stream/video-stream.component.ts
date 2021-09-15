@@ -28,19 +28,19 @@ export class VideoStreamComponent implements AfterViewInit {
         video2.muted = true;
 
         // if(this.isMobile()){
-            // Play HLS stream
-            // let player = videojs(video, 
-            //     {
-            //         sources: [
-            //             {
-            //                 src: "/streaming" + this.stream.source + "/master.m3u8",
-            //                 // type: ?
-            //             }
-            //         ],
-            //         autoplay: true,
-            //         muted: true,
-            //     });
-            video2.setAttribute("src", "/streaming" + this.stream.source + "/master.m3u8");
+            //Play HLS stream
+            let player2 = videojs(video2, 
+                {
+                    sources: [
+                        {
+                            src: "/streaming" + this.stream.source + "/master.m3u8",
+                            type: "application/x-mpegURL"
+                        }
+                    ],
+                    autoplay: true,
+                    muted: true,
+                });
+            
         // }
         // else{
             // Play MPEG-DASH stream
