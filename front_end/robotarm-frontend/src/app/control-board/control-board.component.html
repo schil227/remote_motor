@@ -4,6 +4,7 @@
     As a result, there may be no working video feeds, the command-receiving server is not running, and robot arm itself is currently disabled. Check in
     later for updates.
 </h3>
+<button class="btn btn-primary" (click)="gotoTest()">Testing</button>
 <div class="section">
     <div class="container-label" >
         <i (click)="toggleIntro()" class="material-icons" [@rotatedState]='rotateStateInfo'>double_arrow</i>
@@ -11,9 +12,9 @@
     </div>
     <div class="container-text" *ngIf="showInfo" @slideDownUp>
         Control a robot arm remotely with an intuitive user interface. Adjust the sliders
-        and hit 'Engage' to issue your commands. The robotic arm will move periodiaclly 
+        and hit 'Engage' to issue your commands. The robotic arm will move periodiaclly
         based on the average of the input it receives from all of the commanders.
-    </div>    
+    </div>
 </div>
 <div class="section">
     <div class="container-label" >
@@ -24,13 +25,13 @@
         Get the ball in the hoop!
         <br>
         <br>
-        It seems simple, but lining everything up perfectly is quite tricky. 
-        The scoreboard reflects the number of times it's been done - will you revel in glory of seeing 
-        that sweet, sweet number increase? Or, are you doomed to spend the rest of your life only wondering? 
+        It seems simple, but lining everything up perfectly is quite tricky.
+        The scoreboard reflects the number of times it's been done - will you revel in glory of seeing
+        that sweet, sweet number increase? Or, are you doomed to spend the rest of your life only wondering?
         <br>
         <br>
         Note that there will be different objectives in the future - come back sometime and check it out!
-    </div>    
+    </div>
 </div>
 <div>
     <div class="container-label">Live Stream</div>
