@@ -13,7 +13,9 @@ import { ControlBoardComponent } from './control-board/control-board.component';
 import { ControlComponent } from './control/control.component';
 import { DynamicSvgComponent } from './dynamic-svg/dynamic-svg.component';
 import { VideoStreamComponent } from './video-stream/video-stream.component';
+import { VideojsStreamComponent } from './videojs-stream/videojs-stream.component';
 import { UserHeartBeatComponent } from './user-heart-beat/user-heart-beat.component';
+import { TestingComponent } from './testing/testing.component';
 
 @NgModule({
   imports: [
@@ -22,19 +24,22 @@ import { UserHeartBeatComponent } from './user-heart-beat/user-heart-beat.compon
     HttpClientModule,
     RouterModule.forRoot([
       { path: '', component: ControlBoardComponent },
+      { path: 'test', component: VideojsStreamComponent },
     ]),
     BrowserAnimationsModule,
     MatSliderModule,
     MatSnackBarModule
   ],
-  declarations: [													
+  declarations: [
     AppComponent,
     TopBarComponent,
     ControlBoardComponent,
     ControlComponent,
     DynamicSvgComponent,
-      VideoStreamComponent,
-      UserHeartBeatComponent
+    VideoStreamComponent,
+    VideojsStreamComponent,
+    UserHeartBeatComponent,
+      TestingComponent
    ],
   bootstrap: [
     AppComponent
