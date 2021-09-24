@@ -31,32 +31,32 @@ pub struct MotorMessage {
 
 pub static CLAW_DATA: MotorData = MotorData {
     motor_name: MotorName::Claw,
-    max: 310,
-    min: 143,
+    max: 536,
+    min: 474,
 };
 
 pub static HAND_DATA: MotorData = MotorData {
     motor_name: MotorName::Hand,
-    max: 286,
-    min: 102,
+    max: 310,
+    min: 110,
 };
 
 pub static FOREARM_DATA: MotorData = MotorData {
     motor_name: MotorName::ForeArm,
-    max: 348,
-    min: 200,
+    max: 400,
+    min: 230,
 };
 
 pub static STRONGARM_DATA: MotorData = MotorData {
     motor_name: MotorName::StrongArm,
-    max: 380,
-    min: 177,
+    max: 548,
+    min: 400,
 };
 
 pub static SHOULDER_DATA: MotorData = MotorData {
     motor_name: MotorName::Shoulder,
-    max: 492,
-    min: 82,
+    max: 570,
+    min: 120,
 };
 
 pub static STOP_EVERYTHING: MotorData = MotorData {

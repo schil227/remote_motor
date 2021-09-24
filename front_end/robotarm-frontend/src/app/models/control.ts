@@ -39,8 +39,8 @@ export class Control {
                     "15%",
                     true,
                     [
-                        new MovingSvg("../../assets/Claw_m1.svg", 35, true),
-                        new MovingSvg("../../assets/Claw_m2.svg", 35, false),
+                        new MovingSvg("../../assets/Claw_m1.svg", 35, false),
+                        new MovingSvg("../../assets/Claw_m2.svg", 35, true),
                     ]
                 )
             },

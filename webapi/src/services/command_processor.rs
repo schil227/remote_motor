@@ -8,6 +8,7 @@ use crate::services::command_sender::CommandSender;
 use crate::services::motor_message_creator::MotorMessageCreator;
 use crate::services::user_service::UserService;
 use crate::services::websocket_service::{WebSocketServer, ServerState};
+use crate::services::command_aggregator;
 
 pub struct CommandProcessor {
     sender : CommandSender,
@@ -50,30 +51,9 @@ impl CommandProcessor {
 
             log::info!("Found {} to process", num_commands);
 
-            let mut command_parts : [usize; 5] = [0,0,0,0,0];
+            let average_command_data = command_aggregator::aggregate_commands(data);
 
-            for command in data.into_iter() {
-                command_parts[0] += command.claw as usize;
-                command_parts[1] += command.hand as usize;
-                command_parts[2] += command.forearm as usize;
-                command_parts[3] += command.strongarm as usize;
-                command_parts[4] += command.shoulder as usize;
-            }
-
-            let command_parts : Vec<usize> = command_parts
-                .iter()
-                .map(|x| x / num_commands)
-                .collect();
-
-            log::info!("Averaged Commands: {:?}", &command_parts);
-
-            let average_command_data = CommandData{
-                claw : command_parts[0] as u8,
-                hand : command_parts[1] as u8,
-                forearm : command_parts[2] as u8,
-                strongarm : command_parts[3] as u8,
-                shoulder : command_parts[4] as u8
-            };
+            log::info!("Averaged Commands: {:?}", &average_command_data);
 
             set_command_data(&websocket_server_lock, &average_command_data);
 

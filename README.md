@@ -50,7 +50,7 @@ The Frontend project (robotarm_frontend) is setup using the same deploy.sh scrip
 ### Development Caveats
 While there isn't much special configuration for this project, developing locally can be a bit of a hassle in terms of connecting to other resources.
 *  The site cannot be accessed by typing robotarm.io in the browser when on the same network, as this will resolve to the router.
-*  Connecting to the WebApi requires updating the environment.ts config to point to the local instance (e.g. 192.168.1.248)
+*  Connecting to the WebApi requires updating the environment.ts config to point to the local instance (e.g. 192.168.1.50)
 *  When developing locally using localhost:4200, secure cookies are not stored in the browser, so there is never an associated user-id that sticks to the session. This can throw some things off (e.g. live usercount, command data can get thrown out, etc.) 
 *  The video stream  is unavailable for localhost because the data is located in the /var/www/html... directory. The location is not accessable to the angular build location (under ./front_end/robotarm-frontend/...)
 
@@ -70,7 +70,16 @@ In order to communicate with the PI, a TCP Port must be opened (7870). Open the 
 If necessariy, update the local IP and port in the code.
 
 ### GPIO Wireup
-TODO
+**Motors**: The motors are controlled using I2C on a PCA9685 PWM controller. The required Pi pins are:
+  * Pin 1 (3.3v)
+  * Pin 6 (ground)
+  * Pin 3 (SDA0)
+  * Pin 5 (SCL0)
+
+The above pins go to the corresponding PCA pins, which are labed on the circut. Note there is an extra pin which is not used, and can be fitted with a dummy wire which does not connect back to the Pi.
+
+**Scoreboard**
+(TODO - its currently an cluster of wires - at least the code should illustrate which pins go to what.)
 
 ### Servo Motors
 The arm is composed of servo motors, which require power, ground, and a signal line which is driven using pulse width modulation (PWM). In order to figure out how to run servos, you need to know the frequency (hertz), and the duty cycles (how long the signal is 'high' for a period) to run the servos correctly.
@@ -87,3 +96,35 @@ The arm is composed of servo motors, which require power, ground, and a signal l
   According to Josh, since I'm pointing the url directly to my router, I leave myself open to DDoS attacks. Using a hosting service (e.g. AWS, Digital Ocean, Azure, etc.) would allow for the app to be hosted elsewhere on better hardware (and better internet bandwith), thus making a reliable connection. 
   
   In order to get it to work, the *FrontEnd* and *WebApi* would have to be hosted, and my router would have to grant the servers access to the Pi (control the arm) and my server (to get the webcam streams). FFMPEG may be able to beam the stream directly to an IP address (and, I assume, keep everything in memory)
+
+  == Update ==
+  After doing some research, I would want to use a VPS (Virtual Private Server) hosting service. VPS allows for developer control, permitting me to build/run javascript frontend and rust backend, by installing the necessiary build tools. It would also grant me better throughput for streaming
+
+  Plan:
+    - Hostinger.com seems to have cheap VPS options - cheapest is at $10/mo; purchase 1 month getting started
+        -Pre-req: make sure that everything is working and fine tuned; from the robot to the webcams
+    - Setup/install everything as needed to get it working (rust/angular, etc.)
+    - Connect to the site, make sure connectivity is working from fronted/backend
+    - establish connection from backend to PI
+    - Get cameras online; may have to mess with FFMpeg to get streaming over internet
+    - If all goes well, everything should be fine
+
+### Notes:
+misc. FFMPEG stream wrangling commands:
+
+== 3 second latency, decent quality! == 
+ffmpeg -rtsp_transport tcp -i rtsp://66.188.188.238:554/front -c:v libx264 -preset ultrafast -g 15 -keyint_min 120 -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 /usr/stmp/streaming_front/manifest.mpd 
+
+== Pulling from FFmpeg stream ==
+
+ffmpeg -rtsp_transport tcp -i rtsp://66.188.188.238:554/front -c:v copy -b:v 1000k -preset ultrafast -g 15 -keyint_min 120 -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 /usr/stmp/streaming_front/manifest.mpd 
+
+ffmpeg -rtsp_transport tcp -i rtsp://66.188.188.238:554/top -c:v copy -b:v 1000k -preset ultrafast -g 15 -keyint_min 120 -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 /usr/stmp/streaming_top/manifest.mpd 
+
+ffmpeg -rtsp_transport tcp -i rtsp://66.188.188.238:554/side -c:v copy -b:v 1000k -preset ultrafast -g 15 -keyint_min 120 -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 /usr/stmp/streaming_side/manifest.mpd 
+
+== Mobile ==
+
+ffmpeg -rtsp_transport tcp -i rtsp://66.188.188.238:554/frontmobile -c:v vp8 -b:v 1000k -preset ultrafast -g 15 -keyint_min 120 -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 /usr/stmp/streaming_front/manifest_mobile.mpd 
+
+ffmpeg -rtsp_transport tcp -i rtsp://66.188.188.238:554/front -c:v h263  -b:v 1000k -preset ultrafast -g 15 -keyint_min 120 -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 /usr/stmp/streaming_front/manifest_mobile.mpd 

@@ -7,7 +7,6 @@ use std::sync::Mutex;
 use uuid::Uuid;
 
 use rocket::http::Cookies;
-use rocket::request::FromRequest;
 use std::net::SocketAddr;
 use rocket::State;
 use rocket_contrib::json;

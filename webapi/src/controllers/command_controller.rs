@@ -45,7 +45,7 @@ pub fn command(
     {
         let factory = factory_mutex.lock().expect("Failed to obtain Factory!");
         
-        factory.command_sender().send_commands(messages);
+        factory.command_sender().send_commands(messages).unwrap();
     };
 
     {

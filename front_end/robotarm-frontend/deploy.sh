@@ -1,41 +1,58 @@
+echo "Starting front end build"
 sudo ng build --prod
 
+echo "Starting Server Setup."
 sudo rm -fr /var/www/html/*
 
 sudo cp -RT ./dist/robotarm-frontend/ /var/www/html/
 
+echo "Loaded Website"
+
+echo "Making Shared memory directories"
 mkdir -p /dev/shm/streaming
 mkdir -p /dev/shm/streaming_front
 mkdir -p /dev/shm/streaming_side
 mkdir -p /dev/shm/streaming_top
 
+echo "checking for /var/www/html/streaming"
 if [ ! -e /var/www/html/streaming ]; then
-        sudo ln -s /dev/shm/streaming /var/www/html/streaming
+	echo "DNE: linking /var/www/html/streaming"
+	sudo ln -s /dev/shm/streaming /var/www/html/streaming
 fi
 
+echo "checking for streaming_front"
 if [ ! -e /var/www/html/streaming_front ]; then
+	echo "DNE: linking /var/www/html/streaming_front"
         sudo ln -s /dev/shm/streaming_front /var/www/html/streaming_front
 fi
 
+echo "checking for streaming_side"
 if [ ! -e /var/www/html/streaming_side ]; then
+	echo "DNE: linking /var/www/html/streaming_side"
         sudo ln -s /dev/shm/streaming_side /var/www/html/streaming_side
 fi
 
+echo "checking for streaming_top"
 if [ ! -e /var/www/html/streaming_top ]; then
+	echo "DNE: linking /var/www/html/streaming_top"
         sudo ln -s /dev/shm/streaming_top /var/www/html/streaming_top
 fi
 
+echo "checking for streaming.html"
 if [ ! -e /var/www/html/streaming/streaming.html ]; then
-        sudo ln -s /home/adrian/remote_motor_repo/remote_motor/front_end/streaming.html /var/www/html/streaming/streaming.html
+	echo "DNE: linking streaming.html"
+        sudo ln -s /usr/remote_motor/front_end/streaming.html /var/www/html/streaming/streaming.html
 fi
 
-sudo mount --bind /dev/shm/streaming_front/ ~/stmp/streaming_front/
-sudo mount --bind /dev/shm/streaming_top/ ~/stmp/streaming_top/
-sudo mount --bind /dev/shm/streaming_side/ ~/stmp/streaming_side/
+echo "Binding /usr/stmp to /dev/shm"
+sudo mount --bind /dev/shm/streaming_front/ /usr/stmp/streaming_front/
+sudo mount --bind /dev/shm/streaming_top/ /usr/stmp/streaming_top/
+sudo mount --bind /dev/shm/streaming_side/ /usr/stmp/streaming_side/
 
-tmux new-session -d -s frontcam 'exec ffmpeg -threads 2 -video_size 640x480 -i /dev/video2 -f video4linux2 -preset ultrafast -c:v libx264 -g 10 -tune zerolatency -f dash -use_timeline 1 -use_template 1 -streaming 1 -min_seg_duration 250000 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 ~/stmp/streaming_front/manifest.mpd -c:v vp8 -g 10 -f dash -use_timeline 1 -use_template 1 -streaming 1 -min_seg_duration 250000 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 ~/stmp/streaming_front/manifest_mobile.mpd'
-tmux new-session -d -s topcam 'exec ffmpeg -threads 2 -i /dev/video4 -vf "scale=960:-1,setdar=16/9, crop=640:480:200:0" -preset ultrafast -c:v libx264 -g 10 -tune zerolatency -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 ~/stmp/streaming_top/manifest.mpd -vf "scale=960:-1,setdar=16/9, crop=640:480:200:0" -preset ultrafast -c:v vp8 -g 10 -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 ~/stmp/streaming_top/manifest_mobile.mpd'
-tmux new-session -d -s sidecam 'exec ffmpeg -threads 2 -i /dev/video0 -vf "scale=960:-1,setdar=16/9, crop=640:480:200:0" -preset ultrafast -c:v libx264 -g 10 -tune zerolatency -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 ~/stmp/streaming_side/manifest.mpd -vf "scale=960:-1,setdar=16/9, crop=640:480:200:0" -preset ultrafast -c:v vp8 -g 10 -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 ~/stmp/streaming_side/manifest_mobile.mpd'
+echo "Tmuxing front cam"
 
-cd /home/adrian/remote_motor_repo/remote_motor/webapi/
+tmux new-session -d -s frontcam 'exec ffmpeg -rtsp_transport tcp -i rtsp://66.188.188.238:554/front -c:v libx264 -preset ultrafast -g 15 -keyint_min 120 -f dash -use_timeline 1 -use_template 1 -streaming 1 -seg_duration 1 -window_size 5 -remove_at_exit 1 -hls_playlist 1 /usr/stmp/streaming_front/manifest.mpd'
+
+echo "Cd and tmuxing webapi"
+cd /usr/remote_motor/webapi/
 tmux new-session -d -s webapi 'exec ./run.sh'

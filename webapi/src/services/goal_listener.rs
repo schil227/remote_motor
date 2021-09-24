@@ -1,15 +1,15 @@
 use std::sync::{Arc, Mutex};
-use std::io::{Read, Write};
-use std::net::{TcpListener, TcpStream};
+use std::io::{Read};
+use std::net::{TcpListener};
 use std::time::Duration;
-use crate::services::websocket_service::{WebSocketMessage, WebSocketServer};
+use crate::services::websocket_service::{WebSocketServer};
 
 pub fn listen(websocket_server_lock: Arc<Mutex<WebSocketServer>>){
-    let listener = TcpListener::bind("192.168.1.248:7871").expect("Failed to bind listening TCP socket.");
+    let listener = TcpListener::bind("31.220.52.19:7871").expect("Failed to bind listening TCP socket."); // 192.168.1.50:7871
 
     loop {
         match listener.accept(){
-            Ok((mut stream, addr)) => {
+            Ok((mut stream, _addr)) => {
                 stream.set_read_timeout(Some(Duration::from_secs(3))).expect("Failed to set read timeout.");
 
                 // one byte => u8

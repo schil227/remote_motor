@@ -85,7 +85,7 @@ impl<'a> WebSocketServer{
 }
 
 pub fn run(websocket_message : Arc<RwLock<WebSocketMessage>>){
-    ws::listen("192.168.1.248:8001", |out| {
+    ws::listen("31.220.52.19:8001", |out| { //192.168.1.50
         let out_copy = out.clone();
         
         let websocket_message_copy = Arc::clone(&websocket_message);

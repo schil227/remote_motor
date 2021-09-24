@@ -1,12 +1,10 @@
 TODOs:
-- (5/1/21) Construct actual arena (include rubber bands to keep robot arm in place)
+
 - (5/1/21) Enable SSL
-- (5/23/21) Frontend should do something on goal
-- (5/23/21) (Bug) when submitting a command, should only send when the control has changed (not working?)
 
 In Progress:
-- (5/20/21) Notify the frontend on goal
-    Still need to make an active goal listener on the webapi, publisher on server
+- (7/31/21) Rebuild Basketball hoop / arena
+
 
 DONE:
 - (5/1/21 - 5/2/21) Make it so if the server hasn't been "locked", it doesn't change the users input on the frontend (e.g. AcceptingInput->Warning->AcceptingInput... shouldn't change users current input.)
@@ -23,6 +21,28 @@ DONE:
     -Basically, best odds are to host the app on a hosted service that has load balancing. See ReadMe (## Server Hosting)
 - (5/17/21 - 5/20/21) Add an info ? next to the "number of commanders" piece
 - (5/17/21 - 5/20/21) Add collapsable sections that explain what it is and the objective 
+- (5/20/21 - 5/25/21) Notify the frontend on goal
+- (5/23/21 - 5/26/21) (Bug) when submitting a command, should only send when the control has changed (not working?)
+- (5/26/21 - 5/26/21) (Bug) values of 0 are being counted against final aggregate command - ignore these.
+- (5/26/21 - 5/29/21) verify that only 1 command can be sent per user (use phone on real session)
+    This was an interesting one; the core problem was that cookies were not being set. While it worked 'originally', it inadvertantly stopped working 
+    once the site was AName redirected to robotarm.io (as opposed to the raw IP address). The reason the cookie wasn't being set was because the domain
+    between the frontend (robotarm.io) and webapi (96.42...) were incongruent, and the SameSite policy of the cookie disallowed for non-same sites.
+    The solution was to change the webapi target ip from 96.42... to robotarm.io, thus setting the source domains to the same value, and allowing cookies
+    to go though.
+- (5/23/21 - 5/30/21 Frontend should do something on goal
+- (5/1/21 - 6/8/21) Construct actual arena
+    -Created a sloped siding that leads the ball to the center of the field. Fits the hoop/arm in place, so rubber bands are largely unnecessairy (maybe).
+    Tied up the wires and extended them on scoreboard/arm 
+- (5/30/21 - 6/?/21) Diagnose why server is unreachable occasionally
+    - After a lot of attempts to fix the network (messing around with routers, moving everything to the basement, etc.) I
+    ultimately had to re-run the ethernet cable in the wall (was having really weird, spotty issues even when connected). 
+    Added a switch to the network, getting significantly better throughput.
+- (?/?/21 - 7/30/21) Rebuild robot arm to be stronger/durable
+    - Rebuilt the arm out of aluminum channel (U-shaped) pieces and 10 Kg servos (2.5 Amp stall current), using an old computer PSU to power it.
+    The who process was surprisingly cathartic and inexpensive (raw materials was roughly $20, sevos ~$24)
+- (8/1/21 - 8/8/21) Install counterweight on robot arm
+    - Turned a heatsink into a neat box, mounted it on the back of the bot, and added some lead batteries for counterweight.
 
 STALLED:
 - (5/1/21) Enable Ads (https://www.google.com/adsense/start/)

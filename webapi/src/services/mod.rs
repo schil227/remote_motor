@@ -5,3 +5,4 @@ pub mod user_service;
 pub mod websocket_service;
 pub mod factory;
 pub mod goal_listener;
+pub mod command_aggregator;
