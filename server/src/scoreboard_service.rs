@@ -71,7 +71,7 @@ fn increment_score(score: &Arc<RwLock<u8>>) -> u8{
 }
 
 fn update_webserver(score: u8) {
-    let mut stream = TcpStream::connect("192.168.1.248:7871").expect("Failed to establish TCP connection to webapi (192.168.1.248:7871)");
+    let mut stream = TcpStream::connect("192.168.1.50:7871").expect("Failed to establish TCP connection to webapi (192.168.1.50:7871)");
 
     let mut buf = [0; 1];
     bincode::serialize_into(&mut buf[..], &score).unwrap();
