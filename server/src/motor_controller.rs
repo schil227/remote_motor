@@ -70,16 +70,16 @@ fn register_motor(name: MotorName) -> Option<Channel>{
             Some(Channel::C0)
         },
         MotorName::StrongArm => {
-            Some(Channel::C1)
+            Some(Channel::C4)
         },
         MotorName::ForeArm => {
-            Some(Channel::C12)
+            Some(Channel::C8)
         },
         MotorName::Hand => {
-            Some(Channel::C3)
+            Some(Channel::C12)
         },
         MotorName::Claw => {
-            Some(Channel::C4)
+            Some(Channel::C15)
         },
         _ =>{
             None
