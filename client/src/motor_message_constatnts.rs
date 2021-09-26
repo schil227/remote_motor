@@ -59,7 +59,7 @@ impl MotorMessageConstants{
     pub fn contract_fore_arm() -> MotorMessage{
         MotorMessage{
             data: FOREARM_DATA,
-            command: MotorCommand::Go(FOREARM_DATA.max)
+            command: MotorCommand::Go(FOREARM_DATA.min)
         }
     }
 

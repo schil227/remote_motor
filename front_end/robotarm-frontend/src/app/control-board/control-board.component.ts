@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observer } from 'rxjs'
 import { MatSnackBar,  } from '@angular/material/snack-bar'
 import { animate, style, state, transition, trigger } from '@angular/animations'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-control-board',
@@ -39,23 +40,24 @@ export class ControlBoardComponent implements OnInit {
     rotateStateObjective: string = 'default';
 
     observer : Observer<WebsocketMessage> = {
-        next(v){ 
+        next(v){
             console.log('Message received from socket: ' + v)
         },
-        error(e){ 
+        error(e){
             console.error('Error received from socket: ' + e)
         },
-        complete(){ 
-            console.log('Socket is closed.') 
+        complete(){
+            console.log('Socket is closed.')
         }
     };
 
     constructor(
         private api: WebApiService,
         private socket: WebsocketService,
-        private snackBar: MatSnackBar
-        ) 
-    { 
+        private snackBar: MatSnackBar,
+        private router: Router
+        )
+    {
     }
 
     ngOnInit() {
@@ -109,6 +111,10 @@ export class ControlBoardComponent implements OnInit {
                 }
             }
         });
+    }
+
+    gotoTest() {
+      this.router.navigate(['/test']);
     }
 
     aboutToFire() : boolean {

@@ -45,9 +45,9 @@ export class VideoStreamComponent implements AfterViewInit {
     }
 
     isMobile() : boolean{
-	return false;
+	return false;    
 
-	if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+	    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
             return true;
         }
 

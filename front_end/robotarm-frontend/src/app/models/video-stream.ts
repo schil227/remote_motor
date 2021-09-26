@@ -27,4 +27,13 @@ export class VideoStream {
             }
         ]
     }
+
+    static VideojsStreams() : VideoStream[] {
+      return [
+          {
+              name: "Front",
+              source: "_front"
+          }
+      ]
+  }
 }
