@@ -1,10 +1,8 @@
 <app-user-heart-beat></app-user-heart-beat>
-<h2>Currently in Development</h2>
-<h3>This webapp is currently under development. Due to video codec issues, this page is best viewed when using Chrome or Edge browsers.
-  Ocasionally the video veed will be down or frozen, however refreshing the page or checking back periodically helps. In addition, there is
+<h4 class="disclaimer-text">This webapp is currently under development. Due to video codec issues, this page is best viewed when using Chrome or Edge browsers.
+  Occasionally the video feed will be down or frozen, however refreshing the page or checking back periodically helps. In addition, there is
   a future enhancement to add dynamic lighting, so the robot can be used at night (Located in Central Time Zone, USA).
-</h3>
-<button class="btn btn-primary" (click)="gotoTest()">Testing</button>
+</h4>
 <div class="section">
     <div class="container-label" >
         <i (click)="toggleIntro()" class="material-icons" [@rotatedState]='rotateStateInfo'>double_arrow</i>
@@ -13,7 +11,7 @@
     <div class="container-text" *ngIf="showInfo" @slideDownUp>
         robotarm.io gives you the controls to move a real robotic arm remotely with a somewhat
         intuitive user interface. Adjust the sliders and hit 'Engage' to issue your commands.
-        Teh robot arm will move periodically based on the average of the inputs received from all
+        The robot arm will move periodically based on the average of the inputs received from all
         of the current users. Note that there is roughly a five second delay in the live stream.
     </div>
 </div>
@@ -23,38 +21,37 @@
         <span>Objective</span>
     </div>
     <div class="container-text" *ngIf="showObjective" @slideDownUp>
-        Get the ball in the hoop!
-        <br>
+        Get the ball in the hoop!<br>
         <br>
         It seems simple, but lining everything up perfectly is quite tricky. Practice moving
         one part at a time, and once you've gotten the hang of it, try to pick up the ball.
-        Dropping it into the hoop will increase the score (as seen on the scoreboard).
-
+        Dropping it into the hoop will increase the score (as seen on the scoreboard).<br>
+        <br>
         The only question is: can you do it?
       </div>
 </div>
 <div class="section">
   <div class="container-label" >
       <i (click)="toggleObjective()" class="material-icons" [@rotatedState]='rotateStateTechnicalNotes'>double_arrow</i>
-      <span>Technical Notes</span>
+      <span>Technical Details</span>
   </div>
   <div class="container-text" *ngIf="showTechnicalNotes" @slideDownUp>
       The robot arm frame is made by hand out of channeled aluminum and scrap material.
       It is moved using 5 <a href="https://www.electronicoscaldas.com/datasheet/MG996R_Tower-Pro.pdf">MG996R Servo Motors</a> at 5 volts each,
       pulling up to 12.5 Amps on maximum load. It is powered using a PSU from an old computer.<br>
-      The Arena was constructed out of channeled aluminum and scrap wood. The basketball is the rubber tracking ball from an old mouse.
+      The Arena was constructed out of channeled aluminum and scrap wood. The "basketball" is the rubber tracking ball from an old mouse.
       The scoreboard is a hand-wired double seven segment display.<br>
       <br>
       The robot arm is controlled using a RaspberryPi along with a separate PCA9685 board to send the PWM signal and supply power to
-      the motors. The RasbperryPI and PCA9685 communicate over i2C, using a program coded in <a href="https://www.rust-lang.org/">Rust</a>, known as the "Robot-Server".<br>
+      the motors. The RaspberryPI and PCA9685 communicate over i2C, using a program coded in <a href="https://www.rust-lang.org/">Rust</a>, and is known as the "Robot-Server".<br>
       The Robot-Server also controls the scoreboard and the hoop trigger, which are wired to the RaspberryPi's General Purpose IO (GPIO) pins. <br>
       <br>
-      The back end for this website was also written in Rust in conjunction with the <a href="https://rocket.rs/">Rocket framework</a>, known as the "Web-Server".
+      The back end for this website was also written in Rust in conjunction with the <a href="https://rocket.rs/">Rocket framework</a>, and is known as the "Web-Server".
       In addition to handling HTTP request for receiving commands from the user, the Web-Server also maintains a WebSocket (TCP) connection to the users for live
       updates (e.g. when users join, when the robot arm is about to move, etc.), and it maintains a TCP connection with the Robot-Server to send aggregated commands.<br>
       <br>
       The front end of the website is written in javascript using the <a href="https://angular.io/">Angular framework</a>. The robot animations are created from overlaid
-      SVGs, and some code to rotate one of them about a certain point. The video feed is generated from USB cameras using FFMpeg, streamed to the remote hosting server
+      SVGs, with some code to rotate them about a certain point. The video feed is generated from USB cameras using FFMpeg, streamed to the remote hosting server
       using RTSP, where it is again consumed by FFMpeg as stream data.
     </div>
 </div>

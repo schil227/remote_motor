@@ -17,24 +17,25 @@
 .stream-item{
     margin: 0px;
     padding: 10px;
-    width: 30%;    
+    width: 30%;
 }
 /* figure out when the streams break over 2 lines, then change width to 50%, then scale down to 100% */
 
 @media (max-width: 1250px){
     .stream-item{
-        width: 45%;    
+        width: 45%;
     }
 }
 
 @media (max-width: 850px){
     .stream-item{
-        width: 100%;    
+        width: 100%;
     }
 }
 
 .section {
     padding-bottom: 8px;
+    padding-right: 15px;
 }
 
 .container-label{
@@ -55,14 +56,16 @@
 .container-label span {
     color:white;
     padding-left: 25px;
-    
+
 }
 
 .container-text {
     padding-left: 5%;
-    padding-right: 5%;
+    padding-right: 20%;
     font-size: 18px;
     overflow: hidden;
+    padding-top: 5px;
+    padding-bottom: 4px;
 }
 
 .server-status-message{
@@ -70,6 +73,11 @@
     font-weight: 500;
     height: 25px;
     line-height: 23px;
+}
+
+.disclaimer-text{
+  padding-right: 20%;
+  padding-left: 3%;
 }
 
 button {
@@ -80,20 +88,20 @@ button {
     overflow: hidden;
     display: inline-block;
     vertical-align: bottom;
-    -webkit-animation: ellipsis steps(4,end) 600ms infinite;      
+    -webkit-animation: ellipsis steps(4,end) 600ms infinite;
     animation: ellipsis steps(4,end) 600ms infinite;
     content: "\2026"; /* ascii code for the ellipsis character */
     width: 0px;
   }
-  
+
   @keyframes ellipsis {
     to {
-      width: 20px;    
+      width: 20px;
     }
   }
-  
+
   @-webkit-keyframes ellipsis {
     to {
-      width: 20px;    
+      width: 20px;
     }
   }
