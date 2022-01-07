@@ -36,8 +36,10 @@ export class ControlBoardComponent implements OnInit {
     goalCount: number = 0;
     showInfo: boolean = true;
     showObjective: boolean = true;
+    showTechnicalNotes: boolean = true;
     rotateStateInfo: string = 'default';
     rotateStateObjective: string = 'default';
+    rotateStateTechnicalNotes: string = 'default';
 
     observer : Observer<WebsocketMessage> = {
         next(v){
@@ -162,4 +164,9 @@ export class ControlBoardComponent implements OnInit {
         this.showObjective = !(this.showObjective);
         this.rotateStateObjective = (this.rotateStateObjective === 'default' ? 'rotated' : 'default');
     }
+
+    toggleTechnicalNotes() {
+      this.showTechnicalNotes = !(this.showTechnicalNotes);
+      this.rotateStateTechnicalNotes = (this.rotateStateTechnicalNotes === 'default' ? 'rotated' : 'default');
+  }
 }
